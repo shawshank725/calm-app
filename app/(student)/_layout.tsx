@@ -15,7 +15,7 @@ import { View, StyleSheet } from "react-native";
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    SpaceMono: require("../../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
   if (!loaded) {
@@ -25,18 +25,10 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <SafeAreaProvider>
-        <SafeAreaView style={styles.safeArea} edges={["top", "left", "right"]}>
-          <StatusBar style="light" />
-          <View style={styles.container}>
-            <Stack>
-              <Stack.Screen name="index" options={{ headerShown: false }} />
-              <Stack.Screen name="(student)" options={{ headerShown: false }} />
-              <Stack.Screen name="+not-found" />
-            </Stack>
-          </View>
-        </SafeAreaView>
-      </SafeAreaProvider>
+      <Stack>
+        <Stack.Screen name="(home)" options={{ headerShown: false }} />
+        <Stack.Screen name="(selfhelp)" options={{ headerShown: false }} />
+      </Stack>
     </ThemeProvider>
   );
 }
