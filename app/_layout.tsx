@@ -11,6 +11,7 @@ import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { View, StyleSheet } from "react-native";
+import AuthProvider from "@/providers/AuthProvider";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -25,18 +26,15 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <SafeAreaProvider>
-        <SafeAreaView style={styles.safeArea} edges={["top", "left", "right"]}>
-          <StatusBar style="light" />
-          <View style={styles.container}>
-            <Stack>
-              <Stack.Screen name="index" options={{ headerShown: false }} />
-              <Stack.Screen name="(student)" options={{ headerShown: false }} />
-              <Stack.Screen name="+not-found" />
-            </Stack>
-          </View>
-        </SafeAreaView>
-      </SafeAreaProvider>
+      <AuthProvider>
+            <StatusBar style="dark" hidden={false}/>
+              <Stack>
+                <Stack.Screen name="index" options={{ headerShown: false }} />
+                <Stack.Screen name="(student)" options={{ headerShown: false }} />
+                <Stack.Screen name="(auth)" options={{title: "Authentication", headerTitleAlign: 'center', headerShown: true }} />
+                <Stack.Screen name="+not-found" />
+              </Stack>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

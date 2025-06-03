@@ -7,8 +7,7 @@ export default function HomeScreen() {
   const router = useRouter();
   return (
     <View style={styles.container}>
-      <Header title={"Self Help Toolkit"} backPage={"../"} />
-
+      
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}

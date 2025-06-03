@@ -1,16 +1,19 @@
-import { View, Text, StyleSheet, FlatList, Image } from "react-native";
+import { View, Text, StyleSheet, FlatList, Image, ActivityIndicator } from "react-native";
 import React from "react";
-import { Link } from "expo-router";
+import { Link, Redirect } from "expo-router";
+import { useAuth } from "@/providers/AuthProvider";
 
 const index = () => {
-  return (
-    <View>
-      <Text>this is splash screen and login screen.</Text>
-      <Link href={"/(student)/(home)"}>
-        <Text>click here to go to home screen</Text>
-      </Link>
-    </View>
-  );
+  const {session, loading} = useAuth();
+
+  if (loading) {
+    return <ActivityIndicator />;
+  }
+  
+  if (!session){
+    return <Redirect href={"/(auth)"}/>
+  }
+  return <Redirect href={"/(student)/(home)"}/>
 };
 
 export default index;

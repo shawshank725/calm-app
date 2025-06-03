@@ -1,15 +1,16 @@
-import { StyleSheet, View, Text, Image, Pressable } from "react-native";
-import { Link, useRouter } from "expo-router";
+import { StyleSheet, View, Text, Image, Pressable, TouchableOpacity } from "react-native";
+import { Link, Redirect, router, useNavigation, useRouter } from "expo-router";
 import { homeStyles as styles } from "@/styles/HomeStyles";
+import { useLayoutEffect } from "react";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { supabase } from "@/lib/supabase";
+import MyButton from "@/components/MyButton";
 
 export default function HomeScreen() {
+  
+
   return (
     <View style={styles.container}>
-      <Text>This is tab one.</Text>
-      <Link href="../">
-        <Text>Go to home page</Text>
-      </Link>
-
       <View>
         <View style={styles.row}>
           <Link href={"/(student)/(selfhelp)"}>

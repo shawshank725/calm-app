@@ -1,14 +1,11 @@
-import { StyleSheet, View, Text, Image, Pressable } from "react-native";
-import { Link, useRouter } from "expo-router";
-import { homeStyles as styles } from "@/styles/HomeStyles";
+import { View, Text } from 'react-native'
+import React from 'react'
+import { Redirect } from 'expo-router'
 
-export default function AuthScreen() {
+const index = () => {
   return (
-    <View style={styles.container}>
-      <Text>This is tab one.</Text>
-      <Link href="../">
-        <Text>Go to home page</Text>
-      </Link>
-    </View>
-  );
+    <Redirect href={"/sign-in"}/>
+  )
 }
+
+export default index

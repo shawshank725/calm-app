@@ -14,7 +14,7 @@ export const homeStyles = StyleSheet.create({
   optionButton: {
     width: 160,
     height: 200, // Enough to fit image and text
-    backgroundColor: "green",
+    backgroundColor: "#4169E1",
     borderRadius: 20,
     padding: 10,
     justifyContent: "center",
@@ -30,4 +30,25 @@ export const homeStyles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
+
+  profilePhoto: {
+    borderRadius: 40,
+    maxWidth: 35,
+    maxHeight: 35,
+    borderColor: 'black',
+    borderWidth: 2,
+  },
+  headerBar: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  center: {
+    fontWeight: 'bold',
+    fontSize: 20
+  },
+  left:{
+    fontWeight: 'bold',
+  }
 });
