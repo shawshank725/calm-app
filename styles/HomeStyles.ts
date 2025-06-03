@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 export const homeStyles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: "white",
+    //backgroundColor: "white",
     flex: 1,
   },
   row: {

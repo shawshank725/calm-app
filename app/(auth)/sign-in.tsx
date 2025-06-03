@@ -3,6 +3,7 @@ import { Link } from "expo-router";
 import MyButton from "@/components/MyButton";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
+import Toast from "react-native-toast-message";
 
 export default function SignInScreen() {
 
@@ -16,6 +17,13 @@ export default function SignInScreen() {
 
     if (error) Alert.alert(error.message);
     setLoading(false);
+
+    Toast.show({
+      type: 'success', // 'success' | 'error' | 'info'
+      text1: 'Log in successful',
+      position: 'bottom', // or 'bottom'
+      visibilityTime: 1500
+    });
   }
 
   return (
