@@ -16,6 +16,7 @@ export const homeStyles = StyleSheet.create({
     height: 200, // Enough to fit image and text
     backgroundColor: "#4169E1",
     borderRadius: 20,
+    borderWidth: 3,
     padding: 10,
     justifyContent: "center",
     alignItems: "center", // center content horizontally

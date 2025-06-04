@@ -44,7 +44,6 @@ export default GroundingTechniques;
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: "#fff",
     display: "flex",
     flex: 1,
   },

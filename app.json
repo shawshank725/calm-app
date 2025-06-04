@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "CALM",
+    "name": "C.A.L.M.",
     "slug": "CALM",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/calm.png",
     "scheme": "calm",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -21,7 +21,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/calm.png"
     },
     "plugins": [
       "expo-router",

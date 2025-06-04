@@ -1,6 +1,5 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { Link, useRouter } from "expo-router";
-import Header from "@/components/Header";
 import { selfHelpStyles as styles } from "@/styles/SelfHelpStyles";
 
 export default function HomeScreen() {
@@ -20,7 +19,9 @@ export default function HomeScreen() {
             <Link href={"/(student)/(selfhelp)/grounding"}>
               <Text style={styles.subHeading}>Grounding techniques</Text>
             </Link>
-            <Text style={styles.subHeading}>CBT exercises</Text>
+            <Link href={"/(student)/(selfhelp)/cbt"}>
+              <Text style={styles.subHeading}>CBT exercises</Text>
+            </Link>
             <Text style={styles.subHeading}>Anxiety-exam stress</Text>
           </View>
         </View>

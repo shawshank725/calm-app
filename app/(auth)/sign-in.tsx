@@ -1,15 +1,18 @@
-import { StyleSheet, View, Text, TextInput, Alert } from "react-native";
+import { StyleSheet, View, Text, Alert } from "react-native";
 import { Link } from "expo-router";
 import MyButton from "@/components/MyButton";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import Toast from "react-native-toast-message";
+import { TextInput } from "react-native-paper";
 
 export default function SignInScreen() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const [secureText, setSecureText] = useState(true);
 
   async function signInWithEmail () {
     setLoading(true);
@@ -28,20 +31,47 @@ export default function SignInScreen() {
 
   return (
     <View style={styles.container}>
-      <Text>This is sign in screen</Text>
+      <Text style={{fontWeight: 'bold', fontSize:30, textAlign: 'center', marginBottom: 20}}>Sign in</Text>
 
-      <Text>Email</Text>
-      <TextInput  value={email}
+      <TextInput
+        value={email}
         onChangeText={setEmail}
-        placeholder="jon@gmail.com"
-        style={styles.input}/>
+        placeholder="Enter your e-mail address"
+        mode="outlined"
+        style={styles.input}
+        label="Email"
+        outlineStyle={{ borderWidth: 2 }}
+        theme={{roundness: 10, 
+          colors: {
+            primary: "black",
+            outline: "black",
+          },
+        }}
+      />
 
-      <Text>Password</Text>
-      <TextInput  value={password}
+      <TextInput
+        value={password}
         onChangeText={setPassword}
         placeholder=""
+        mode="outlined"
+        label="Password"
         style={styles.input}
-        secureTextEntry/>
+        secureTextEntry={secureText}
+        right={
+          <TextInput.Icon
+            icon={secureText ? "eye-off" : "eye"}
+            onPress={() => setSecureText(!secureText)}
+          />
+        }
+        outlineStyle={{ borderWidth: 2 }}
+        theme={{roundness: 10, 
+          colors: {
+            primary: "black",
+            outline: "black",
+          },
+        }}
+      />
+
 
       <MyButton  
       disabled={loading}
@@ -56,21 +86,19 @@ export default function SignInScreen() {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: "white",
     flex: 1,
   },
   input: {
-    borderWidth: 3,
-    borderColor: 'black',
-    marginBottom: 10,
-    borderRadius: 10,
+    marginBottom: 25,
+    backgroundColor: '#E1EBEE',
+    textDecorationColor: 'none',
+    //fontWeight: 'bold'
   },
   link : {
     color: 'blue',
     fontWeight: 'bold',
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    textAlign: 'center',
     margin: 20,
   }
 });

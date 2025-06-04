@@ -2,12 +2,13 @@ import { StyleSheet } from "react-native";
 export const selfHelpStyles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: "white",
+    backgroundColor: "#B9D9EB",
     flex: 1,
   },
   box: {
     backgroundColor: "#f2f2f2",
     borderRadius: 16,
+    borderWidth: 3,
     overflow: "hidden",
     marginTop: 20,
     elevation: 4, // for Android shadow
@@ -40,5 +41,9 @@ export const selfHelpStyles = StyleSheet.create({
   scrollContainer: {
     paddingVertical: 20,
     paddingBottom: 40,
+  },
+  image : {
+    maxWidth: 70,
+    maxHeight: 70,
   },
 });
