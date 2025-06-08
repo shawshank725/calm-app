@@ -8,6 +8,7 @@ import Toast from "react-native-toast-message";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import AuthProvider from "@/providers/AuthProvider";
 import toastConfig from "@/components/CustomToast";
+import QueryProvider from "@/providers/QueryProvider";
 
 export default function RootLayout() {
   
@@ -24,14 +25,16 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <AuthProvider>
-        <StatusBar style="dark" hidden={false}/>
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="(student)" options={{ headerShown: false }} />
-          <Stack.Screen name="(auth)" options={{title: "Authentication", headerTitleAlign: 'center', headerShown: true }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <Toast config={toastConfig}/>
+        <QueryProvider>
+          <StatusBar style="dark" hidden={false}/>
+          <Stack>
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="(student)" options={{ headerShown: false }} />
+            <Stack.Screen name="(auth)" options={{title: "Authentication", headerTitleAlign: 'center', headerShown: true }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <Toast config={toastConfig}/>
+        </QueryProvider>
       </AuthProvider>
     </ThemeProvider>
   );

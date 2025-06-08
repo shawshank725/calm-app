@@ -1,9 +1,10 @@
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { Link, useRouter } from "expo-router";
 import { selfHelpStyles as styles } from "@/styles/SelfHelpStyles";
+import Modal from 'react-native-modal';
 
 export default function HomeScreen() {
-  const router = useRouter();
+
   return (
     <View style={styles.container}>
       
@@ -36,6 +37,8 @@ export default function HomeScreen() {
             <Text style={styles.subHeading}>Guided Body Scan</Text>
           </View>
         </View>
+
+        
       </ScrollView>
     </View>
   );

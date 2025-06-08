@@ -1,5 +1,22 @@
-import { StyleSheet } from "react-native";
-export const homeStyles = StyleSheet.create({
+import { View, StyleSheet, } from "react-native";
+import React, { useState } from 'react';
+
+const DigitalDoodle = () => {
+  const [paths, setPaths] = useState([]);
+  const [currentPath, setCurrentPath] = useState([]);
+  const [isClearButtonClicked, setClearButtonClicked] = useState(false);
+
+  
+
+  return (
+    <View style={styles.container} >
+      
+    </View>
+  );
+};
+export default DigitalDoodle;
+
+const styles = StyleSheet.create({
   container: {
     padding: 20,
     backgroundColor: "#B9D9EB",
@@ -51,5 +68,13 @@ export const homeStyles = StyleSheet.create({
   },
   left:{
     fontWeight: 'bold',
-  }
+  },
+  buddyConnect: {
+    borderRadius: 20, 
+    borderWidth: 3, 
+    width: 150, 
+    backgroundColor: "#4169E1",
+    alignSelf: 'center', 
+    marginVertical: 20, 
+    padding: 10,}
 });

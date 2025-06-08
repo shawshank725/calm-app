@@ -7,6 +7,7 @@ import {  StyleSheet, View, Text,Image, TouchableOpacity } from "react-native";
 import Toast from "react-native-toast-message";
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
+import {decode} from 'base64-arraybuffer';
 
 type Profile = {
   full_name: string;
@@ -33,38 +34,59 @@ export default function ProfileScreen() {
       quality: 1,
     });
 
-    console.log("result  ------- ", result);
-
-    if (!result.canceled && result.assets && result.assets.length > 0) {
+    if (!result.canceled && result.assets?.length > 0) {
       const img = result.assets[0];
       setImage(img.uri); 
-      const base64 = await FileSystem.readAsStringAsync(img.uri, {encoding: 'base64'});
-      const uri = img.uri;
-
-      const ext = uri.split('.').pop()?.toLowerCase() || 'jpg'; 
-
-      let contentType = 'image/jpeg'; 
-      if (ext === 'png') {
-        contentType = 'image/png';
-      } else if (ext === 'jpg' || ext === 'jpeg') {
-        contentType = 'image/jpeg';
-      }
-      const filePath = `${session!.user.id}/${Date.now()}.${ext}`;
-      console.log(session!.user.id);
-      const response = await fetch(img.uri);
-      const blob = await response.blob();
-
-      console.log("Image picked:", img.uri);
-      console.log("File path:", filePath);
-      console.log("Content type:", contentType);
-
-      const {data, error} = await supabase.storage.from("avatars").upload(filePath, blob, {
-          contentType, upsert: true, });
-      
-      console.log("Upload result:", { data, error });
     }
-  };
-  
+
+    const imagePath = await uploadProfilePhoto();
+    console.log("Image path is ", imagePath);
+
+    if (imagePath) {
+      const { error } = await supabase
+        .from("profiles")
+        .update({ avatar_url: imagePath })
+        .eq("id", session!.user.id); // session!.user.id is your current user's ID
+
+      if (error) {
+        console.error("Failed to update avatar_url:", error.message);
+      } else {
+        console.log("avatar_url updated successfully!");
+      }
+    }
+
+  }
+
+  const uploadProfilePhoto = async () => {
+    if (!image?.startsWith("file://")){
+      return;
+    }
+    const base64 = await FileSystem.readAsStringAsync(image, {encoding: 'base64',});
+    const fileName = image.split('/').pop();
+    const filePath = `${session!.user.id}/${fileName}`;
+
+    const ext = fileName?.split('.').pop()?.toLowerCase();
+    const contentType = ext === 'png' ? 'image/png' : 'image/jpeg';
+
+    try {
+      const {data, error} = await supabase.storage.from("profile-photos").upload(filePath, decode(base64), {contentType});
+      console.log("printing data - ", data);
+      console.log("printing error - ", error);
+      
+      
+      if (data){
+        console.log(data);
+        console.log("bro error - ", error);
+        console.log("bro ",data.path);
+        return data.path;
+      }
+    }
+    catch (error){
+      console.log("reporting error from catch block - " + error);
+    }
+  }
+
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: 'Profile',
@@ -105,7 +127,7 @@ export default function ProfileScreen() {
       if (!session) return;
       const { data, error } = await supabase
         .from("profiles")
-        .select("username, full_name, group")
+        .select("username, full_name, group, avatar_url")
         .eq("id", session.user.id)
         .single();
 
@@ -113,6 +135,10 @@ export default function ProfileScreen() {
         console.log("Error fetching profile:", error.message);
       } else {
         setProfile(data);
+        if (data.avatar_url) {
+          const { data: publicUrl } = supabase.storage.from("profile-photos").getPublicUrl(data.avatar_url);
+          setImage(publicUrl.publicUrl);
+        }
       }
     };
 
@@ -120,9 +146,8 @@ export default function ProfileScreen() {
   }, [session]);
 
   return (
-
-    <View style={{ padding: 20 }}>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
         <Image
           source={{uri: image || defaultImage}}
           style={styles.profilePhoto}
@@ -132,9 +157,9 @@ export default function ProfileScreen() {
       {session && profile ? (
         <>
           <Text>Email: {session.user.email}</Text>
+          <Text>Role: {profile.group}</Text>
           <Text>Full Name: {profile.full_name}</Text>
           <Text>Username: {profile.username}</Text>
-          <Text>Role: {profile.group}</Text>
         </>
       ) : (
         <Text>Loading profile...</Text>
@@ -142,7 +167,6 @@ export default function ProfileScreen() {
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   headerImage: {
@@ -152,6 +176,11 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   container: {
+    padding: 20,
+    flex: 1,
+    backgroundColor: "#B9D9EB",
+  },
+  imageContainer: {
     alignItems: 'center',
   },
   titleContainer: {
