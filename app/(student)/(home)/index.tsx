@@ -6,9 +6,8 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Modal from "react-native-modal";
 import { useAuth } from "@/providers/AuthProvider";
 import { supabase } from "@/lib/supabase";
-
-const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg";
-
+import { useProfilePhoto } from "@/api/profile/Profile";
+import { Line } from "@/components/Line";
 
 type Profile = {
   full_name: string;
@@ -24,7 +23,8 @@ export default function HomeScreen() {
   const [open, setOpen] = useState(false);
   const {session, loading} = useAuth();
   const [profile, setProfile] = useState<Profile | null>(null);
-  
+  const { data: imageUrl, isLoading } = useProfilePhoto(session?.user.id);
+
   useEffect(() => {
     const fetchProfile = async () => {
       if (!session) return;
@@ -47,21 +47,6 @@ export default function HomeScreen() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => {
-            router.push("/info");
-          }}
-          style={{ marginRight: 16 }}
-        >
-          <MaterialIcons
-          name="info" // <- icon name
-          size={28}
-          color="green"
-          style={{ marginRight: 16 }}
-        />
-        </TouchableOpacity>
-      ),
       headerLeft: () => (
         <TouchableOpacity
           onPress={() => {
@@ -69,57 +54,66 @@ export default function HomeScreen() {
           }}
           style={{ marginLeft: 16 }}
         >
-          <MaterialIcons
-          name="info" // <- icon name
-          size={28}
-          color="green"
-          style={{ marginLeft: 16 }}
+        <Image
+          source={{uri: imageUrl}}
+          style={{borderRadius: 30,
+            width: 45,
+            height: 45,
+            borderColor: 'black',
+            backgroundColor: 'blue',
+            borderWidth: 2,}}
         />
         </TouchableOpacity>
       ),
+      
     });
-  }, [navigation]);
+  },[navigation, imageUrl]);
 
-  
+
   return (
     <View style={styles.container}>
-
       <Modal
         isVisible={open}
         animationIn="slideInLeft"
         animationOut="slideOutLeft"
         onBackdropPress={() => setOpen(false)}
-        backdropOpacity={0.7}
-        backdropColor="black"
         useNativeDriver={false}
-        hideModalContentWhileAnimating={true}swipeDirection="right"
+        hideModalContentWhileAnimating={true}
+        swipeDirection="left"
         onSwipeComplete={() => {setOpen(false); }}
         swipeThreshold={100}
       >
-        <View style={{width:'80%',height:'100%', backgroundColor:'#87CEEB', borderRadius: 20,borderWidth: 2,borderColor: 'black', padding: 10,}}>
-          <View >
-            <View>
-              <Image
-                  source={{uri: defaultImage}}
-                  style={{borderRadius: 20,width: 45,
-                    height: 45,
-                    borderColor: 'black',
-                    borderWidth: 2,}}
-                />
-            </View>
-            <View>
+        <View style={{width:'80%',height:'100%', 
+                      backgroundColor:'#87CEEB', 
+                      borderRadius: 20,borderWidth: 2,
+                      borderColor: 'black', padding: 10,}}>
+          <View style={{flexDirection:"row"}}>
+            <Image
+              source={{uri: imageUrl}}
+              style={{borderRadius: 30,width: 60,
+                height: 60,
+                marginRight: 5,
+                borderColor: 'black',
+                borderWidth: 2,}}
+            />
+            
+            <View style={{ flexShrink: 1,}}>
               {session && profile ? (
                 <>
-                  <Text>Email: {session.user.email}</Text>
                   <Text>Role: {profile.group}</Text>
-                  <Text>Full Name: {profile.full_name}</Text>
+                  <Text>Hello, {profile.full_name}</Text>
                   <Text>Username: {profile.username}</Text>
+                  {/* <Text>Email: {session.user.email}</Text> */}
                 </>
               ) : (
                 <Text>Loading profile...</Text>
               )}
             </View>
+            
           </View>
+          <Line styleName="whiteSeparator"/>
+          <Text >Change profile</Text>
+          <Line />
         </View>
       </Modal>
       <View>
@@ -167,15 +161,6 @@ export default function HomeScreen() {
           </Link>
         </View>
       </View>
-
-
-      <Link href="/(student)/buddy" style={{alignSelf: 'center'}} asChild>
-        <Pressable>
-          <View style={styles.buddyConnect}>
-          <Text style={styles.label}>Buddy Connect</Text>
-        </View>
-        </Pressable>
-      </Link>
     </View>
   );
 }

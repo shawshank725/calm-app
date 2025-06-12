@@ -8,6 +8,10 @@ import Toast from "react-native-toast-message";
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import {decode} from 'base64-arraybuffer';
+import { useProfilePhoto } from "@/api/profile/Profile";
+import NewButton from "@/components/NewButton";
+import { TextInput } from "react-native-paper";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Profile = {
   full_name: string;
@@ -23,8 +27,11 @@ export default function ProfileScreen() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [image, setImage] = useState<string | null>(null);
 
+  const { data: imageUrl, isLoading } = useProfilePhoto(session?.user.id);
+  
   const navigation = useNavigation();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -36,55 +43,59 @@ export default function ProfileScreen() {
 
     if (!result.canceled && result.assets?.length > 0) {
       const img = result.assets[0];
-      setImage(img.uri); 
-    }
+      const localUri = img.uri;
+      
+      setImage(localUri); 
+      
+      const imagePath = await uploadProfilePhoto(localUri);
+      console.log("Image path is", imagePath);
 
-    const imagePath = await uploadProfilePhoto();
-    console.log("Image path is ", imagePath);
+      if (imagePath) {
+        const { error } = await supabase
+          .from("profiles")
+          .update({ avatar_url: imagePath })
+          .eq("id", session!.user.id);
 
-    if (imagePath) {
-      const { error } = await supabase
-        .from("profiles")
-        .update({ avatar_url: imagePath })
-        .eq("id", session!.user.id); // session!.user.id is your current user's ID
-
-      if (error) {
-        console.error("Failed to update avatar_url:", error.message);
-      } else {
-        console.log("avatar_url updated successfully!");
+        if (error) {
+          console.error("Failed to update avatar_url:", error.message);
+        } 
+        else {
+          console.log("avatar_url updated successfully!");
+          queryClient.invalidateQueries({
+            queryKey: ['profile-photo', session!.user.id],
+          });
+        }
       }
     }
+  };
 
-  }
 
-  const uploadProfilePhoto = async () => {
-    if (!image?.startsWith("file://")){
-      return;
-    }
-    const base64 = await FileSystem.readAsStringAsync(image, {encoding: 'base64',});
-    const fileName = image.split('/').pop();
+  const uploadProfilePhoto = async (uri: string) => {
+    if (!uri.startsWith("file://")) return;
+
+    const base64 = await FileSystem.readAsStringAsync(uri, {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+
+    const fileName = uri.split('/').pop();
     const filePath = `${session!.user.id}/${fileName}`;
-
     const ext = fileName?.split('.').pop()?.toLowerCase();
     const contentType = ext === 'png' ? 'image/png' : 'image/jpeg';
 
     try {
-      const {data, error} = await supabase.storage.from("profile-photos").upload(filePath, decode(base64), {contentType});
-      console.log("printing data - ", data);
-      console.log("printing error - ", error);
-      
-      
-      if (data){
-        console.log(data);
-        console.log("bro error - ", error);
-        console.log("bro ",data.path);
-        return data.path;
-      }
+      const { data, error } = await supabase.storage
+        .from("profile-photos")
+        .upload(filePath, decode(base64), { contentType });
+
+      if (error) console.log("Upload error:", error);
+      else console.log("Upload data:", data);
+
+      return data?.path;
+    } catch (e) {
+      console.log("Upload exception:", e);
+      return null;
     }
-    catch (error){
-      console.log("reporting error from catch block - " + error);
-    }
-  }
+  };
 
 
   useLayoutEffect(() => {
@@ -149,22 +160,41 @@ export default function ProfileScreen() {
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
-          source={{uri: image || defaultImage}}
+          source={{uri: imageUrl}}
           style={styles.profilePhoto}
         />
-        <Text onPress={pickImage} style={styles.link}>Select profile photo</Text>
+        <NewButton title="Select image" onPress={pickImage} />
       </View>
-      {session && profile ? (
-        <>
-          <Text>Email: {session.user.email}</Text>
-          <Text>Role: {profile.group}</Text>
-          <Text>Full Name: {profile.full_name}</Text>
-          <Text>Username: {profile.username}</Text>
-        </>
-      ) : (
-        <Text>Loading profile...</Text>
-      )}
+      <View>
+        {session && profile ? (
+          <>
+            <Text>Email: {session.user.email}</Text>
+            <Text>Role: {profile.group}</Text>
+            <Text>Full Name: {profile.full_name}</Text>
+            <Text>Username: {profile.username}</Text>
+          </>
+        ) : (
+          <Text>Loading profile...</Text>
+        )}
+      </View>
+
+      <View>
+        <TextInput
+        placeholder="Enter your e-mail address"
+        mode="outlined"
+        style={styles.input}
+        label="Email"
+        outlineStyle={{ borderWidth: 2 }}
+        theme={{roundness: 10, 
+          colors: {
+            primary: "black",
+            outline: "black",
+          },
+        }}
+      />
+      </View>
     </View>
+
   );
 }
 
@@ -198,5 +228,12 @@ const styles = StyleSheet.create({
     color: 'blue',
     paddingTop: 20,
     fontWeight: 'bold'
-  }
+  },
+  input: {
+    marginBottom: 25,
+    backgroundColor: '#E1EBEE',
+    textDecorationColor: 'none',
+    //fontWeight: 'bold'
+  },
+
 });
