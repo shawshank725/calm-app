@@ -21,10 +21,7 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(home)" options={{ headerShown: false }} />
-        <Stack.Screen name="(selfhelp)" options={{ headerShown: false }} />
         <Stack.Screen name="(journal)" options={{ headerShown: false }} />
-        <Stack.Screen name="info" options={{ title: "App Info", headerShown: true }} />
-        <Stack.Screen name="buddy" options={{ title: "Buddy Connect", headerShown: true }} />
       </Stack>
     </ThemeProvider>
   );

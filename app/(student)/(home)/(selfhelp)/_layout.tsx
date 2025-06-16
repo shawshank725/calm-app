@@ -10,8 +10,10 @@ export default function TabLayout() {
                     headerShown: true,
                     //headerStyle: {backgroundColor: '#679267',},
                      }} />
-      <Stack.Screen name="grounding" options={{title:"Grounding Techniques",headerTitleAlign: 'center', headerShown: true }} />
-      <Stack.Screen name="cbt" options={{title:"CBT Exercises",headerTitleAlign: 'center', headerShown: true }} />
+      {/* <Stack.Screen name="grounding" options={{title:"Grounding Techniques",headerTitleAlign: 'center', headerShown: true }} />
+      <Stack.Screen name="cbt" options={{title:"CBT Exercises",headerTitleAlign: 'center', headerShown: true }} /> */}
+    <Stack.Screen name="list" options={{headerShown: false }} />
+
     </Stack>
   );
 }

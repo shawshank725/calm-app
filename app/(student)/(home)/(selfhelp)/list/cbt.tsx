@@ -1,49 +1,6 @@
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
 import React from 'react'
 
-const tools = [
-  {  image: require("../../../assets/images/self help/cbt exercises/journaling.png"),
-    title: "Journaling",
-    desc: "Identifying thought patterns",
-  },
-  {    image: require("../../../assets/images/self help/cbt exercises/nightmare.png"),
-    title: "Nightmare Exposure",
-    desc: "Treats nightmares. Develops new responses",
-  },
-  {    image: require("../../../assets/images/self help/cbt exercises/breath.png"),
-    title: "Relaxed Breathing",
-    desc: "Supports range of issues",
-  },
-  {    image: require("../../../assets/images/self help/cbt exercises/play.png"),
-    title: "Play the Script until the end",
-    desc: "Reflects on worst case scenario. Improves feeling of coping",
-  },
-  {    image: require("../../../assets/images/self help/cbt exercises/cognitive.png"),
-    title: "Unraveling Cognitive Distortions",
-    desc: "Identifying and challenging faulty thinking",
-  },
-  {
-    image: require("../../../assets/images/self help/cbt exercises/relax.png"),
-    title: "Progressive muscle relaxation",
-    desc: "Calming Mindful focus on physical relaxation",
-  },
-  {
-    image: require("../../../assets/images/self help/cbt exercises/cognitive restructuring.png"),
-    title: "Cognitive Restructuring",
-    desc: "Exploring causes of faulty thinking",
-  },
-  {
-    image: require("../../../assets/images/self help/cbt exercises/umbrella.png"),
-    title: "Interoceptive Exposure",
-    desc: "Treats panic and anxiety.",
-  },
-  {
-    image: require("../../../assets/images/self help/cbt exercises/exposure.png"),
-    title: "Exposure and response prevention",
-    desc: "Pur",
-  },
-];
-
 const CBTExercises = () => {
   return (
     
@@ -67,7 +24,7 @@ const CBTExercises = () => {
           <View style={styles.allTools}>
             <View style={styles.boxContainer}>
                 <View style={styles.imageContainer}>
-                  <Image source={require("../../../assets/images/self help/cbt exercises/journaling.png")} style={styles.image}/>
+                  <Image source={require("assets/images/self help/cbt exercises/journaling.png")} style={styles.image}/>
                 </View>
                 <Text style={styles.heading}>Journaling</Text>
                 <Text style={styles.description}>• Self-reflection</Text>
@@ -77,7 +34,7 @@ const CBTExercises = () => {
 
             <View style={styles.boxContainer}>
                 <View style={styles.imageContainer}>
-                  <Image source={require("../../../assets/images/self help/cbt exercises/nightmare.png")} style={styles.image}/>
+                  <Image source={require("assets/images/self help/cbt exercises/nightmare.png")} style={styles.image}/>
                 </View>
                 <Text style={styles.heading}>Nightmare Exposure</Text>
                 <Text style={styles.description}>• Treats nightmares</Text>
@@ -89,7 +46,7 @@ const CBTExercises = () => {
           <View style={styles.allTools}>
             <View style={styles.boxContainer}>
                 <View style={styles.imageContainer}>
-                  <Image source={require("../../../assets/images/self help/cbt exercises/breath.png")} style={styles.image}/>
+                  <Image source={require("assets/images/self help/cbt exercises/breath.png")} style={styles.image}/>
                 </View>
                 <Text style={styles.heading}>Relaxed Breathing</Text>
                 <Text style={styles.description}>• Supports range of issues</Text>
@@ -98,7 +55,7 @@ const CBTExercises = () => {
 
             <View style={styles.boxContainer}>
                 <View style={styles.imageContainer}>
-                  <Image source={require("../../../assets/images/self help/cbt exercises/play.png")} style={styles.image}/>
+                  <Image source={require("assets/images/self help/cbt exercises/play.png")} style={styles.image}/>
                 </View>
                 <Text style={styles.heading}>Play the script</Text>
                 <Text style={styles.heading}>until the end</Text>
@@ -111,7 +68,7 @@ const CBTExercises = () => {
           <View style={styles.allTools}>
             <View style={styles.boxContainer}>
                 <View style={styles.imageContainer}>
-                  <Image source={require("../../../assets/images/self help/cbt exercises/relax.png")} style={styles.image}/>
+                  <Image source={require("assets/images/self help/cbt exercises/relax.png")} style={styles.image}/>
                 </View>
                 <Text style={styles.heading}>Progressive Muscle</Text>
                 <Text style={styles.heading}>Relaxation</Text>
@@ -121,7 +78,7 @@ const CBTExercises = () => {
 
             <View style={styles.boxContainer}>
                 <View style={styles.imageContainer}>
-                  <Image source={require("../../../assets/images/self help/cbt exercises/cognitive restructuring.png")} style={styles.image}/>
+                  <Image source={require("assets/images/self help/cbt exercises/cognitive restructuring.png")} style={styles.image}/>
                 </View>
                 <Text style={styles.heading}>Cognitive</Text>
                 <Text style={styles.heading}>Restructuring</Text>
@@ -134,7 +91,7 @@ const CBTExercises = () => {
           <View style={styles.allTools}>
             <View style={styles.boxContainer}>
                 <View style={styles.imageContainer}>
-                  <Image source={require("../../../assets/images/self help/cbt exercises/cognitive.png")} style={styles.image}/>
+                  <Image source={require("assets/images/self help/cbt exercises/cognitive.png")} style={styles.image}/>
                 </View>
                 <Text style={styles.heading}>Unraveling</Text>
                 <Text style={styles.heading}>Cognitive Distortions</Text>
@@ -145,7 +102,7 @@ const CBTExercises = () => {
 
             <View style={styles.boxContainer}>
                 <View style={styles.imageContainer}>
-                  <Image source={require("../../../assets/images/self help/cbt exercises/exposure.png")} style={styles.image}/>
+                  <Image source={require("assets/images/self help/cbt exercises/exposure.png")} style={styles.image}/>
                 </View>
                 <Text style={styles.heading}>Exposure and</Text>
                 <Text style={styles.heading}>Response Prevention</Text>
@@ -157,7 +114,7 @@ const CBTExercises = () => {
           <View style={{display: 'flex', alignSelf: 'center',marginBottom: 10,}}>
             <View style={styles.boxContainer}>
                 <View style={styles.imageContainer}>
-                  <Image source={require("../../../assets/images/self help/cbt exercises/umbrella.png")} style={styles.image}/>
+                  <Image source={require("assets/images/self help/cbt exercises/umbrella.png")} style={styles.image}/>
                 </View>
                 <Text style={styles.heading}>Interoceptive</Text>
                 <Text style={styles.heading}>Exposure</Text>

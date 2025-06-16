@@ -1,10 +1,10 @@
 import { View, Text, ScrollView, StyleSheet } from "react-native";
-import { Link, useRouter } from "expo-router";
+import { Link, Redirect, useRouter } from "expo-router";
 import { selfHelpStyles as styles } from "@/styles/SelfHelpStyles";
 import Modal from 'react-native-modal';
 
 export default function HomeScreen() {
-
+/*
   return (
     <View style={styles.container}>
       
@@ -41,5 +41,7 @@ export default function HomeScreen() {
         
       </ScrollView>
     </View>
-  );
+  ); */
+
+  return <Redirect href={"/(student)/(home)/(selfhelp)/list/grounding"}/>;
 }

@@ -24,32 +24,27 @@ export default function TabLayout() {
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
-            // Use a transparent background on iOS to show the blur effect
             position: "absolute",
+            height: 90,
+            paddingBottom: 20,
+            paddingTop: 10,
           },
-          default: {},
+          default: {
+            height: 90,
+            paddingBottom: 20,
+            paddingTop: 10,
+          },
         }),
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="journal-tab"
         options={{
-          title: "Home",
+          title: "Journalling",
           headerTitleAlign: 'center',
           headerShown: true,
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: "Profile",
-          headerTitleAlign: 'center',
-          headerShown: true,
-          tabBarIcon: ({ color }) => (
-            <AntDesign name="user" size={28} color={color} />
+            <MaterialCommunityIcons name="notebook-edit" size={28} color={color} />
           ),
         }}
       />
@@ -65,7 +60,17 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="self-help-tab"
+        name="index"
+        options={{
+          title: "Home",
+          headerTitleAlign: 'center',
+          headerShown: true,
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="house.fill" color={color} />),
+        }}
+      />
+      <Tabs.Screen
+        name="(selfhelp)"
         options={{
           title: "Self Help",
           headerTitleAlign: 'center',
@@ -76,13 +81,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="journal-tab"
+        name="profile"
         options={{
-          title: "Journalling",
+          title: "Profile",
           headerTitleAlign: 'center',
           headerShown: true,
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="notebook-edit" size={28} color={color} />
+            <AntDesign name="user" size={28} color={color} />
           ),
         }}
       />

@@ -2,12 +2,9 @@ import { View, Text, Image,  TouchableOpacity, StyleSheet, Pressable } from "rea
 import { Link, useNavigation, useRouter } from "expo-router";
 
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import Modal from "react-native-modal";
 import { useAuth } from "@/providers/AuthProvider";
 import { supabase } from "@/lib/supabase";
 import { useProfilePhoto } from "@/api/profile/Profile";
-import { Line } from "@/components/Line";
 
 type Profile = {
   full_name: string;
@@ -45,83 +42,16 @@ export default function HomeScreen() {
     fetchProfile();
   }, [session]);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => {
-            setOpen(true);
-          }}
-          style={{ marginLeft: 16 }}
-        >
-        <Image
-          source={{uri: imageUrl}}
-          style={{borderRadius: 30,
-            width: 45,
-            height: 45,
-            borderColor: 'black',
-            backgroundColor: 'blue',
-            borderWidth: 2,}}
-        />
-        </TouchableOpacity>
-      ),
-      
-    });
-  },[navigation, imageUrl]);
-
 
   return (
     <View style={styles.container}>
-      <Modal
-        isVisible={open}
-        animationIn="slideInLeft"
-        animationOut="slideOutLeft"
-        onBackdropPress={() => setOpen(false)}
-        useNativeDriver={false}
-        hideModalContentWhileAnimating={true}
-        swipeDirection="left"
-        onSwipeComplete={() => {setOpen(false); }}
-        swipeThreshold={100}
-      >
-        <View style={{width:'80%',height:'100%', 
-                      backgroundColor:'#87CEEB', 
-                      borderRadius: 20,borderWidth: 2,
-                      borderColor: 'black', padding: 10,}}>
-          <View style={{flexDirection:"row"}}>
-            <Image
-              source={{uri: imageUrl}}
-              style={{borderRadius: 30,width: 60,
-                height: 60,
-                marginRight: 5,
-                borderColor: 'black',
-                borderWidth: 2,}}
-            />
-            
-            <View style={{ flexShrink: 1,}}>
-              {session && profile ? (
-                <>
-                  <Text>Role: {profile.group}</Text>
-                  <Text>Hello, {profile.full_name}</Text>
-                  <Text>Username: {profile.username}</Text>
-                  {/* <Text>Email: {session.user.email}</Text> */}
-                </>
-              ) : (
-                <Text>Loading profile...</Text>
-              )}
-            </View>
-            
-          </View>
-          <Line styleName="whiteSeparator"/>
-          <Text >Change profile</Text>
-          <Line />
-        </View>
-      </Modal>
+      
       <View>
         <View style={styles.row}>
           <Link href={"/(student)/(selfhelp)"}>
             <View style={styles.optionButton}>
               <Image
-                source={require("../../../assets/images/self help/notebook.png")}
+                source={require("assets/images/self help/notebook.png")}
                 style={styles.image}
               />
               <Text style={styles.label}>Self Help ToolKit</Text>
@@ -131,7 +61,7 @@ export default function HomeScreen() {
           <Link href={"/(student)/(selfhelp)"}>
             <View style={styles.optionButton}>
               <Image
-                source={require("../../../assets/images/self help/rainbow.png")}
+                source={require("assets/images/self help/rainbow.png")}
                 style={styles.image}
               />
               <Text style={styles.label}>Calm Kit</Text>
@@ -143,7 +73,7 @@ export default function HomeScreen() {
           <Link href={"/(student)/(selfhelp)"}>
             <View style={styles.optionButton}>
               <Image
-                source={require("../../../assets/images/self help/yoga.png")}
+                source={require("assets/images/self help/yoga.png")}
                 style={styles.image}
               />
               <Text style={styles.label}>Breath & Move Zone</Text>
@@ -153,7 +83,7 @@ export default function HomeScreen() {
           <Link href={"/(student)/(journal)/digital-doodle"}>
             <View style={styles.optionButton}>
               <Image
-                source={require("../../../assets/images/self help/journal.png")}
+                source={require("assets/images/self help/journal.png")}
                 style={styles.image}
               />
               <Text style={styles.label}>Journal & Check-ins</Text>
