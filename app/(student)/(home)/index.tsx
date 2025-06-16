@@ -46,51 +46,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       
-      <View>
-        <View style={styles.row}>
-          <Link href={"/(student)/(selfhelp)"}>
-            <View style={styles.optionButton}>
-              <Image
-                source={require("assets/images/self help/notebook.png")}
-                style={styles.image}
-              />
-              <Text style={styles.label}>Self Help ToolKit</Text>
-            </View>
-          </Link>
-
-          <Link href={"/(student)/(selfhelp)"}>
-            <View style={styles.optionButton}>
-              <Image
-                source={require("assets/images/self help/rainbow.png")}
-                style={styles.image}
-              />
-              <Text style={styles.label}>Calm Kit</Text>
-            </View>
-          </Link>
-        </View>
-
-        <View style={styles.row}>
-          <Link href={"/(student)/(selfhelp)"}>
-            <View style={styles.optionButton}>
-              <Image
-                source={require("assets/images/self help/yoga.png")}
-                style={styles.image}
-              />
-              <Text style={styles.label}>Breath & Move Zone</Text>
-            </View>
-          </Link>
-
-          <Link href={"/(student)/(journal)/digital-doodle"}>
-            <View style={styles.optionButton}>
-              <Image
-                source={require("assets/images/self help/journal.png")}
-                style={styles.image}
-              />
-              <Text style={styles.label}>Journal & Check-ins</Text>
-            </View>
-          </Link>
-        </View>
-      </View>
+      <Text>Welcome, {session?.user.email}</Text>
     </View>
   );
 }

@@ -31,14 +31,14 @@ export default function TabLayout() {
           },
           default: {
             height: 90,
-            paddingBottom: 20,
-            paddingTop: 10,
+            paddingBottom: 0,
+            paddingTop: 0,
           },
         }),
       }}
     >
       <Tabs.Screen
-        name="journal-tab"
+        name="(journal)"
         options={{
           title: "Journalling",
           headerTitleAlign: 'center',
