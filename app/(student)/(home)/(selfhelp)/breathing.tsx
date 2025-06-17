@@ -1,64 +1,145 @@
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
-import React from 'react'
-import { ViewComponent } from 'react-native';
+import { View, Text, Image, StyleSheet, Animated, Easing } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import MyButton from '@/components/MyButton';
 
-const CBTExercises = () => {
+const BOX_SIZE = 150;
+const DOT_SIZE = 25;
+const duration = 4000; 
+const durationInSeconds = duration/1000;
+
+const instructions = {
+  inhale: `Breathe in for ${durationInSeconds} seconds`,
+  hold: `Hold for ${durationInSeconds} seconds`,
+  exhale: `Breathe out for ${durationInSeconds} seconds`,
+};
+
+const Breathing = () => {
+  const isAnimating = useRef(false);
+  const position = useRef(new Animated.ValueXY({ x:0-DOT_SIZE/2, y: 0-DOT_SIZE/2 })).current;
+  const animationRef = useRef<Animated.CompositeAnimation | null>(null);
+  const [toggleState, setToggleState] = useState(false); 
+  
+  const createLoopAnimation = () => {
+    return Animated.loop(
+      Animated.sequence([
+        Animated.timing(position, {
+          toValue: { x: BOX_SIZE - DOT_SIZE / 2, y: 0 - DOT_SIZE / 2 },
+          duration: duration,
+          easing: Easing.linear,
+          useNativeDriver: false,
+        }),
+        Animated.timing(position, {
+          toValue: { x: BOX_SIZE - DOT_SIZE / 2, y: BOX_SIZE - DOT_SIZE / 2 },
+          duration: duration,
+          easing: Easing.linear,
+          useNativeDriver: false,
+        }),
+        Animated.timing(position, {
+          toValue: { x: 0 - DOT_SIZE / 2, y: BOX_SIZE - DOT_SIZE / 2 },
+          duration: duration,
+          easing: Easing.linear,
+          useNativeDriver: false,
+        }),
+        Animated.timing(position, {
+          toValue: { x: 0 - DOT_SIZE / 2, y: 0 - DOT_SIZE / 2 },
+          duration: duration,
+          easing: Easing.linear,
+          useNativeDriver: false,
+        }),
+      ])
+    );
+  };
+  useEffect(() => {
+    animationRef.current = createLoopAnimation();
+    isAnimating.current = false;
+  }, []);
+
   return (
-    <View></View>
+    <View style={styles.container}>
+
+      <View style={styles.boxBreathingContainer}>
+        <Text style={styles.instructionText}>{instructions.inhale}</Text>
+        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+          
+          <Text style={styles.holdText}>{instructions.hold}</Text>
+          <View>
+            <View style={styles.square} />
+            <Animated.View style={[styles.dot, position.getLayout()]} />
+          </View>
+          <Text style={styles.holdText}>{instructions.hold}</Text>
+        </View>
+        <Text style={styles.instructionText}>{instructions.exhale}</Text>
+        <View style={styles.buttonContainer}>
+          <MyButton
+            title={toggleState ? "Restart" : "Start"}
+            onPress={() => {
+              if (isAnimating.current) {
+                animationRef.current?.stop();
+                position.setValue({ x: -DOT_SIZE / 2, y: -DOT_SIZE / 2 });
+              }
+
+              animationRef.current = createLoopAnimation();
+              
+              animationRef.current.start(() => { isAnimating.current = false; });
+              isAnimating.current = true;
+              setToggleState(true); 
+            }}
+          />
+          <MyButton title='Reset' onPress={() => {
+            animationRef.current?.reset();
+            position.setValue({ x: -DOT_SIZE / 2, y: -DOT_SIZE / 2 });
+            setToggleState(false);
+          }} />
+        </View>
+      </View>
+      <View>
+      </View>
+    </View>
   )
 }
 
-export default CBTExercises;
+export default Breathing;
 
 const styles = StyleSheet.create({
-  toolsHeading : {
-    marginVertical: 15,
-    fontSize: 25,
-    fontWeight: 'bold',
-    textAlign: 'center',
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  scrollContainer: {
-    padding: 10,
-    backgroundColor: "#B9D9EB",
-    paddingBottom: 40,
-    flexGrow: 1,
+  square: {
+    width: BOX_SIZE,
+    height: BOX_SIZE,
+    backgroundColor: 'yellow',
+    borderWidth: 3,
+    borderRadius: 10,
   },
-  allTools: {
-    display: 'flex', 
-    flexDirection:'row', 
-    justifyContent: 'space-between',
-    marginBottom: 10,
-  },  
-  boxContainer: {
-    alignSelf: 'flex-start',
-    overflow:'hidden', 
-    backgroundColor: '#4682B4',  
-    alignItems:"center", 
-    borderRadius: 20,
-    width: 178,
-    height: 210, 
+  dot: {
+    width: DOT_SIZE,
+    height: DOT_SIZE,
+    position: 'absolute',
+    backgroundColor: '#50C878',
+    borderRadius: DOT_SIZE,
     borderWidth: 3,
   },
-  image : {
-    maxWidth: 80,
-    maxHeight: 80,
-  },
-  imageContainer: {
-    backgroundColor: '#AFEEEE',
-    width: '100%',
-    height: 90,
-    marginBottom: 5,
+  boxBreathingContainer: { 
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent:'center',
-    borderBottomWidth: 3,
+   },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '70%',
   },
-  heading: {
+  instructionText: {
+    marginVertical: 15,
     fontWeight: 'bold',
-    color: 'white',
-    fontSize: 16,
+    fontSize: 15,
   },
-  description: {
-    color: 'yellow',
-    textAlign: 'left',
-  },
+  holdText: {
+    fontWeight: 'bold',
+    fontSize: 15,
+    width: 80,
+    textAlign: 'center',
+    marginHorizontal: 10,
+  }
 });
