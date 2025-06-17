@@ -25,13 +25,13 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 40,
     borderColor: 'black',
-    borderWidth: 5,
+    borderWidth: 3,
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
     fontWeight: 'bold',
-    fontSize: 21,
+    fontSize: 20,
     color: 'black',
   },
   disabled: {

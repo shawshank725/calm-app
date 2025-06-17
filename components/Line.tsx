@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         width: '100%',
         alignSelf: 'center',
-        marginVertical: 5,
+        marginVertical: 10,
         borderRadius: 10,
     },
     dashedLine: {
