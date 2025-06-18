@@ -81,13 +81,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="settings"
         options={{
-          title: "Profile",
+          title: "Settings",
           headerTitleAlign: 'center',
           headerShown: true,
           tabBarIcon: ({ color }) => (
-            <AntDesign name="user" size={28} color={color} />
+            <AntDesign name="setting" size={28} color={color} />
           ),
         }}
       />

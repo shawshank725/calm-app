@@ -5,6 +5,11 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useAuth } from "@/providers/AuthProvider";
 import { supabase } from "@/lib/supabase";
 import { useProfilePhoto } from "@/api/profile/Profile";
+import { Header } from "@react-navigation/elements";
+import { MaterialIcons } from "@expo/vector-icons";
+
+const MIN_HEIGHT =50;
+const MAX_HEIGHT = 250;
 
 type Profile = {
   full_name: string;
@@ -44,9 +49,21 @@ export default function HomeScreen() {
 
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container}> 
+      <Text>Welcome, {session?.user.email}</Text> 
       
-      <Text>Welcome, {session?.user.email}</Text>
+      <TouchableOpacity onPress={() => {console.log("pressed"); useRouter().navigate("/library");}} activeOpacity={0.5}> 
+        <View style={{borderRadius: 20,overflow: 'hidden', marginVertical: 10, borderWidth: 3,backgroundColor: 'white'}}>
+          <View style={{width: '100%', height: 200,borderBottomWidth: 3,}}>
+            <Image source={require("assets/images/library-card-photo.jpg")} style={{width: '100%',height: '100%' }}/>
+          </View>
+          <View style={{padding: 10,}}>
+            <Text style={{fontSize: 25,fontWeight: 'bold'}}>The Support Shelf</Text>
+            <Text style={{color: 'grey'}}>Explore self-help books and inspiring stories to guide your growth.</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+
     </View>
   );
 }

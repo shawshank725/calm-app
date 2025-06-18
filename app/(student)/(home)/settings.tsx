@@ -100,9 +100,10 @@ export default function ProfileScreen() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: 'Profile',
+      headerTitle: 'Settings',
       headerRight: () => (
         <TouchableOpacity onPress={async () => {
+            const userId = session?.user.id; 
             const { error } = await supabase.auth.signOut();
             if (error) {
               Toast.show({
@@ -158,25 +159,38 @@ export default function ProfileScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image
-          source={{uri: imageUrl}}
-          style={styles.profilePhoto}
-        />
-        <NewButton title="Select image" onPress={pickImage} />
+
+      <View style={{flexDirection: 'row',width: '80%'}}>
+        <View style={styles.imageContainer}>
+          <TouchableOpacity onPress={() => {
+            if (imageUrl) {
+              router.push({
+                pathname: "/showImage",
+                params: { url: imageUrl },
+              });
+            }
+          }}>
+            <Image
+              source={{ uri: imageUrl }}
+              style={styles.profilePhoto}
+            />
+          </TouchableOpacity>
+          <NewButton title="Select image" onPress={pickImage} />
+        </View>
+        <View>
+          {session && profile ? (
+            <>
+              <Text>Email: {session.user.email}</Text>
+              <Text>Role: {profile.group}</Text>
+              <Text>Full Name: {profile.full_name}</Text>
+              <Text>Username: {profile.username}</Text>
+            </>
+          ) : (
+            <Text>Loading profile...</Text>
+          )}
+        </View>
       </View>
-      <View>
-        {session && profile ? (
-          <>
-            <Text>Email: {session.user.email}</Text>
-            <Text>Role: {profile.group}</Text>
-            <Text>Full Name: {profile.full_name}</Text>
-            <Text>Username: {profile.username}</Text>
-          </>
-        ) : (
-          <Text>Loading profile...</Text>
-        )}
-      </View>
+
 
       <View>
         <TextInput
@@ -233,7 +247,6 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     backgroundColor: '#E1EBEE',
     textDecorationColor: 'none',
-    //fontWeight: 'bold'
   },
 
 });

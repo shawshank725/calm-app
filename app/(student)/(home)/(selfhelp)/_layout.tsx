@@ -63,10 +63,6 @@ export default function SelfHelpNavigator() {
 
     >
       <TopTabs.Screen
-        name="cbt"
-        options={{ title: "CBT", headerTitleAlign: "center" }}
-      />
-      <TopTabs.Screen
         name="grounding"
         options={{ title: "Grounding", headerTitleAlign: "center" }}
       />
