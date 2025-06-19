@@ -21,7 +21,7 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(home)" options={{ headerShown: false }} />
-        <Stack.Screen name="showImage" options={{ headerShown: false }} />
+        <Stack.Screen name="showImage" options={{ headerShown: false, }} />
         <Stack.Screen name="profile" options={{ headerTitle:"Edit Profile" ,  headerShown: true, }} />
         <Stack.Screen name="library" options={{ headerTitle:"The Support Shelf" , headerShown: true, headerTitleAlign: 'center' }} />
       </Stack>

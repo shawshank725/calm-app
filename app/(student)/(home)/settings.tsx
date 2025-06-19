@@ -160,7 +160,7 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
 
-      <View style={{flexDirection: 'row',width: '80%'}}>
+      <View style={styles.profileRow}>
         <View style={styles.imageContainer}>
           <TouchableOpacity onPress={() => {
             if (imageUrl) {
@@ -180,9 +180,9 @@ export default function ProfileScreen() {
         <View>
           {session && profile ? (
             <>
-              <Text>Email: {session.user.email}</Text>
+              {/* <Text>Email: {session.user.email}</Text> */}
               <Text>Role: {profile.group}</Text>
-              <Text>Full Name: {profile.full_name}</Text>
+              <Text>Name: {profile.full_name}</Text>
               <Text>Username: {profile.username}</Text>
             </>
           ) : (
@@ -220,12 +220,13 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   container: {
-    padding: 20,
+    padding: 10,
     flex: 1,
     backgroundColor: "#B9D9EB",
   },
   imageContainer: {
     alignItems: 'center',
+    padding: 0,
   },
   titleContainer: {
     flexDirection: "row",
@@ -233,7 +234,7 @@ const styles = StyleSheet.create({
   },
   profilePhoto: {
     borderRadius: 100,
-    width: '50%',
+    width: '45%',
     aspectRatio: 1,
     borderWidth: 3,
     borderColor: 'black',
@@ -247,6 +248,16 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     backgroundColor: '#E1EBEE',
     textDecorationColor: 'none',
+  },
+  profileRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 0, // optional: add spacing between image and text
+    flexWrap: 'wrap', // so text moves below if needed
+    borderWidth: 2,
+    padding: 10,
+    borderColor: 'grey',
+    borderRadius: 15,
   },
 
 });
