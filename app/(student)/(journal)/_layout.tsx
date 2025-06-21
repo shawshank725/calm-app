@@ -18,8 +18,8 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack>
-          <Stack.Screen name="digital-doodle" options={{ headerTitle:"Digital Doodle" ,  headerShown: true, }} />
-          <Stack.Screen name="journal" options={{ headerTitle:"Journal" ,  headerShown: true, }} />
+          <Stack.Screen name="digital-doodle" options={{ headerTitle:"Digital Doodle" ,headerTitleAlign: 'center',  headerShown: true, }} />
+          <Stack.Screen name="journal" options={{ headerTitle:"Journal" ,headerTitleAlign: 'center', headerShown: true, }} />
         </Stack>
     </ThemeProvider>
   );

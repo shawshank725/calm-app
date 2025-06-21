@@ -9,7 +9,6 @@ import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 export default function TabLayout() {
