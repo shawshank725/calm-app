@@ -38,17 +38,6 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="(journal)"
-        options={{
-          title: "Journalling",
-          headerTitleAlign: 'center',
-          headerShown: true,
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="notebook-edit" size={28} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="buddy"
         options={{
           title: "Buddy",

@@ -19,6 +19,7 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="(home)" options={{ headerShown: false }} />
         <Stack.Screen name="(misc)" options={{ headerShown: false }} />
+        <Stack.Screen name="(journal)" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );

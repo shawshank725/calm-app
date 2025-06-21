@@ -7,6 +7,7 @@ import { supabase } from "@/lib/supabase";
 import { useProfilePhoto } from "@/api/profile/Profile";
 import { Header } from "@react-navigation/elements";
 import { MaterialIcons } from "@expo/vector-icons";
+import { ScrollView } from "react-native-gesture-handler";
 
 const MIN_HEIGHT =50;
 const MAX_HEIGHT = 250;
@@ -64,6 +65,13 @@ export default function HomeScreen() {
         </View>
       </TouchableOpacity>
 
+      <ScrollView horizontal={true}>
+        <TouchableOpacity activeOpacity={0.7}>
+          <View>
+            go to digital doodle
+          </View>
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 }

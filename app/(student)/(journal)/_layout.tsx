@@ -17,14 +17,10 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="showImage" options={{ headerShown: false, }} />
-        <Stack.Screen name="info" options={{ headerShown: true, }} />
-        <Stack.Screen name="profile" options={{ headerTitle:"Edit Profile" ,  headerShown: true, }} />
-        <Stack.Screen name="library" options={{ headerTitle:"The Support Shelf" , 
-                                                headerBackTitle: "Home",
-                                                headerShown: true, headerTitleAlign: 'center' }} />
-      </Stack>
+        <Stack>
+          <Stack.Screen name="digital-doodle" options={{ headerTitle:"Digital Doodle" ,  headerShown: true, }} />
+          <Stack.Screen name="journal" options={{ headerTitle:"Journal" ,  headerShown: true, }} />
+        </Stack>
     </ThemeProvider>
   );
 }
