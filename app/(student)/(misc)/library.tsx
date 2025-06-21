@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
 import React from 'react';
 import { Linking } from 'react-native';
+import { Stack } from 'expo-router';
 
 
 

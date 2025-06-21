@@ -12,6 +12,7 @@ import { useProfilePhoto } from "@/api/profile/Profile";
 import NewButton from "@/components/NewButton";
 import { TextInput } from "react-native-paper";
 import { useQueryClient } from "@tanstack/react-query";
+import { Ionicons } from "@expo/vector-icons";
 
 type Profile = {
   full_name: string;
@@ -29,7 +30,6 @@ export default function ProfileScreen() {
 
   const { data: imageUrl, isLoading } = useProfilePhoto(session?.user.id);
   
-  const navigation = useNavigation();
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -98,41 +98,6 @@ export default function ProfileScreen() {
   };
 
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTitle: 'Settings',
-      headerRight: () => (
-        <TouchableOpacity onPress={async () => {
-            const userId = session?.user.id; 
-            const { error } = await supabase.auth.signOut();
-            if (error) {
-              Toast.show({
-                type: 'error', // 'success' | 'error' | 'info'
-                text1: 'Could not log out',
-                position: 'bottom', // or 'bottom'
-                visibilityTime: 2000
-              });
-            } else {
-              console.log("Logged out");
-              router.replace("/(auth)/sign-in");
-              Toast.show({
-                type: 'success', // 'success' | 'error' | 'info'
-                text1: 'Log out successful',
-                position: 'bottom', // or 'bottom'
-                visibilityTime: 1500
-              });
-            }
-          }}>
-          <MaterialIcons
-          name="logout" // <- icon name
-          size={28}
-          color="black"
-          style={{ marginRight: 16 }}
-        />
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -165,7 +130,7 @@ export default function ProfileScreen() {
           <TouchableOpacity onPress={() => {
             if (imageUrl) {
               router.push({
-                pathname: "/showImage",
+                pathname: "/(student)/(misc)/showImage",
                 params: { url: imageUrl },
               });
             }
@@ -192,7 +157,7 @@ export default function ProfileScreen() {
       </View>
 
 
-      <View>
+      {/* <View>
         <TextInput
         placeholder="Enter your e-mail address"
         mode="outlined"
@@ -206,19 +171,49 @@ export default function ProfileScreen() {
           },
         }}
       />
+      </View> */}
+
+      <View style={{backgroundColor: "white", borderRadius: 10, marginVertical: 5, }}>
+        <Text style={{borderBottomWidth: 1,padding: 7,borderColor: 'grey', fontSize: 17, fontWeight:'bold'}}>App Info</Text>
+        <Text style={{borderBottomWidth: 1,padding: 7,borderColor: 'grey', fontSize: 15,}}>Version 1.0.0</Text>
+        <View style={{flexDirection:'row' , }}>
+          <Text style={{borderBottomWidth: 1,padding: 7,borderColor: 'grey', fontSize: 15,}}>Terms and Conditions</Text>
+          <Ionicons name="chevron-forward" size={16} color="#aaa" />
+        </View>
+        <Text style={{padding: 7, fontSize: 15,}}>Privacy Policy</Text>
       </View>
+
+      <TouchableOpacity onPress={async () => {
+            const userId = session?.user.id; 
+            const { error } = await supabase.auth.signOut();
+            if (error) {
+              Toast.show({
+                type: 'error', // 'success' | 'error' | 'info'
+                text1: 'Could not log out',
+                position: 'bottom', // or 'bottom'
+                visibilityTime: 2000
+              });
+            } else {
+              console.log("Logged out");
+              router.replace("/(auth)/sign-in");
+              Toast.show({
+                type: 'success', // 'success' | 'error' | 'info'
+                text1: 'Log out successful',
+                position: 'bottom', // or 'bottom'
+                visibilityTime: 1500
+              });
+            }
+          }} activeOpacity={0.7}>
+        <View style={{backgroundColor: "white", padding:10,borderRadius: 10, marginVertical: 10,}}>
+          <Text style={{fontWeight: 'normal', fontSize: 17,color: 'red'}}>Logout</Text>
+        </View>
+      </TouchableOpacity>
     </View>
 
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: "#808080",
-    bottom: -90,
-    left: -35,
-    position: "absolute",
-  },
   container: {
     padding: 10,
     flex: 1,
@@ -226,7 +221,10 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     alignItems: 'center',
-    padding: 0,
+    padding: 10,
+    marginRight: 5,
+    borderRightWidth:2,
+    borderColor: 'grey'
   },
   titleContainer: {
     flexDirection: "row",
@@ -255,9 +253,10 @@ const styles = StyleSheet.create({
     gap: 0, // optional: add spacing between image and text
     flexWrap: 'wrap', // so text moves below if needed
     borderWidth: 2,
-    padding: 10,
     borderColor: 'grey',
     borderRadius: 15,
+    backgroundColor: 'white',
+    marginBottom: 5,
   },
 
 });

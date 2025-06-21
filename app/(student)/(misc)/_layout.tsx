@@ -11,14 +11,18 @@ export default function RootLayout() {
   });
 
   if (!loaded) {
+    // Async font loading only occurs in development.
     return null;
   }
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(home)" options={{ headerShown: false }} />
-        <Stack.Screen name="(misc)" options={{ headerShown: false }} />
+        <Stack.Screen name="showImage" options={{ headerShown: false, }} />
+        <Stack.Screen name="profile" options={{ headerTitle:"Edit Profile" ,  headerShown: true, }} />
+        <Stack.Screen name="library" options={{ headerTitle:"The Support Shelf" , 
+                                                headerBackTitle: "Home",
+                                                headerShown: true, headerTitleAlign: 'center' }} />
       </Stack>
     </ThemeProvider>
   );

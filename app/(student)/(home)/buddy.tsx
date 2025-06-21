@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    bottom: 60,
+    bottom: Platform.OS === "ios" ? 120: 60,
     right: 7,
     backgroundColor: 'white',
     padding: 10,
