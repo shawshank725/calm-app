@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import React from "react";
 import { Platform } from "react-native";
-
+import { useFonts } from 'expo-font';
 import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import TabBarBackground from "@/components/ui/TabBarBackground";
@@ -13,7 +13,7 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
+  //const [fontsLoaded] = useFonts({   Carnevalee: require('assets/fonts/Carnevalee Freakshow.ttf'),  });
   return (
     <Tabs
       screenOptions={{
@@ -55,7 +55,9 @@ export default function TabLayout() {
           headerShown: true,
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="house.fill" color={color} />),
-        }}
+          headerStyle: {backgroundColor: '#FF7F50', },
+          }}
+          
       />
       <Tabs.Screen
         name="(selfhelp)"

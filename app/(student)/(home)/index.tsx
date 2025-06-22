@@ -1,4 +1,4 @@
-import { View, Text, Image,  TouchableOpacity, StyleSheet, ScrollView, Dimensions, useWindowDimensions } from "react-native";
+import { View, Text, Image,  TouchableOpacity, StyleSheet, ScrollView, useWindowDimensions } from "react-native";
 import { useRouter } from "expo-router";
 
 import React, { useEffect,  useState } from "react";
@@ -6,8 +6,6 @@ import { useAuth } from "@/providers/AuthProvider";
 import { supabase } from "@/lib/supabase";
 import { useProfilePhoto } from "@/api/profile/Profile";
 
-const MIN_HEIGHT =50;
-const MAX_HEIGHT = 250;
 
 type Profile = {
   full_name: string;
@@ -18,12 +16,9 @@ type Profile = {
 
 export default function HomeScreen() {
 
-  const [open, setOpen] = useState(false);
   const {session, loading} = useAuth();
   const [profile, setProfile] = useState<Profile | null>(null);
   const { data: imageUrl, isLoading } = useProfilePhoto(session?.user.id);
-
-  const { width } = useWindowDimensions();
   
   useEffect(() => {
     const fetchProfile = async () => {
@@ -62,7 +57,7 @@ export default function HomeScreen() {
         </View>
       </TouchableOpacity>
 
-      <View style={{backgroundColor: 'white', padding: 5, borderRadius: 10, }}>
+      <View style={{backgroundColor: 'white', padding: 5, borderRadius: 10,}}>
         <Text style={{textAlign: 'center', fontSize: 20, fontWeight: 'bold' , marginVertical: 10,}}>
           Feel. Scribble. Reflect.</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
