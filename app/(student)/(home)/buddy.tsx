@@ -5,7 +5,9 @@ import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/providers/AuthProvider';
 import { useQueryClient } from '@tanstack/react-query';
 import React, { useEffect, useRef, useState } from 'react';
-import { Image, View, StyleSheet, Text, FlatList, KeyboardAvoidingView, ActivityIndicator, Platform, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Image, View, StyleSheet, Text, 
+  FlatList, KeyboardAvoidingView, ActivityIndicator, 
+  Platform, TouchableOpacity, SafeAreaView } from 'react-native';
 import {  TextInput } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 

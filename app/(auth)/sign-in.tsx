@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Alert } from "react-native";
+import { StyleSheet, View, Text, Alert, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from "react-native";
 import { Link } from "expo-router";
 import MyButton from "@/components/MyButton";
 import { useState } from "react";
@@ -30,56 +30,60 @@ export default function SignInScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={{fontWeight: 'bold', fontSize:30, textAlign: 'center', marginBottom: 20}}>Sign in</Text>
+    <KeyboardAvoidingView behavior={Platform.OS ==="ios" ? "padding" : 'height'} 
+      style={styles.container} keyboardVerticalOffset={Platform.OS ==="ios" ? 70 :60}  >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.formContainer}>
+          <Text style={{fontWeight: 'bold', fontSize:30, textAlign: 'center', marginBottom: 20}}>Sign in</Text>
 
-      <TextInput
-        value={email}
-        onChangeText={setEmail}
-        placeholder="Enter your e-mail address"
-        mode="outlined"
-        style={styles.input}
-        label="Email"
-        outlineStyle={{ borderWidth: 2 }}
-        theme={{roundness: 10, 
-          colors: {
-            primary: "black",
-            outline: "black",
-          },
-        }}
-      />
+        <TextInput
+          value={email}
+          onChangeText={setEmail}
+          placeholder="Enter your e-mail address"
+          mode="outlined"
+          style={styles.input}
+          label="Email"
+          outlineStyle={{ borderWidth: 2 }}
+          theme={{roundness: 10, 
+            colors: {
+              primary: "black",
+              outline: "black",
+            },
+          }}
+        />
 
-      <TextInput
-        value={password}
-        onChangeText={setPassword}
-        placeholder=""
-        mode="outlined"
-        label="Password"
-        style={styles.input}
-        secureTextEntry={secureText}
-        right={
-          <TextInput.Icon
-            icon={secureText ? "eye-off" : "eye"}
-            onPress={() => setSecureText(!secureText)}
-          />
-        }
-        outlineStyle={{ borderWidth: 2 }}
-        theme={{roundness: 10, 
-          colors: {
-            primary: "black",
-            outline: "black",
-          },
-        }}
-      />
+        <TextInput
+          value={password}
+          onChangeText={setPassword}
+          placeholder=""
+          mode="outlined"
+          label="Password"
+          style={styles.input}
+          secureTextEntry={secureText}
+          right={
+            <TextInput.Icon
+              icon={secureText ? "eye-off" : "eye"}
+              onPress={() => setSecureText(!secureText)}
+            />
+          }
+          outlineStyle={{ borderWidth: 2 }}
+          theme={{roundness: 10, 
+            colors: {
+              primary: "black",
+              outline: "black",
+            },
+          }}
+        />
 
-
-      <MyButton  
-      disabled={loading}
-      title={loading ? "Signing In..." : "Sign in"} 
-      onPress={signInWithEmail}/>
-      
-      <Link href={"/sign-up"} style={styles.link}>New User? Create Account</Link>
-    </View>
+        <MyButton  
+        disabled={loading}
+        title={loading ? "Signing In..." : "Sign in"} 
+        onPress={signInWithEmail}/>
+        
+        <Link href={"/sign-up"} style={styles.link}>New User? Create Account</Link>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -87,6 +91,15 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     flex: 1,
+    justifyContent: 'center'
+  },
+  formContainer: {
+    justifyContent: 'center', 
+    marginBottom: 50, 
+    backgroundColor: 'white', 
+    padding: 20, 
+    borderRadius: 10,  
+    elevation: 10, 
   },
   input: {
     marginBottom: 25,

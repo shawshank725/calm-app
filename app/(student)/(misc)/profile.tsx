@@ -1,7 +1,7 @@
-import { useProfile, useProfilePhoto } from '@/api/profile/Profile';
+import { useProfile, useProfilePhoto, useSaveProfileChanges } from '@/api/profile/Profile';
 import { router, useRouter } from 'expo-router';
 import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, Image, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView } from 'react-native';
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/providers/AuthProvider";
 import Toast from "react-native-toast-message";
@@ -11,6 +11,9 @@ import {decode} from 'base64-arraybuffer';
 import NewButton from "@/components/NewButton";
 import { useQueryClient } from "@tanstack/react-query";
 import { TextInput } from 'react-native-paper';
+
+
+const Wrapper = Platform.OS === 'ios' ? SafeAreaView : View;
 
 
 const ProfileEditor = () => {
@@ -23,6 +26,10 @@ const ProfileEditor = () => {
   //setters for user details
   const [username, setUsername] = useState("");
   const [fullName, setFullName] = useState("");
+  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+
+  const { mutate : saveProfileChanges, isPending} = useSaveProfileChanges();
   
   // use effect for getting profile details
   useEffect(() => {
@@ -154,6 +161,16 @@ const ProfileEditor = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // code for saving the changes made to the profile -------------------------------
+  const handleSave = () => {
+    if (!session?.user?.id) return;
+    saveProfileChanges({
+      id: session.user.id,
+      username,
+      full_name: fullName,
+    });
+  };
+
   // return view if loading here -----------------------------
   if (loading) {
     return (
@@ -187,7 +204,9 @@ const ProfileEditor = () => {
           </View>
       </View>
 
-      <View>
+      <View style={textBoxStyles.usernameContainer}>
+
+        <Text style={textBoxStyles.heading}>Change Username and name</Text>
         <TextInput
           value={username}
           onChangeText={setUsername}
@@ -219,7 +238,15 @@ const ProfileEditor = () => {
             },
           }}
         />
+        <View style={{alignSelf: 'center'}}>
+          <NewButton title='Save Changes' onPress={() => {handleSave(); router.navigate("/(student)/(home)/settings")}}/>
+        </View>
       </View>
+      
+      <View style={{alignSelf: 'center',}}>
+        <NewButton title='Change Password' onPress={() => {router.navigate("/(student)/(misc)/password")}}/>
+      </View>
+      
     </View>
   );
 };
@@ -229,7 +256,17 @@ const textBoxStyles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: '#E1EBEE',
     textDecorationColor: 'none',
-    //fontWeight: 'bold'
+  },
+  usernameContainer: {
+    backgroundColor: 'white', 
+    padding: 10, 
+    marginVertical: 10, 
+    borderRadius: 10,
+  },
+  heading: {
+    fontWeight: 'bold', 
+    fontSize: 20,
+    marginBottom: 10
   },
 });
 

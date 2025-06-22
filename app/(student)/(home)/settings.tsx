@@ -4,13 +4,10 @@ import {  useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {  StyleSheet, View, Text,Image, TouchableOpacity } from "react-native";
 import Toast from "react-native-toast-message";
-import * as ImagePicker from 'expo-image-picker';
-import * as FileSystem from 'expo-file-system';
-import {decode} from 'base64-arraybuffer';
 import { useProfilePhoto } from "@/api/profile/Profile";
-import NewButton from "@/components/NewButton";
-import { useQueryClient } from "@tanstack/react-query";
 import { Ionicons } from "@expo/vector-icons";
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
 
 type Profile = {
   full_name: string;
@@ -30,28 +27,34 @@ export default function ProfileScreen() {
   
   const router = useRouter();
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      if (!session) return;
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("username, full_name, group, avatar_url")
-        .eq("id", session.user.id)
-        .single();
+  useFocusEffect(
+    useCallback(() => {
+      const fetchProfile = async () => {
+        if (!session) return;
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("username, full_name, group, avatar_url")
+          .eq("id", session.user.id)
+          .single();
 
-      if (error) {
-        console.log("Error fetching profile:", error.message);
-      } else {
-        setProfile(data);
-        if (data.avatar_url) {
-          const { data: publicUrl } = supabase.storage.from("profile-photos").getPublicUrl(data.avatar_url);
-          setImage(publicUrl.publicUrl);
+        if (error) {
+          console.log("Error fetching profile:", error.message);
+        } else {
+          setProfile(data);
+          if (data.avatar_url) {
+            const { data: publicUrl } = supabase
+              .storage
+              .from("profile-photos")
+              .getPublicUrl(data.avatar_url);
+            setImage(publicUrl.publicUrl);
+          }
         }
-      }
-    };
+      };
 
-    fetchProfile();
-  }, [session]);
+      fetchProfile();
+    }, [session])
+  );
+
 
   return (
     <View style={styles.container}>
@@ -59,19 +62,10 @@ export default function ProfileScreen() {
       <TouchableOpacity activeOpacity={0.8} onPress={() => {router.push({pathname: "/(student)/(misc)/profile",})}}>
         <View style={profileStyles.profileContainer}>
           <View style={profileStyles.profilePhotoContainer}>
-            <TouchableOpacity onPress={() => {
-              if (imageUrl) {
-                router.push({
-                  pathname: "/(student)/(misc)/showImage",
-                  params: { url: imageUrl },
-                });
-              }
-            }}>
-              <Image
-                source={{ uri: imageUrl }}
-                style={profileStyles.profilePhoto}
-              />
-            </TouchableOpacity>
+            <Image
+              source={{ uri: imageUrl }}
+              style={profileStyles.profilePhoto}
+            />
           </View>
           <View>
             {session && profile ? (
