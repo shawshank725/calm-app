@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Toast from "react-native-toast-message";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg";
 
@@ -84,3 +85,14 @@ export const useSaveProfileChanges = () => {
     },
   });
 };
+
+const getAllUsernames = async() => {
+  const { data, error } = await supabase.from("profiles").select("username");
+  if (error) {
+    return [];
+  }
+  const usernames = data.map((user) => user.username);
+  return usernames;
+};
+
+export default getAllUsernames;

@@ -1,10 +1,12 @@
 import { StyleSheet, View, Text,  Alert, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from "react-native";
-import { Link, useRouter } from "expo-router";
+import { Link, } from "expo-router";
 import MyButton from "@/components/MyButton";
 import { useState } from "react";
 import {supabase} from "@/lib/supabase";
 import { TextInput } from "react-native-paper";
 import Toast from "react-native-toast-message";
+
+import getAllUsernames from "@/api/profile/Profile";
 
 export default function SignUpScreen() {
 
@@ -55,14 +57,6 @@ export default function SignUpScreen() {
     return true;
   };
 
-  const getAllUsernames = async() => {
-    const { data, error } = await supabase.from("profiles").select("username");
-    if (error) {
-      return [];
-    }
-    const usernames = data.map((user) => user.username);
-    return usernames;
-  }
 
   const getAllRollNumbers = async () => {
     const { data, error } = await supabase.from("profiles").select("roll_number");

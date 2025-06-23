@@ -16,39 +16,13 @@ type Profile = {
 
 export default function HomeScreen() {
 
-  const {session, loading} = useAuth();
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const { data: imageUrl, isLoading } = useProfilePhoto(session?.user.id);
-  
-  useEffect(() => {
-    const fetchProfile = async () => {
-      if (!session) return;
-
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("username, full_name, group")
-        .eq("id", session.user.id)
-        .single();
-
-      if (error) {
-        console.log("Error fetching profile:", error.message);
-      } else {
-        setProfile(data);
-      }
-    };
-
-    fetchProfile();
-  }, [session]);
-
-
   return (
     <View style={styles.container}> 
-      <Text>Welcome, {session?.user.email}</Text> 
       
       <TouchableOpacity onPress={() => { useRouter().navigate("/(student)/(misc)/library");}} activeOpacity={0.5}> 
         <View style={{borderRadius: 20,overflow: 'hidden', marginVertical: 10, borderWidth: 3,backgroundColor: 'white'}}>
-          <View style={{width: '100%', height: 200,borderBottomWidth: 3,}}>
-            <Image source={require("assets/images/library-card-photo.jpg")} style={{width: '100%',height: '100%' }}/>
+          <View style={{width: '100%', height: 150 ,borderBottomWidth: 3,}}>
+            <Image source={require("assets/images/library-card-photo.jpg")} style={{width: '100%',height: '100%',  }}/>
           </View>
           <View style={{padding: 10,}}>
             <Text style={{fontSize: 25,fontWeight: 'bold'}}>The Support Shelf</Text>

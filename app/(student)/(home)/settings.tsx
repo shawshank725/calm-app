@@ -1,7 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/providers/AuthProvider";
 import {  useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {  StyleSheet, View, Text,Image, TouchableOpacity } from "react-native";
 import Toast from "react-native-toast-message";
 import { useProfilePhoto } from "@/api/profile/Profile";
@@ -55,7 +55,6 @@ export default function ProfileScreen() {
     }, [session])
   );
 
-
   return (
     <View style={styles.container}>
       {/* actual profile container here  */}
@@ -70,8 +69,6 @@ export default function ProfileScreen() {
           <View>
             {session && profile ? (
             <>
-              {/* <Text>Email: {session.user.email}</Text> */}
-              {/* <Text>Role: {profile.group}</Text> */}
               <Text style={profileStyles.fullName}>{profile.full_name}</Text>
               <Text>{profile.username}</Text>
             </>
@@ -83,18 +80,32 @@ export default function ProfileScreen() {
       </TouchableOpacity>
 
       {/* app info */}
-      <View style={{backgroundColor: "white", borderRadius: 10, marginVertical: 5, }}>
+      <View style={appInfoStyles.appInfoContainer}  >
         <Text style={appInfoStyles.heading}>App Info</Text>
-        <Text style={{borderBottomWidth: 1,padding: 7,borderColor: 'grey', fontSize: 15,}}>Version 1.0.0</Text>
-        <View style={appInfoStyles.textIconContainer}>
-          <Text style={appInfoStyles.text}>Terms and Conditions</Text>
-          <Ionicons name="chevron-forward" size={16} color="#aaa" />
+        <View style={appInfoStyles.oneRowContainer}>
+          <Ionicons name="information-circle-outline" size={18} color="black" style={appInfoStyles.leftIconStyles}/>  
+          <View style={appInfoStyles.textIconContainer}>        
+            <Text style={appInfoStyles.text}>Version 1.0.0</Text>
+          </View>
         </View>
-        <View style={appInfoStyles.lastTextIconContainer}>
-          <Text style={appInfoStyles.text}>Privacy Policy</Text>
-          <Ionicons name="chevron-forward" size={16} color="#aaa" />
+
+        <View style={appInfoStyles.oneRowContainer}>
+          <Ionicons name="document-text-outline" size={18} color="black" style={appInfoStyles.leftIconStyles}/>  
+          <View style={appInfoStyles.textIconContainer}>        
+            <Text style={appInfoStyles.text}>Terms and Conditions</Text>
+            <Ionicons name="chevron-forward" size={20} color="#aaa" />
+          </View>
+        </View>
+
+        <View style={appInfoStyles.oneRowContainer}>
+          <Ionicons name="lock-closed" size={18} color="black" style={appInfoStyles.leftIconStyles}/>  
+          <View style={appInfoStyles.lastTextIconContainer}>        
+            <Text style={appInfoStyles.text}>Privacy Policy</Text>
+            <Ionicons name="chevron-forward" size={20} color="#aaa" />
+          </View>
         </View>
       </View>
+      
 
       {/* logout functionality */}
       <TouchableOpacity onPress={async () => {
@@ -118,8 +129,8 @@ export default function ProfileScreen() {
               });
             }
           }} activeOpacity={0.7}>
-        <View style={{backgroundColor: "white", padding:10,borderRadius: 10, marginVertical: 10,}}>
-          <Text style={{fontWeight: 'normal', fontSize: 17,color: 'red'}}>Logout</Text>
+        <View style={appInfoStyles.singleItems}>
+          <Text style={appInfoStyles.warningText}>Logout</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -128,21 +139,27 @@ export default function ProfileScreen() {
 }
 
 const appInfoStyles = StyleSheet.create({
-  text : {
-    padding: 7,
-    fontSize: 15,
+  appInfoContainer: {
+    backgroundColor: "white", 
+    borderRadius: 10, 
+    marginVertical: 5, 
+    paddingHorizontal: 10,
   },
+  text : {padding: 7,  fontSize: 16, },
+
   textIconContainer: {
-    flexDirection:'row' , 
-    justifyContent: "space-between", 
+    flexDirection:'row', 
+    flex: 1, 
     alignItems: 'center', 
+    justifyContent: 'space-between', 
     borderBottomWidth: 1, 
-    borderColor: 'grey'  
+    borderColor: 'grey' 
   },
   lastTextIconContainer: {
-    flexDirection:'row' , 
-    justifyContent: "space-between", 
+    flexDirection:'row', 
+    flex: 1, 
     alignItems: 'center', 
+    justifyContent: 'space-between', 
   },
   heading: {
     borderBottomWidth: 1,
@@ -150,6 +167,25 @@ const appInfoStyles = StyleSheet.create({
     borderColor: 'grey', 
     fontSize: 17, 
     fontWeight:'bold'
+  },
+  warningText: {
+    fontWeight: 'normal', 
+    fontSize: 17,
+    color: 'red'
+  },
+  singleItems: {
+    backgroundColor: "white", 
+    padding:10,
+    borderRadius: 10, 
+    marginTop: 10, 
+  },
+  leftIconStyles :{
+    paddingRight: 5,
+  },
+  oneRowContainer: {
+    alignItems: 'center', 
+    flexDirection: 'row', 
+    justifyContent: 'space-between',
   },
 })
 
@@ -185,43 +221,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "lightgreen",
   },
-  imageContainer: {
-    alignItems: 'center',
-    padding: 10,
-    marginRight: 5,
-    borderRightWidth:2,
-    borderColor: 'grey'
-  },
-  titleContainer: {
-    flexDirection: "row",
-    gap: 8,
-  },
-  profilePhoto: {
-    borderRadius: 100,
-    width: '45%',
-    aspectRatio: 1,
-    borderWidth: 3,
-    borderColor: 'black',
-  },
-  link: {
-    color: 'blue',
-    paddingTop: 20,
-    fontWeight: 'bold'
-  },
   input: {
     marginBottom: 25,
     backgroundColor: '#E1EBEE',
     textDecorationColor: 'none',
   },
-  profileRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 0, // optional: add spacing between image and text
-    flexWrap: 'wrap', // so text moves below if needed
-    borderWidth: 2,
-    borderColor: 'grey',
-    borderRadius: 15,
-    backgroundColor: 'white',
-    marginBottom: 5,
-  },
+  
 });

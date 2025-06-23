@@ -1,7 +1,7 @@
-import { useProfile, useProfilePhoto, useSaveProfileChanges } from '@/api/profile/Profile';
+import getAllUsernames, { useProfile, useProfilePhoto, useSaveProfileChanges } from '@/api/profile/Profile';
 import { router, useRouter } from 'expo-router';
 import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, Image, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, Image, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, Alert } from 'react-native';
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/providers/AuthProvider";
 import Toast from "react-native-toast-message";
@@ -11,10 +11,7 @@ import {decode} from 'base64-arraybuffer';
 import NewButton from "@/components/NewButton";
 import { useQueryClient } from "@tanstack/react-query";
 import { TextInput } from 'react-native-paper';
-
-
-const Wrapper = Platform.OS === 'ios' ? SafeAreaView : View;
-
+import { Ionicons } from '@expo/vector-icons';
 
 const ProfileEditor = () => {
   const [dataLoading, setDataLoading] = useState(true);
@@ -26,8 +23,6 @@ const ProfileEditor = () => {
   //setters for user details
   const [username, setUsername] = useState("");
   const [fullName, setFullName] = useState("");
-  const [password, setPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
 
   const { mutate : saveProfileChanges, isPending} = useSaveProfileChanges();
   
@@ -162,15 +157,33 @@ const ProfileEditor = () => {
   }, []);
 
   // code for saving the changes made to the profile -------------------------------
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!session?.user?.id) return;
+    const allUsernames = await getAllUsernames();
+
+    const otherUsernames = allUsernames.filter(name => name !== profile?.username);
+
+    if (profile?.username === username && profile?.full_name === fullName) {
+      Alert.alert("No changes made", "You haven't made any changes.");
+      return;
+    }
+
+    if (otherUsernames.includes(username)) {
+      Alert.alert("Username taken", "This username is already taken.");
+      return;
+    }
+
+    // Proceed with saving changes
     saveProfileChanges({
       id: session.user.id,
       username,
       full_name: fullName,
     });
+
+    router.navigate("/(student)/(home)/settings");
   };
 
+  
   // return view if loading here -----------------------------
   if (loading) {
     return (
@@ -205,7 +218,6 @@ const ProfileEditor = () => {
       </View>
 
       <View style={textBoxStyles.usernameContainer}>
-
         <Text style={textBoxStyles.heading}>Change Username and name</Text>
         <TextInput
           value={username}
@@ -239,17 +251,38 @@ const ProfileEditor = () => {
           }}
         />
         <View style={{alignSelf: 'center'}}>
-          <NewButton title='Save Changes' onPress={() => {handleSave(); router.navigate("/(student)/(home)/settings")}}/>
+          <NewButton title='Save Changes' onPress={() => {handleSave(); }}/>
         </View>
       </View>
       
-      <View style={{alignSelf: 'center',}}>
-        <NewButton title='Change Password' onPress={() => {router.navigate("/(student)/(misc)/password")}}/>
-      </View>
+      <TouchableOpacity onPress={ () => {router.navigate("/(student)/(misc)/password")}} activeOpacity={0.7}>
+        <View style={{backgroundColor: 'white', flexDirection: 'row', borderRadius: 10, padding: 10,}}>
+          <Ionicons name="lock-closed" size={20} color="gray" style={{paddingRight: 5,}}/>
+          <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between', alignItems: 'center'}}>
+            <Text style={appInfoStyles.warningText}>Change Password</Text>
+            <Ionicons name="chevron-forward" size={24} color="gray" />
+          </View>
+        </View>
+      </TouchableOpacity> 
       
     </View>
   );
 };
+
+
+const appInfoStyles = StyleSheet.create({
+  warningText: {
+    fontWeight: 'normal', 
+    fontSize: 17,
+    color: 'red'
+  },
+  singleItems: {
+    backgroundColor: "white", 
+    padding:10,
+    borderRadius: 10, 
+    marginTop: 10, 
+  },
+})
 
 const textBoxStyles = StyleSheet.create({
   input: {
