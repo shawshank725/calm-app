@@ -1,7 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Toast from "react-native-toast-message";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg";
 

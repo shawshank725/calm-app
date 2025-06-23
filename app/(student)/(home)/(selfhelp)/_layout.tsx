@@ -1,13 +1,6 @@
 import { withLayoutContext } from "expo-router";
 import { createMaterialTopTabNavigator, MaterialTopTabBarProps } from "@react-navigation/material-top-tabs";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  useColorScheme,
-} from "react-native";
-import { Colors } from "@/constants/Colors"; // adjust based on your folder
+import {  View,  Text,  TouchableOpacity,  StyleSheet,  useColorScheme,} from "react-native";
 
 const Tab = createMaterialTopTabNavigator();
 const TopTabs = withLayoutContext(Tab.Navigator);
@@ -55,20 +48,33 @@ function CustomTabBar({ state, descriptors, navigation }: MaterialTopTabBarProps
 export default function SelfHelpNavigator() {
   return (
     <TopTabs
-      tabBar={(props) => <CustomTabBar {...props} />}
+      // tabBar={(props) => <CustomTabBar {...props} />}
       screenOptions={{
-        swipeEnabled: true,
-        animationEnabled: false,
+        swipeEnabled: false,
+        animationEnabled: true,
+        tabBarScrollEnabled: true,
+        //tabBarItemStyle: { width: 'auto' },
       }}
-
     >
       <TopTabs.Screen
         name="grounding"
-        options={{ title: "Grounding", headerTitleAlign: "center" }}
+        options={{ title: "Grounding", headerTitleAlign: "center", }}
       />
       <TopTabs.Screen
         name="breathing"
         options={{ title: "Breathing", headerTitleAlign: "center" }}
+      />
+      <TopTabs.Screen
+        name="bodyMovement"
+        options={{ title: "Exercises", headerTitleAlign: "center", }}
+      />
+      <TopTabs.Screen
+        name="mandalas"
+        options={{ title: "Mandalas", headerTitleAlign: "center", }}
+      />
+      <TopTabs.Screen
+        name="mentalFocus"
+        options={{ title: "Focus", headerTitleAlign: "center", }}
       />
     </TopTabs>
   );

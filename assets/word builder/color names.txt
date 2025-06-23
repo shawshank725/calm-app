@@ -1,0 +1,12 @@
+['Aero', 'Alizarin', 'Almond', 'Amazon', 'Amber', 'Amethyst', 'Apricot', 
+'Aqua', 'Aquamarine', 'Aureolin', 'Azure', 'Beaver', 'Beige', 'Bisque', 
+'Bistre', 'Black', 'Blue', 'Blue-violet', 'Bluetiful', 'Blush', 'Bole', 
+'Bone', 'Bronze', 'Brown', 'Buff', 'Burgundy', 'Burlywood', 'Byzantine', 
+'Byzantium', 'Camel', 'Canary', 'Cardinal', 'Carmine', 'Carnelian', 'Catawba', 
+'Celadon', 'Celeste', 'Cerise', 'Cerulean', 'Champagne', 'Charcoal', 'Chestnut', 
+'Cinereous', 'Cinnabar', 'Citrine', 'Citron', 'Claret', 'Coffee', 'Copper', 'Coquelicot', 
+'Coral', 'Cordovan', 'Corn', 'Cornsilk', 'Cream', 'Crimson', 'Cyan', 'Cyclamen', 'Dandelion',
+ 'Denim', 'Desert', 'Ebony', 'Ecru', 'Eggplant', 'Eggshell', 'Emerald', 'Eminence', 'Erin',
+ 'Fallow', 'Fandango', 'Fawn', 'Finn', 'Firebrick', 'Flame', 'Flax', 'Flirt', 'Frostbite', 
+ 'Fuchsia', 'Fulvous', 'Red',  'Green', 'Yellow', 'Orange', 'Pink', 'White',  'Gray', 'Grey', 
+ 'Purple', 'Indigo', 'Magenta', 'Lime', 'Navy', 'Olive', 'Maroon', 'Teal', 'Turquoise', 'Gold', 'Silver' ]
