@@ -20,7 +20,7 @@ const LibraryScreen = () => {
           <Text>Here you can view the pdfs related to self help.</Text>
 
           <View>
-            <View></View>
+            
           </View>
         </View>
       </ScrollView>
