@@ -1,5 +1,6 @@
 import { ThemeName, UserRole } from "../themes/types";
 import HomeScreenLightStyles from "./studentStyles/lightTheme/HomeScreenLightStyles";
+import SettingsScreenLightStyles from "./studentStyles/lightTheme/SettingsScreenLightStyles";
 import { CommonStyles } from "./types";
 
 
@@ -7,6 +8,7 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, C
     student: {
         light: {
             HomeScreen: HomeScreenLightStyles,
+            SettingsScreen: SettingsScreenLightStyles,
         },
         dark : {
 

@@ -1,30 +1,46 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
-import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import React, { useEffect } from 'react';
 import { Linking } from 'react-native';
-import { Stack } from 'expo-router';
+import { ActivityIndicator } from 'react-native-paper';
+import { BookCard } from '@/constants/LibraryData';
+import { useGetAllBooks } from '@/api/library/Library';
+import { CustomActivityIndicator1 } from '@/components/CustomActivityIndicator';
 
-
+const numColumns = 2;
 
 const LibraryScreen = () => {
+
+  const {data, error, isLoading} = useGetAllBooks();
+
+  if (isLoading){
+    return <CustomActivityIndicator1 />
+  }
+
+  if (error){
+    return <Text>Failed to fetch the books</Text>
+  }
+
   return (
-    <>
-      <ScrollView style={styles.container}>
-        <View>
-          <TouchableOpacity 
-            activeOpacity={0.7}
-            onPress={() => Linking.openURL("http://1.6.136.107/")}
-          >
-            <Text style={styles.linkText}>Go to SGT University's E-Library</Text>
-          </TouchableOpacity>
+    <View style={styles.container}>
+      {/* <TouchableOpacity 
+        activeOpacity={0.7}
+        onPress={() => Linking.openURL("http://1.6.136.107/")}
+      >
+        <Text style={styles.linkText}>Go to SGT University's E-Library</Text>
+      </TouchableOpacity> */}
 
-          <Text>Here you can view the pdfs related to self help.</Text>
-
-          <View>
-            
-          </View>
-        </View>
-      </ScrollView>
-    </>
+      <View>
+        <FlatList
+          key={numColumns} 
+          data={data}
+          keyExtractor={(item) => item.id.toString()}
+          numColumns={numColumns}
+          renderItem={({ item }) => (<BookCard libraryBook={item} /> )}
+          contentContainerStyle={{ gap: 10, paddingBottom: 20,  }}
+          columnWrapperStyle={{gap: 10,}}
+        />
+      </View>
+    </View>
   );
 };
 

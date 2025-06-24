@@ -12,6 +12,8 @@ module.exports = function (api) {
             images: './assets/images',
             components: './src/components',
             screens: './src/screens',
+            constants: './constants',
+            app: './',
           },
         },
       ],
