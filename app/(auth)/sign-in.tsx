@@ -18,9 +18,11 @@ export default function SignInScreen() {
     setLoading(true);
     const {error} = await supabase.auth.signInWithPassword({email, password,});
 
-    if (error) Alert.alert(error.message);
-    setLoading(false);
-
+    if (error) {
+      Alert.alert(error.message);
+      setLoading(false);
+      return false;
+    }
     Toast.show({
       type: 'success', // 'success' | 'error' | 'info'
       text1: 'Log in successful',

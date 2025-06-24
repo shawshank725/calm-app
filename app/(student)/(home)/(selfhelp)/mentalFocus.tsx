@@ -117,9 +117,31 @@ const MentalFocusGrounding = () => {
       
       <View style={styles.answerContainer}>
         <View style={{flexDirection: 'row', alignItems:'center' , columnGap: 10,}}>
-          <Ionicons name='checkmark-circle-outline' size={50} color="green" style={{ }}/>
+          {(resultCount > 0) ? 
+            (<Ionicons name='checkmark-circle-outline' size={50} color="green"/>): 
+            (<Ionicons name='close-circle-outline' size={50} color="red"/>)
+          }
           <Text style={{fontSize: 20,}}>{`${resultCount} correct answers`}</Text>
         </View>
+        {
+          resultCount >= 0 && resultCount <= 5 ? (
+            <Text style={{fontSize: 20, marginBottom: 10}}>You just started. Keep going!</Text>
+          ) : resultCount <= 10 ? (
+            <Text style={{fontSize: 20, marginBottom: 10}}>You can do better, kid!</Text>
+          ) : resultCount <= 15 ? (
+            <Text style={{fontSize: 20, marginBottom: 10}}>Good effort! You're getting there!</Text>
+          ) : resultCount <= 20 ? (
+            <Text style={{fontSize: 20, marginBottom: 10}}>Nice! Find more words!</Text>
+          ) : resultCount <= 23 ? (
+            <Text style={{fontSize: 20, marginBottom: 10}}>Great job! Almost perfect!</Text>
+          ) : resultCount <= 25 ? (
+            <Text style={{fontSize: 20, marginBottom: 10}}>Amazing! You're a word wizard!</Text>
+          ) : resultCount === 26 ? (
+            <Text style={{fontSize: 20, marginBottom: 10}}>Perfect score! You're unstoppable!</Text>
+          ) : (
+            <Text style={{fontSize: 20, marginBottom: 10}}>Hmm, something’s not right...</Text>
+          )
+        }
       </View>
 
     </View>

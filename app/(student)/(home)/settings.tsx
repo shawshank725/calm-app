@@ -71,6 +71,7 @@ export default function ProfileScreen() {
             <>
               <Text style={profileStyles.fullName}>{profile.full_name}</Text>
               <Text>{profile.username}</Text>
+              <Text>{session.user.email}</Text>
             </>
           ) : (
             <Text>Loading profile...</Text>
