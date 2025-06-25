@@ -8,7 +8,6 @@ import { ContentNotFoundText } from '@/components/library/ContentNotFoundText';
 
 const numColumns = 2;
 
-
 const AuthorBooksScreen = () => {
     const { book_author } = useLocalSearchParams();
     const decodedAuthor = decodeURIComponent(String(book_author));
@@ -16,10 +15,10 @@ const AuthorBooksScreen = () => {
     const navigation = useNavigation();
 
     useLayoutEffect(() => {
-    navigation.setOptions({
-      title: decodedAuthor,
-    });
-  }, [navigation, decodedAuthor]);
+        navigation.setOptions({
+        title: decodedAuthor,
+        });
+    }, [navigation, decodedAuthor]);
   
     if (isLoading){
         return <CustomActivityIndicator1 />

@@ -3,6 +3,7 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -18,7 +19,10 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="[book_author]" options={{ headerShown: true, headerTitleAlign: 'center'}} />
+        <Stack.Screen name="[book_author]" options={{ headerShown: true, 
+          headerTitleAlign: 'center',
+          headerTintColor: 'black',
+          }} />
       </Stack>
     </ThemeProvider>
   );

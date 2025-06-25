@@ -13,6 +13,7 @@ export const LibrarySearchBar = ({ text, setText, onSearch }: SearchBarProps) =>
       alignItems:'center',
       columnGap: 10,
       marginBottom: 10, 
+      paddingHorizontal: 10,
       }}>
       <View style={{flex: 2,flexDirection: 'row', alignItems: 'center', columnGap: 10}}>
       <View style={{flex: 1}}>
@@ -20,7 +21,7 @@ export const LibrarySearchBar = ({ text, setText, onSearch }: SearchBarProps) =>
         value={text}
         onChangeText={setText}
         placeholder="Enter book or author name"
-        style={{backgroundColor: '#E1EBEE', textDecorationColor: 'none', borderRadius: 10,}}/>
+        style={{backgroundColor: '#E1EBEE', textDecorationColor: 'none', borderRadius: 10,height: 40, padding: 5,}}/>
       </View>
       <TouchableOpacity activeOpacity={0.8} onPress={()=> {setText("")}}>
         <Ionicons name="close-circle-outline" size={30} color="green"/>

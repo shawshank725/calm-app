@@ -70,7 +70,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: 'yellow',
   },
-  input: {
-    
-  },
 });

@@ -11,15 +11,14 @@ export default function RootLayout() {
   });
 
   if (!loaded) {
+    // Async font loading only occurs in development.
     return null;
   }
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(home)" options={{ headerShown: false }} />
-        <Stack.Screen name="(misc)" options={{ headerShown: false }} />
-        <Stack.Screen name="(library)" options={{ headerShown: false,  }} />
+        <Stack.Screen name="[searchInput]" options={{ headerShown: true, headerTitleAlign: 'center'}} />
       </Stack>
     </ThemeProvider>
   );
