@@ -25,6 +25,7 @@ export default function RootLayout() {
         <Stack.Screen name="library" options={{ headerTitle:"The Support Shelf" , 
                                                 headerBackTitle: "Home",
                                                 headerShown: true, headerTitleAlign: 'center' }} />
+        <Stack.Screen name="booksByAuthor" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );

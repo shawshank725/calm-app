@@ -15,14 +15,27 @@ export const useGetOneBook = (id: number) => {
 }
 
 export const useGetAllBooks = () => {
-    return useQuery({
-        queryKey: ['library'],
-        queryFn: async () => { // specify how data is to be fetched
-        const {data, error} = await supabase.from("library").select("*");
-        if (error){
-            throw new Error(error.message);
-        }
-        return data;
-        }
-    });
+  return useQuery({
+    queryKey: ['library'],
+    queryFn: async () => { // specify how data is to be fetched
+    const {data, error} = await supabase.from("library").select("*");
+    if (error){
+        throw new Error(error.message);
+    }
+    return data;
+    }
+  });
+}
+
+export const useGetAllBooksByAuthor = (book_author: string) => {
+return useQuery({
+    queryKey: ['library', book_author],
+    queryFn: async () => { // specify how data is to be fetched
+    const {data, error} = await supabase.from("library").select("*").eq("book_author", book_author);
+    if (error){
+        throw new Error(error.message);
+    }
+    return data;
+    }
+  });
 }
