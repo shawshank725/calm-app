@@ -19,7 +19,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}> 
       
-      <TouchableOpacity onPress={() => { useRouter().navigate("/(student)/(misc)/library");}} activeOpacity={0.5}> 
+      <TouchableOpacity onPress={() => { useRouter().navigate("/(student)/(library)");}} activeOpacity={0.5}> 
         <View style={{borderRadius: 20,overflow: 'hidden', marginVertical: 10, borderWidth: 3,backgroundColor: 'white'}}>
           <View style={{width: '100%', height: 150 ,borderBottomWidth: 3,}}>
             <Image source={require("assets/images/library-card-photo.jpg")} style={{width: '100%',height: '100%',  }}/>

@@ -22,12 +22,3 @@ const BookDetailsScreen = () => {
 }
 
 export default BookDetailsScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 10, 
-    backgroundColor: 'lightgrey',
-    flex: 1,
-  },
-
-})
