@@ -183,8 +183,6 @@ const ProfileEditor = () => {
     router.navigate("/(student)/(home)/settings");
   };
 
-  
-  // return view if loading here -----------------------------
   if (loading) {
     return (
       <View style={styles.centered}>

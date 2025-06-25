@@ -5,6 +5,7 @@ import { CustomActivityIndicator1 } from '@/components/CustomActivityIndicator';
 import { useRouter } from 'expo-router';
 import { BookCard } from '@/components/library/BookCard';
 import { LibrarySearchBar } from '@/components/library/LibrarySearchBar';
+import { SGTLibraryLink } from '@/components/library/SGTLibraryLink';
 
 const numColumns = 2;
 
@@ -27,14 +28,9 @@ const LibraryScreen = () => {
     <View style={styles.container}>
       
       <LibrarySearchBar text={searchInput} setText={setSearchInput} 
-      onSearch={() => { router.navigate(`/searchResult/${searchInput}`); }}/>
+      onSearch={() => { if (searchInput) router.navigate(`/searchResult/${searchInput}`); }}/>
 
-      {/* <TouchableOpacity 
-        activeOpacity={0.7}
-        onPress={() => Linking.openURL("http://1.6.136.107/")}
-      >
-        <Text style={styles.linkText}>Go to SGT University's E-Library</Text>
-      </TouchableOpacity> */}
+      <SGTLibraryLink />
 
       <View>
         <FlatList
@@ -59,15 +55,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightskyblue',
     padding: 10,
     alignSelf: 'stretch', 
-  },
-  linkText: {
-    fontSize: 17,
-    fontWeight: 'bold',
-    borderRadius: 10,
-    borderWidth: 2,
-    color: 'blue',
-    padding: 10,
-    textAlign: 'center',
-    backgroundColor: 'yellow',
   },
 });

@@ -1,14 +1,35 @@
 import { LibraryBookProp } from "@/constants/LibraryData";
 import { supabase } from "@/lib/supabase";
 import { Ionicons } from "@expo/vector-icons";
-import { Stack, Link, router } from "expo-router";
+import { Stack, Link, router, useNavigation } from "expo-router";
 import { ImageBackground, View, TouchableOpacity, Alert, Image, Text} from "react-native";
 import Toast from "react-native-toast-message";
 import NewButton from "../NewButton";
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing'; 
+import { useEffect } from "react";
 
 export const BookDetailsContent = ({ libraryBook }: LibraryBookProp) => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: libraryBook.book_name,
+      headerTitleAlign: 'center',
+      headerBackground: () => (
+        <ImageBackground
+          source={{ uri: libraryBook.thumbnail_url }}
+          resizeMode="cover"
+          style={{ flex: 1 }}
+          blurRadius={70}
+        />
+      ),
+      headerTintColor: 'white',
+      headerTitleStyle: { color: 'white' },
+    });
+  }, [libraryBook]);
+
+  
   return (
     <ImageBackground
       source={{ uri: libraryBook.thumbnail_url }}
@@ -16,22 +37,21 @@ export const BookDetailsContent = ({ libraryBook }: LibraryBookProp) => {
       style={{flex: 1, padding: 10, }}
       blurRadius={40}
     >
-      <Stack.Screen options={{
-        title: libraryBook.book_name ,
-        headerTitleAlign: 'center',
-        headerBackground: () => (
-        <ImageBackground source={{ uri: libraryBook.thumbnail_url }}
-          resizeMode="cover" style={{flex: 1,  }} blurRadius={70}></ImageBackground>),
-        headerTintColor: 'white',
-        headerTitleStyle: {color: 'white'}
-      }}/>
+
       
       <Image source={{uri: libraryBook.thumbnail_url}} style={{width:"100%",aspectRatio: 1, resizeMode: 'contain', alignSelf: 'center',}}/>
       <View style={{backgroundColor: 'white', padding: 15, borderRadius: 10, marginVertical: 10}}>
+
         <View style={{flexDirection: 'row'}}>
           <Text style={{fontWeight:'bold'}}>Written by: </Text>
           <Link href={`/booksByAuthor/${encodeURIComponent(libraryBook.book_author)}`} replace style={{color: 'blue'}}>{libraryBook.book_author}</Link>
         </View>
+
+        <View style={{flexDirection: 'row'}}>
+          <Text style={{fontWeight:'bold'}}>Page count: </Text>
+          <Text>{libraryBook.page_count}</Text>
+        </View>
+        
         <Text style={{fontSize:20, fontWeight: 'bold'}}>Description</Text>
         <Text style={{textAlign: 'justify'}}>{libraryBook.description}</Text>
       </View>

@@ -5,6 +5,7 @@ export type LibraryBook = {
   book_author: string;
   pdf_url: string;
   description: string,
+  page_count : number,
 };
 
 export type LibraryBookProp = {

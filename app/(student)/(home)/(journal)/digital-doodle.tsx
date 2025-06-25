@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useRef, useState, } from "react";
-import {  View,  StyleSheet,  useWindowDimensions,  TouchableOpacity,  ActivityIndicator,} from "react-native";
+import {  View,  StyleSheet,  useWindowDimensions,  TouchableOpacity,  ActivityIndicator, Platform,} from "react-native";
 import { Gesture, GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
 import { Canvas, Path } from "@shopify/react-native-skia";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -113,7 +113,7 @@ export default function DigitalDoodle() {
             style={{
               height: 60, 
               position: "absolute",
-              bottom: 5,
+              bottom: Platform.OS == "ios" ? 100: 5,
               flexDirection: "row",
               justifyContent: "space-evenly",
               backgroundColor: "white",

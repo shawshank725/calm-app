@@ -21,7 +21,7 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="booksByAuthor" options={{ headerShown: false }} />
         <Stack.Screen name="searchResult" options={{ headerShown: false, headerTitleAlign: 'center' }} />
-        <Stack.Screen name="[id]" options={{ headerShown: true, headerTitleAlign: 'center', headerTintColor: 'white' }} />
+        <Stack.Screen name="[id]" options={{ headerShown: true,  }} />
         <Stack.Screen name="library" 
           options={{ 
             headerTitle:"The Support Shelf" , 

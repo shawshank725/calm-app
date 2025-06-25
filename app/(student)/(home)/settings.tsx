@@ -16,8 +16,6 @@ type Profile = {
   avatar_url?:string;
 };
 
-const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg";
-
 export default function ProfileScreen() {
   const {session, loading} = useAuth();
   const [profile, setProfile] = useState<Profile | null>(null);
