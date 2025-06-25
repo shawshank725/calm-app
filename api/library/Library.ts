@@ -39,3 +39,26 @@ return useQuery({
     }
   });
 }
+
+export const useGetAllBooksAndAuthors = (input: string) => {
+  return useQuery({
+    queryKey: ["merged-books-and-authors", input],
+    queryFn: async () => {
+      const [booksRes, authorsRes] = await Promise.all([
+        supabase.from("library").select("*").ilike("book_name", `%${input}%`),
+        supabase.from("library").select("*").ilike("book_author", `%${input}%`)
+      ]);
+
+      if (booksRes.error || authorsRes.error) {
+        throw booksRes.error || authorsRes.error;
+      }
+
+      // Merge and remove duplicates based on unique `id`
+      const merged = [...booksRes.data, ...authorsRes.data];
+      const unique = Array.from(new Map(merged.map(item => [item.id, item])).values());
+
+      return unique;
+    },
+    enabled: !!input.trim(),
+  });
+};

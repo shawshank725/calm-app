@@ -1,17 +1,18 @@
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
-import React, { useEffect } from 'react';
-import { Linking } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
-import { BookCard } from '@/constants/LibraryData';
+import { View, Text, StyleSheet, TextInput, FlatList } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { BookCard, LibrarySearchBar } from '@/constants/LibraryData';
 import { useGetAllBooks } from '@/api/library/Library';
 import { CustomActivityIndicator1 } from '@/components/CustomActivityIndicator';
+import { useRouter } from 'expo-router';
 
 const numColumns = 2;
 
 const LibraryScreen = () => {
 
   const {data, error, isLoading} = useGetAllBooks();
-
+  const [searchInput, setSearchInput] = useState("");
+  const router = useRouter();
+  
   if (isLoading){
     return <CustomActivityIndicator1 />
   }
@@ -20,8 +21,13 @@ const LibraryScreen = () => {
     return <Text>Failed to fetch the books</Text>
   }
 
+
   return (
     <View style={styles.container}>
+      
+      <LibrarySearchBar text={searchInput} setText={setSearchInput} 
+      onSearch={() => { router.navigate(`/searchResult/${searchInput}`); }}/>
+
       {/* <TouchableOpacity 
         activeOpacity={0.7}
         onPress={() => Linking.openURL("http://1.6.136.107/")}
@@ -51,7 +57,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'lightskyblue',
     padding: 10,
-    alignSelf: 'stretch', // Better than alignItems in ScrollView container
+    alignSelf: 'stretch', 
   },
   linkText: {
     fontSize: 17,
@@ -62,5 +68,8 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: 'center',
     backgroundColor: 'yellow',
-  }
+  },
+  input: {
+    
+  },
 });

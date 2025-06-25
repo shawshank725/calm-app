@@ -2,7 +2,7 @@ import NewButton from "@/components/NewButton";
 import { supabase } from "@/lib/supabase";
 import { Ionicons } from "@expo/vector-icons";
 import { Link, router, Stack } from "expo-router";
-import { View, Image, Text, Pressable, ImageBackground, TouchableOpacity, Alert } from "react-native";
+import { View, Image, Text, Pressable, ImageBackground, TouchableOpacity, Alert, TextInput } from "react-native";
 import Toast from "react-native-toast-message";
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing'; 
@@ -131,4 +131,38 @@ export const ContentNotFoundText = ({book_author}: {book_author: string}) => {
       <Text style={{textAlign: 'center', fontSize: 20, }}>Failed to find books</Text>
     </View>
   );
+}
+
+type SearchBarProps = {
+  text: string;
+  setText: (text: string) => void;
+  onSearch?: () => void;
+};
+
+export const LibrarySearchBar = ({ text, setText, onSearch }: SearchBarProps) => {
+  return (
+    <View style={{flexDirection: 'row', 
+      backgroundColor: 'white',
+      borderRadius: 10,
+      padding: 5,
+      alignItems:'center',
+      columnGap: 10,
+      marginBottom: 10, 
+      }}>
+      <View style={{flex: 2,flexDirection: 'row', alignItems: 'center', columnGap: 10}}>
+      <View style={{flex: 1}}>
+        <TextInput
+        value={text}
+        onChangeText={setText}
+        placeholder="Enter book or author name"
+        style={{backgroundColor: '#E1EBEE', textDecorationColor: 'none', borderRadius: 10,}}/>
+      </View>
+      <TouchableOpacity activeOpacity={0.8} onPress={()=> {setText("")}}>
+        <Ionicons name="close-circle-outline" size={30} color="green"/>
+      </TouchableOpacity>
+      </View>
+      <View style={{ flex: 1 }}>
+        <NewButton title="Search" onPress={onSearch || (() => {})} />
+      </View>
+    </View>);
 }
