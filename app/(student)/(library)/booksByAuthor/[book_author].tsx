@@ -1,9 +1,10 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, FlatList } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useGetAllBooksByAuthor } from '@/api/library/Library';
 import { CustomActivityIndicator1 } from '@/components/CustomActivityIndicator';
-import { Stack, useLocalSearchParams, useNavigation } from 'expo-router';
-import { BookCard, ContentNotFoundText } from '@/constants/LibraryData';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { BookCard } from '@/components/library/BookCard';
+import { ContentNotFoundText } from '@/components/library/ContentNotFoundText';
 
 const numColumns = 2;
 

@@ -18,7 +18,7 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="[book_author]" options={{ headerShown: true,headerTitleAlign: 'center'}} />
+        <Stack.Screen name="[book_author]" options={{ headerShown: true, headerTitleAlign: 'center'}} />
       </Stack>
     </ThemeProvider>
   );

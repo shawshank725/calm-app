@@ -22,10 +22,7 @@ export default function RootLayout() {
         <Stack.Screen name="info" options={{ headerShown: true, }} />
         <Stack.Screen name="profile" options={{ headerTitle:"Edit Profile" ,  headerShown: true, }} />
         <Stack.Screen name="password" options={{ headerTitle:"Change Password" ,  headerShown: true, headerBackTitle: "Profile" }} />
-        <Stack.Screen name="library" options={{ headerTitle:"The Support Shelf" , 
-                                                headerBackTitle: "Home",
-                                                headerShown: true, headerTitleAlign: 'center' }} />
-        <Stack.Screen name="booksByAuthor" options={{ headerShown: false }} />
+        
       </Stack>
     </ThemeProvider>
   );

@@ -1,5 +1,5 @@
-import { View, ActivityIndicator, StyleSheet, Text, Platform, TouchableOpacity } from 'react-native';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { View,  StyleSheet, Text, Platform, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
 import { Stack, useLocalSearchParams, useNavigation } from 'expo-router';
 import { useGetOneBook } from '@/api/library/Library';
 import { WebView } from 'react-native-webview';
@@ -9,8 +9,7 @@ const PDFViewerScreen = () => {
   const { id } = useLocalSearchParams();
   const { data, error, isLoading } = useGetOneBook(Number(id));
   const pdfViewerUrl = `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(data.pdf_url)}`;
-  const navigation = useNavigation();
-
+  
   const [menuVisible, setMenuVisible] = useState(false);
 
   if (isLoading) {

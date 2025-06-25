@@ -1,9 +1,9 @@
-import { Text, StyleSheet, } from 'react-native'
+import { Text, } from 'react-native'
 import React from 'react'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useGetOneBook } from '@/api/library/Library';
 import { CustomActivityIndicator1 } from '@/components/CustomActivityIndicator';
-import { BookDetailsContent } from '@/constants/LibraryData';
+import { BookDetailsContent } from '@/components/library/BookDetailsContent';
 
 const BookDetailsScreen = () => {
   const { id } = useLocalSearchParams();

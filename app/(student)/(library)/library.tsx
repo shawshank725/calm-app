@@ -1,9 +1,10 @@
 import { View, Text, StyleSheet, TextInput, FlatList } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { BookCard, LibrarySearchBar } from '@/constants/LibraryData';
+import React, { useState } from 'react';
 import { useGetAllBooks } from '@/api/library/Library';
 import { CustomActivityIndicator1 } from '@/components/CustomActivityIndicator';
 import { useRouter } from 'expo-router';
+import { BookCard } from '@/components/library/BookCard';
+import { LibrarySearchBar } from '@/components/library/LibrarySearchBar';
 
 const numColumns = 2;
 
