@@ -34,3 +34,4 @@ const BookDetailsScreen = () => {
 }
 
 export default BookDetailsScreen;
+

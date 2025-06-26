@@ -23,8 +23,11 @@ export type CommonStyles = {
   // buddy connect styles
   inputContainer?: ViewStyle;
   input?: TextStyle;
-  floatingButton?: ViewStyle
+  floatingButton?: ViewStyle;
 
+
+
+  // all components here ------------------------
   // book cards
   pressableCard?: ViewStyle;
   bookImage?: ImageStyle;
@@ -53,7 +56,8 @@ export type CommonStyles = {
 
   // sgt library link
   linkText?: TextStyle;
-  
+
+
   row?: ViewStyle;
   optionButton?: ViewStyle;
   headerBar?: ViewStyle;

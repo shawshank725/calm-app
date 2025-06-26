@@ -6,6 +6,7 @@ import { useRouter } from 'expo-router';
 import { BookCard } from '@/components/library/BookCard';
 import { LibrarySearchBar } from '@/components/library/LibrarySearchBar';
 import { SGTLibraryLink } from '@/components/library/SGTLibraryLink';
+import { useAppTheme } from '@/constants/themes/ThemeManager';
 
 const numColumns = 2;
 
@@ -15,6 +16,9 @@ const LibraryScreen = () => {
   const [searchInput, setSearchInput] = useState("");
   const router = useRouter();
   
+  const {styles} = useAppTheme();
+  const screenStyles = styles.Library;
+
   if (isLoading){
     return <CustomActivityIndicator1 />
   }
@@ -25,7 +29,7 @@ const LibraryScreen = () => {
 
 
   return (
-    <View style={styles.container}>
+    <View style={screenStyles.container}>
       
       <LibrarySearchBar text={searchInput} setText={setSearchInput} 
       onSearch={() => { if (searchInput) router.navigate(`/searchResult/${searchInput}`); }}/>
@@ -48,12 +52,3 @@ const LibraryScreen = () => {
 };
 
 export default LibraryScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'lightskyblue',
-    padding: 10,
-    alignSelf: 'stretch', 
-  },
-});

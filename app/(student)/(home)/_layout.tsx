@@ -9,18 +9,23 @@ import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { useAppTheme } from "@/constants/themes/ThemeManager";
 
 
 export default function TabLayout() {
+  const { styles } = useAppTheme();
+  const tabStyles = styles.BottomTab;
+  
   const colorScheme = useColorScheme();
   //const [fontsLoaded] = useFonts({   Carnevalee: require('assets/fonts/Carnevalee Freakshow.ttf'),  });
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        //tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarActiveTintColor: "red",
         headerShown: false,
         tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
+        tabBarBackground: "black",
         tabBarStyle: Platform.select({
           ios: {
             position: "absolute",
