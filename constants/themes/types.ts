@@ -15,5 +15,13 @@ export type CommonStyles = {
 };
 
 export type UserRole = 'admin' | 'student' | 'expert';
-export type ThemeName = 'light' | 'dark' | 'highContrast';
+export type ThemeName = 'light' | 'dark';
 
+export type ThemeContextType = {
+  theme: ThemeName;
+  role: UserRole;
+  styles: Record<string, CommonStyles>;
+  setTheme: (theme: ThemeName) => void;
+  setRole: (role: UserRole) => void;
+  toggleTheme: () => void; 
+};

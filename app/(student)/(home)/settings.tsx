@@ -2,12 +2,13 @@ import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/providers/AuthProvider";
 import {  useRouter } from "expo-router";
 import { useState } from "react";
-import {  StyleSheet, View, Text,Image, TouchableOpacity } from "react-native";
+import {  StyleSheet, View, Text,Image, TouchableOpacity, Switch } from "react-native";
 import Toast from "react-native-toast-message";
 import { useProfilePhoto } from "@/api/profile/Profile";
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type Profile = {
   full_name: string;
@@ -20,6 +21,7 @@ export default function ProfileScreen() {
   const {session, loading} = useAuth();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [image, setImage] = useState<string | null>(null);
+  const [isEnabled, setIsEnabled] = useState(false);
 
   const { data: imageUrl, isLoading } = useProfilePhoto(session?.user.id);
   
@@ -105,6 +107,24 @@ export default function ProfileScreen() {
         </View>
       </View>
       
+      <View style={{flexDirection: 'row', backgroundColor: 'white', alignItems:'center', borderRadius: 10, marginTop: 5, justifyContent:"space-between"  }}>
+        <Text style={appInfoStyles.text}>{isEnabled ? "Dark" : "Light"} Mode on: </Text>
+        <Switch 
+          value={isEnabled}
+          onValueChange={async (value) => {
+            setIsEnabled(value);
+
+            // Save preference to AsyncStorage
+            try {
+              await AsyncStorage.setItem('theme', value ? 'dark' : 'light');
+            } catch (error) {
+              console.log("Failed to save theme:", error);
+            }
+          }}
+          trackColor={{ false: "grey", true: 'green' }}
+          thumbColor={isEnabled ? "lightblue" : "lightblue"}
+        />
+      </View>
 
       {/* logout functionality */}
       <TouchableOpacity onPress={async () => {
@@ -112,18 +132,18 @@ export default function ProfileScreen() {
             const { error } = await supabase.auth.signOut();
             if (error) {
               Toast.show({
-                type: 'error', // 'success' | 'error' | 'info'
+                type: 'error', 
                 text1: 'Could not log out',
-                position: 'bottom', // or 'bottom'
+                position: 'bottom', 
                 visibilityTime: 2000
               });
             } else {
               console.log("Logged out");
               router.replace("/(auth)/sign-in");
               Toast.show({
-                type: 'success', // 'success' | 'error' | 'info'
+                type: 'success', 
                 text1: 'Log out successful',
-                position: 'bottom', // or 'bottom'
+                position: 'bottom',
                 visibilityTime: 1500
               });
             }

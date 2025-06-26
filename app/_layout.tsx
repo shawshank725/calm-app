@@ -1,15 +1,15 @@
-import {  DarkTheme,  DefaultTheme,  ThemeProvider,} from "@react-navigation/native";
+import {  DarkTheme,  DefaultTheme,  } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 import Toast from "react-native-toast-message";
-import { Provider as PaperProvider } from 'react-native-paper';
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 import AuthProvider from "@/providers/AuthProvider";
 import toastConfig from "@/components/CustomToast";
 import QueryProvider from "@/providers/QueryProvider";
+import { ThemeProvider } from "@/constants/themes/ThemeManager";
 
 export default function RootLayout() {
   
@@ -24,7 +24,8 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    // <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <ThemeProvider>
       <AuthProvider>
         <QueryProvider>
           <StatusBar style="dark" hidden={false}/>
