@@ -1,17 +1,19 @@
 import { useInsertMessage, useMessageList } from '@/api/messenger/BuddyConnectMessaging';
 import { useProfilePhoto } from '@/api/profile/Profile';
+import { CustomActivityIndicator1 } from '@/components/CustomActivityIndicator';
 import SendButton from '@/components/SendButton';
+import { useAppTheme } from '@/constants/themes/ThemeManager';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/providers/AuthProvider';
 import { useQueryClient } from '@tanstack/react-query';
 import React, { useEffect, useRef, useState } from 'react';
 import { Image, View, StyleSheet, Text, 
-  FlatList, KeyboardAvoidingView, ActivityIndicator, 
-  Platform, TouchableOpacity, SafeAreaView } from 'react-native';
+  FlatList, KeyboardAvoidingView,  Platform, TouchableOpacity, SafeAreaView } from 'react-native';
 import {  TextInput } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Wrapper = Platform.OS === 'ios' ? SafeAreaView : View;
+
 
 const MessageItem = ({ item, isCurrentUser }: { item: any; isCurrentUser: boolean }) => {
   const { data: photoUrl } = useProfilePhoto(item.user_id);
@@ -30,7 +32,10 @@ const MessageItem = ({ item, isCurrentUser }: { item: any; isCurrentUser: boolea
       }}
     >
       { photoUrl && (
-        <Image source={{ uri: photoUrl }} style={styles.profilePhoto} />
+        <Image source={{ uri: photoUrl }} style={{width: 40,
+        height: 40,
+        borderRadius: 20,
+        marginRight: 10,}} />
       )}
       <View style={{flexShrink: 1}}>
         <Text style={{ fontSize: 16 }}>{item.message}</Text>
@@ -45,7 +50,10 @@ const MessageItem = ({ item, isCurrentUser }: { item: any; isCurrentUser: boolea
 };
 
 const BuddyConnect = () => {
-  
+
+  const { styles } = useAppTheme();
+  const screenStyles = styles.BuddyConnectScreen; 
+
   const {data, error, isLoading, refetch} = useMessageList();
   const [message, setMessage] = useState('');
   const {mutate: insertMessage} = useInsertMessage();
@@ -57,7 +65,7 @@ const BuddyConnect = () => {
 
   useEffect(() => {
     flatListRef.current?.scrollToEnd({ animated: true });
-  }, [data]); // scroll every time new message is added
+  }, [data]); 
 
   useEffect(() => {
     const channel = supabase
@@ -66,7 +74,7 @@ const BuddyConnect = () => {
         'postgres_changes',
         { event: 'INSERT', schema: 'public', table: 'buddy_messages' },
         (payload) => {
-          refetch(); // refresh messages on insert
+          refetch(); 
         }
       )
       .subscribe();
@@ -78,7 +86,7 @@ const BuddyConnect = () => {
 
   
   if (isLoading){
-    return <ActivityIndicator />
+    return <CustomActivityIndicator1 />
   }
 
   if (error ){
@@ -108,7 +116,7 @@ const BuddyConnect = () => {
       keyboardVerticalOffset={Platform.select({ ios: 37, android: 90 })}
     >
     <Wrapper style={{flex: 1,}}>
-      <View style={styles.container}>
+      <View style={screenStyles.container}>
         
         <FlatList
           data={data}
@@ -130,13 +138,13 @@ const BuddyConnect = () => {
           contentContainerStyle={{ flexGrow: 1,}}
         />
 
-        <View style={styles.inputContainer}>
+        <View style={screenStyles.inputContainer}>
           <TextInput
             value={message}
             onChangeText={setMessage}
             placeholder="Type a message"
             mode="outlined"
-            style={styles.input}
+            style={screenStyles.input}
             outlineStyle={{ borderWidth: 2 }}
             theme={{
               roundness: 10,
@@ -150,7 +158,7 @@ const BuddyConnect = () => {
         </View>
 
         {showDownButton && 
-          <TouchableOpacity style={styles.floatingButton}
+          <TouchableOpacity style={screenStyles.floatingButton}
             onPress={() => flatListRef.current?.scrollToEnd({ animated: true })}>
             <Icon name="chevron-down" size={20} color="#900" />
           </TouchableOpacity>
@@ -162,42 +170,3 @@ const BuddyConnect = () => {
 };
 
 export default BuddyConnect;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'lightskyblue',
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgb(0, 255, 13)',
-    paddingHorizontal: 6,
-    paddingVertical: 6,
-    marginBottom: Platform.OS === "ios" ? 56: 0,
-  },
-  input: {
-    flex: 1,
-    marginRight: 5,
-    backgroundColor: 'rgb(255, 252, 86)',
-    height: 40,
-  },
-  floatingButton: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: Platform.OS === "ios" ? 120: 60,
-    right: 7,
-    backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 20,
-  },
-  profilePhoto: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 10,
-  }
-});

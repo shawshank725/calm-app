@@ -6,8 +6,7 @@ import { useAppTheme } from "@/constants/themes/ThemeManager";
 export default function HomeScreen() {
   const { styles } = useAppTheme();
   const screenStyles = styles.HomeScreen;
-  console.log(styles);
-  console.log(screenStyles);
+
   return (
     <View style={screenStyles?.container}> 
       <Card navigateTo={"/(student)/(library)"} 
@@ -19,11 +18,3 @@ export default function HomeScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    backgroundColor: "#B9D9EB",
-    flex: 1,
-  },
-});

@@ -1,6 +1,6 @@
 import { CommonStyles } from "../../types";
 
-const SettingsScreenLightStyles: CommonStyles = {
+const SettingsScreenDarkStyles: CommonStyles = {
   appInfoContainer: {
     backgroundColor: "white", 
     borderRadius: 10, 
@@ -35,14 +35,6 @@ const SettingsScreenLightStyles: CommonStyles = {
     fontSize: 17,
     color: 'red'
   },
-  switchContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: 'white',
-    marginTop: 5,
-    borderRadius: 10,
-    padding: 10
-  },
   singleItems: {
     backgroundColor: "white", 
     padding:10,
@@ -56,6 +48,14 @@ const SettingsScreenLightStyles: CommonStyles = {
     alignItems: 'center', 
     flexDirection: 'row', 
     justifyContent: 'space-between',
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: 'white',
+    marginTop: 5,
+    borderRadius: 10,
+    padding: 10
   },
   profilePhoto: {
     width: 60,
@@ -83,14 +83,13 @@ const SettingsScreenLightStyles: CommonStyles = {
   container: {
     padding: 10,
     flex: 1,
-    backgroundColor: "lightgreen",
+    backgroundColor: "green",
   },
   input: {
     marginBottom: 25,
     backgroundColor: '#E1EBEE',
     textDecorationColor: 'none',
   },
-
 };
 
-export default SettingsScreenLightStyles;
+export default SettingsScreenDarkStyles;
