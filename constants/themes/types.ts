@@ -25,12 +25,43 @@ export type CommonStyles = {
   input?: TextStyle;
   floatingButton?: ViewStyle
 
+  // book cards
+  pressableCard?: ViewStyle;
+  bookImage?: ImageStyle;
+  bookNameStyles?: TextStyle;
+  bookAuthorStyles?: TextStyle;
+
+  // book details content
+  imageBackgroundStyles?: ViewStyle;
+  bookThumbnailPhoto?: ImageStyle;
+  bookInformationContainer?: ViewStyle;
+  writtenByText?: TextStyle;
+  authorNameLink?: TextStyle;
+  pageCountText?: TextStyle;
+  descriptionText?: TextStyle;
+  description?: TextStyle;
+  extraOptionsContainer?: ViewStyle;
+
+  // content not found text
+  headerView?: ViewStyle;
+  failedToFindBooksText?: TextStyle;
+
+  // library search bar
+  librarySearchBarContainer?: ViewStyle;
+  searchBarAndCrossContainer?: ViewStyle;
+  searchInputStyles?: TextStyle;
+
+  // sgt library link
+  linkText?: TextStyle;
+  
   row?: ViewStyle;
   optionButton?: ViewStyle;
   headerBar?: ViewStyle;
   center?: TextStyle;
   left?: TextStyle;
   buddyConnect?: ViewStyle;
+
+  
   [customKey: string]: ViewStyle | TextStyle | ImageStyle | undefined;
 };
 

@@ -54,8 +54,9 @@ const SettingsScreenDarkStyles: CommonStyles = {
     justifyContent: 'space-between',
     backgroundColor: 'white',
     marginTop: 5,
+    alignItems: 'center',
     borderRadius: 10,
-    padding: 10
+    paddingHorizontal: 10
   },
   profilePhoto: {
     width: 60,

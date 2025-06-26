@@ -41,7 +41,8 @@ const SettingsScreenLightStyles: CommonStyles = {
     backgroundColor: 'white',
     marginTop: 5,
     borderRadius: 10,
-    padding: 10
+    alignItems:'center',
+    paddingHorizontal: 10
   },
   singleItems: {
     backgroundColor: "white", 
