@@ -20,7 +20,7 @@ export default function ShowImage() {
       </TouchableOpacity>
 
       <ImageViewer
-        imageUrls={[{ url }]} // expects array of image objects with {url: string}
+        imageUrls={[{ url }]} 
         backgroundColor="black"
         enableSwipeDown
         onSwipeDown={() => navigation.goBack()}

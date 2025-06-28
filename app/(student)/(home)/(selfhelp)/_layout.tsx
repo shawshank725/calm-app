@@ -1,64 +1,34 @@
 import { withLayoutContext } from "expo-router";
-import { createMaterialTopTabNavigator, MaterialTopTabBarProps } from "@react-navigation/material-top-tabs";
-import {  View,  Text,  TouchableOpacity,  StyleSheet,  useColorScheme,} from "react-native";
+import { createMaterialTopTabNavigator,  } from "@react-navigation/material-top-tabs";
+import {   StyleSheet} from "react-native";
+import { useAppTheme } from "@/constants/themes/ThemeManager";
+import { useFonts } from "expo-font";
 
 const Tab = createMaterialTopTabNavigator();
 const TopTabs = withLayoutContext(Tab.Navigator);
 
-function CustomTabBar({ state, descriptors, navigation }: MaterialTopTabBarProps) {
-  const colorScheme = useColorScheme();
-
-  return (
-    <View style={styles.tabBarContainer}>
-      {state.routes.map((route, index) => {
-        const { options } = descriptors[route.key];
-        const label = options.title ?? route.name;
-        const isFocused = state.index === index;
-
-        const onPress = () => {
-          const event = navigation.emit({
-            type: "tabPress",
-            target: route.key,
-            canPreventDefault: true
-          });
-
-          if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name);
-          }
-        };
-
-        return (
-          <TouchableOpacity
-            key={route.key}
-            accessibilityRole="button"
-            accessibilityState={isFocused ? { selected: true } : {}}
-            onPress={onPress}
-            style={[styles.tabButton, isFocused && styles.activeTabButton]}
-          >
-            <Text style={[styles.tabText, isFocused && styles.activeTabText]}>
-              {label}
-            </Text>
-          </TouchableOpacity>
-        );
-      })}
-    </View>
-  );
-}
 
 export default function SelfHelpNavigator() {
+  const {styles } = useAppTheme();
+  const tabStyles = styles?.TopTab?.TopTab ?? {};
+  
   return (
     <TopTabs
-      // tabBar={(props) => <CustomTabBar {...props} />}
       screenOptions={{
         swipeEnabled: false,
         animationEnabled: true,
         tabBarScrollEnabled: true,
-        //tabBarItemStyle: { width: 'auto' },
+        tabBarIndicatorStyle: tabStyles.tabBarIndicatorStyle,
+        tabBarActiveTintColor: tabStyles.tabBarActiveTintColor,
+        tabBarInactiveTintColor: tabStyles.tabBarInactiveTintColor,
+        tabBarStyle: tabStyles.tabBarStyle,
+        tabBarItemStyle: tabStyles.tabBarItemStyle,
+        tabBarLabelStyle: tabStyles.tabBarLabelStyle,
       }}
     >
       <TopTabs.Screen
         name="grounding"
-        options={{ title: "Grounding", headerTitleAlign: "center", }}
+        options={{ title: "Grounding", headerTitleAlign: "center",}}
       />
       <TopTabs.Screen
         name="breathing"

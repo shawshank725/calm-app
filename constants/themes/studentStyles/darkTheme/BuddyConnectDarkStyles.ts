@@ -7,7 +7,7 @@ const BuddyConnectDarkStyles : CommonStyles = {
         flex: 1,
         backgroundColor: 'blue',
     },
-        inputContainer: {
+    inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: 'rgb(0, 255, 13)',
@@ -15,13 +15,13 @@ const BuddyConnectDarkStyles : CommonStyles = {
         paddingVertical: 6,
         marginBottom: Platform.OS === "ios" ? 56: 0,
     },
-        input: {
+    input: {
         flex: 1,
         marginRight: 5,
         backgroundColor: 'rgb(255, 252, 86)',
         height: 40,
     },
-        floatingButton: {
+    floatingButton: {
         width: 40,
         height: 40,
         justifyContent: 'center',

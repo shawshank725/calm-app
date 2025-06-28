@@ -5,6 +5,7 @@ import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import Toast from "react-native-toast-message";
 import { TextInput } from "react-native-paper";
+import LinearGradient from 'react-native-linear-gradient';
 
 export default function SignInScreen() {
 
@@ -35,6 +36,7 @@ export default function SignInScreen() {
     <KeyboardAvoidingView behavior={Platform.OS ==="ios" ? "padding" : 'height'} 
       style={styles.container} keyboardVerticalOffset={Platform.OS ==="ios" ? 70 :60}  >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        
         <View style={styles.formContainer}>
           <Text style={{fontWeight: 'bold', fontSize:30, textAlign: 'center', marginBottom: 20}}>Sign in</Text>
 
@@ -93,7 +95,8 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#0d031b'
   },
   formContainer: {
     justifyContent: 'center', 
@@ -107,7 +110,6 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     backgroundColor: '#E1EBEE',
     textDecorationColor: 'none',
-    //fontWeight: 'bold'
   },
   link : {
     color: 'blue',
@@ -115,5 +117,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     textAlign: 'center',
     margin: 20,
-  }
+  },
+  gradient: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

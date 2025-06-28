@@ -14,6 +14,8 @@ export default function SignUpScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rollNumber, setRollNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [course, setCourse] = useState('');
   const [username, setUsername] = useState('');
   
   const [loading, setLoading] = useState(false);
@@ -151,14 +153,54 @@ export default function SignUpScreen() {
             }}
           />
 
+          <View style={{flexDirection: 'row',  }}>
+            <View style={{flex:1}}>
+              <TextInput
+              value={rollNumber}
+              onChangeText={setRollNumber}
+              placeholder="Enter your registration number"
+              mode="outlined"
+              keyboardType="number-pad"
+              style={styles.input}
+              label="Registration Number"
+              outlineStyle={{ borderWidth: 2 }}
+              theme={{roundness: 10, 
+                colors: {
+                  primary: "black",
+                  outline: "black",
+                },
+              }}
+            />
+            </View>
+
+            <View style={{flex:1}}>
+              <TextInput
+              value={phoneNumber}
+              onChangeText={setPhoneNumber}
+              placeholder="Enter your phone number"
+              mode="outlined"
+              keyboardType="number-pad"
+              style={styles.input}
+              label="Phone Number"
+              outlineStyle={{ borderWidth: 2 }}
+              theme={{roundness: 10, 
+                colors: {
+                  primary: "black",
+                  outline: "black",
+                },
+              }}
+            />
+            </View>
+            
+          </View>
+
           <TextInput
-            value={rollNumber}
-            onChangeText={setRollNumber}
-            placeholder="Enter your roll number"
+            value={course}
+            onChangeText={setCourse}
+            placeholder="Enter your Course"
             mode="outlined"
-            keyboardType="number-pad"
             style={styles.input}
-            label="Roll Number"
+            label="Course"
             outlineStyle={{ borderWidth: 2 }}
             theme={{roundness: 10, 
               colors: {
@@ -223,7 +265,8 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#0d031b'
   },
   formContainer: {
     justifyContent: 'center', 

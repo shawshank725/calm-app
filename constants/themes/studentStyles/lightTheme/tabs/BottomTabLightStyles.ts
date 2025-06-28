@@ -1,20 +1,24 @@
 import { CommonStyles } from "@/constants/themes/types";
+import { Platform } from "react-native";
 
-export const BottomTabLightStyles : CommonStyles = {
-  tabBarContainer: {
-    backgroundColor: "#ffffff",
-    borderTopColor: "#ddd",
-  },
-  tabBarLabel: {
-    color: "#000000",
-  },
-  tabBarIcon: {
-    color: "#1a73e8",
-  },
-  headerStyle: {
-    backgroundColor: "#f5f5f5",
-  },
-  headerTitle: {
-    color: "#000000",
-  },
+export const BottomTabLightStyles: CommonStyles = {
+  BottomTab: {
+    tabBarActiveTintColor: "blue",
+    tabBarInactiveTintColor: "lightgreen",
+    tabBarStyle: Platform.select({
+      ios: {
+        position: "absolute",
+        height: 90,
+        paddingBottom: 20,
+        paddingTop: 10,
+        backgroundColor: "lightskyblue",
+      },
+      default: {
+        height: 90,
+        paddingBottom: 0,
+        paddingTop: 0,
+        backgroundColor: "lightskyblue",
+      },
+    }),
+  }
 };

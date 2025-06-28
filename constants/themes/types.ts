@@ -1,4 +1,7 @@
+import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
+import { MaterialTopTabNavigationOptions } from "@react-navigation/material-top-tabs";
 import { ViewStyle, ImageStyle, TextStyle } from "react-native";
+import { View } from "react-native-reanimated/lib/typescript/Animated";
 
 export type CommonStyles = {
   container?: ViewStyle;
@@ -25,7 +28,13 @@ export type CommonStyles = {
   input?: TextStyle;
   floatingButton?: ViewStyle;
 
-
+  // profile styles : 
+  usernameContainer?: ViewStyle;
+  buttonContainer?: ViewStyle;
+  centered? : ViewStyle;
+  normal?: ViewStyle;
+  loadingText?: TextStyle;
+  changePasswordContainer?: ViewStyle;
 
   // all components here ------------------------
   // book cards
@@ -65,11 +74,24 @@ export type CommonStyles = {
   left?: TextStyle;
   buddyConnect?: ViewStyle;
 
+
+  BottomTab?: Partial<Pick<
+    BottomTabNavigationOptions,
+    "tabBarStyle" | "tabBarActiveTintColor" | "tabBarInactiveTintColor" | "tabBarBackground"
+  >>;
   
-  [customKey: string]: ViewStyle | TextStyle | ImageStyle | undefined;
+  TopTab?: Partial<Pick<
+    MaterialTopTabNavigationOptions,
+    | "tabBarStyle"
+    | "tabBarActiveTintColor"
+    | "tabBarInactiveTintColor"
+    | "tabBarIndicatorStyle"
+    | "tabBarItemStyle"
+    | "tabBarLabelStyle"
+  >>;
+  
+  //[customKey: string]: ViewStyle | TextStyle | ImageStyle | undefined;
 };
-
-
 
 export type UserRole = 'admin' | 'student' | 'expert';
 export type ThemeName = 'light' | 'dark';

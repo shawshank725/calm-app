@@ -6,9 +6,13 @@ import { supabase } from '@/lib/supabase';
 import Toast from 'react-native-toast-message';
 import { useAuth } from '@/providers/AuthProvider';
 import { useRouter } from 'expo-router';
+import { useAppTheme } from '@/constants/themes/ThemeManager';
 
 export default function PasswordScreen() {
   
+  const {styles } = useAppTheme();
+  const screenStyles = styles.PasswordScreen;
+
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const {session, loading} = useAuth();
@@ -58,15 +62,15 @@ export default function PasswordScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={textBoxStyles.usernameContainer}>
-        <Text style={textBoxStyles.heading}>Change Password</Text>
+    <View style={screenStyles.container}>
+      <View style={screenStyles.usernameContainer}>
+        <Text style={screenStyles.heading}>Change Password</Text>
         <TextInput
           value={password}
           onChangeText={setPassword}
           placeholder="Current Password"
           mode="outlined"
-          style={textBoxStyles.input}
+          style={screenStyles.input}
           label="Current Password"
           secureTextEntry={passwordSecureText}
           right={
@@ -89,7 +93,7 @@ export default function PasswordScreen() {
           onChangeText={setNewPassword}
           placeholder="New Password"
           mode="outlined"
-          style={textBoxStyles.input}
+          style={screenStyles.input}
           label="New Password"
           secureTextEntry={newPasswordSecureText}
           right={
@@ -113,31 +117,3 @@ export default function PasswordScreen() {
     </View>    
   )
 };
-
-
-const textBoxStyles = StyleSheet.create({
-  input: {
-    marginBottom: 10,
-    backgroundColor: '#E1EBEE',
-    textDecorationColor: 'none',
-  },
-  usernameContainer: {
-    backgroundColor: 'white', 
-    padding: 10, 
-    marginVertical: 10, 
-    borderRadius: 10,
-  },
-  heading: {
-    fontWeight: 'bold', 
-    fontSize: 20,
-    marginBottom: 10
-  },
-});
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'lightskyblue',
-    padding: 10,
-  }
-})

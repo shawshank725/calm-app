@@ -21,16 +21,25 @@ import SGTLibraryLinkDarkStyles from "./studentStyles/darkTheme/components/SGTLi
 import BookAuthorScreenLightStyles from "./studentStyles/lightTheme/BookAuthorScreenLightStyles";
 import { BottomTabLightStyles } from "./studentStyles/lightTheme/tabs/BottomTabLightStyles";
 import { BottomTabDarkStyles } from "./studentStyles/darkTheme/tabs/BottomTabDarkStyles";
+import { TopTabLightStyles } from "./studentStyles/lightTheme/tabs/TopTabLightStyles";
+import { TopTabDarkStyles } from "./studentStyles/darkTheme/tabs/TopTabDarkStyles";
+import ProfileLightStyles from "./studentStyles/lightTheme/miscellaneous/ProfileLightStyles";
+import ProfileDarkStyles from "./studentStyles/darkTheme/miscellaneous/ProfileDarkStyles";
+import PasswordLightStyles from "./studentStyles/lightTheme/miscellaneous/PasswordLightStyles";
+import PasswordDarkStyles from "./studentStyles/darkTheme/miscellaneous/PasswordDarkStyles";
 
 
-export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, CommonStyles>>> = {
+export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, Partial<CommonStyles>>>> = {
     student: {
-        light: {
+        light: {            
             HomeScreen: HomeScreenLightStyles,
             SettingsScreen: SettingsScreenLightStyles,
             BuddyConnectScreen: BuddyConnectLightStyles,
             Library: LibraryLightStyles,
             BookAuthorScreen: BookAuthorScreenLightStyles,
+
+            ProfileScreen: ProfileLightStyles,
+            PasswordScreen: PasswordLightStyles,
 
             BookCard: BookCardLightStyles,
             BookDetailsContent: BookDetailsContentLightStyles,
@@ -38,6 +47,7 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, C
             LibrarySearchBar: LibrarySearchBarLightStyles,
             SGTLibraryLink: SGTLibraryLinkLightStyles,
 
+            TopTab: TopTabLightStyles,
             BottomTab: BottomTabLightStyles,
         },
         dark : {
@@ -47,12 +57,16 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, C
             Library: LibraryDarkStyles,
             BookAuthorScreen: BookAuthorScreenLightStyles,
 
+            ProfileScreen: ProfileDarkStyles,
+            PasswordScreen: PasswordDarkStyles,
+
             BookCard: BookCardDarkStyles,
             BookDetailsContent: BookDetailsContentDarkStyles,
             ContentNotFound: ContentNotFoundDarkStyles,
             LibrarySearchBar: LibrarySearchBarDarkStyles,
             SGTLibraryLink: SGTLibraryLinkDarkStyles,
             
+            TopTab: TopTabDarkStyles,
             BottomTab: BottomTabDarkStyles,
         },
     },

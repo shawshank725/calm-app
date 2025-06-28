@@ -12,6 +12,7 @@ import NewButton from "@/components/NewButton";
 import { useQueryClient } from "@tanstack/react-query";
 import { TextInput } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
+import { useAppTheme } from '@/constants/themes/ThemeManager';
 
 const ProfileEditor = () => {
   const [dataLoading, setDataLoading] = useState(true);
@@ -20,6 +21,9 @@ const ProfileEditor = () => {
   const [image, setImage] = useState<string | null>(null);
   const { data: imageUrl, isLoading } = useProfilePhoto(session?.user.id);
   
+  const {styles} = useAppTheme();
+  const screensStyles = styles.ProfileScreen;
+
   //setters for user details
   const [username, setUsername] = useState("");
   const [fullName, setFullName] = useState("");
@@ -185,17 +189,17 @@ const ProfileEditor = () => {
 
   if (loading) {
     return (
-      <View style={styles.centered}>
+      <View style={screensStyles.centered}>
         <ActivityIndicator size="large" color="#007bff" />
-        <Text style={styles.loadingText}>Loading profile...</Text>
+        <Text style={screensStyles.loadingText}>Loading profile...</Text>
       </View>
     );
   }
 
   // return the view if loading is done -------------------------
   return (
-    <View style={styles.normal}>
-      <View style={profileStyles.profilePhotoContainer}>
+    <View style={screensStyles.normal}>
+      <View style={screensStyles.profilePhotoContainer}>
         <TouchableOpacity onPress={() => {
             if (imageUrl) {
               router.push({
@@ -206,23 +210,23 @@ const ProfileEditor = () => {
           }}>
             <Image
               source={{ uri: imageUrl }}
-              style={profileStyles.profilePhoto}
+              style={screensStyles.profilePhoto}
             />
           </TouchableOpacity>
-          <View style={profileStyles.buttonContainer}>
+          <View style={screensStyles.buttonContainer}>
             <NewButton title="Select image" onPress={pickImage} />
             <NewButton title="Remove image" onPress={removeImage} />
           </View>
       </View>
 
-      <View style={textBoxStyles.usernameContainer}>
-        <Text style={textBoxStyles.heading}>Change Username and name</Text>
+      <View style={screensStyles.usernameContainer}>
+        <Text style={screensStyles.heading}>Change Username and name</Text>
         <TextInput
           value={username}
           onChangeText={setUsername}
           placeholder="Enter your username"
           mode="outlined"
-          style={textBoxStyles.input}
+          style={screensStyles.input}
           label="Username"
           outlineStyle={{ borderWidth: 2 }}
           theme={{roundness: 10, 
@@ -238,7 +242,7 @@ const ProfileEditor = () => {
           onChangeText={setFullName}
           placeholder="Enter your name"
           mode="outlined"
-          style={textBoxStyles.input}
+          style={screensStyles.input}
           label="Name"
           outlineStyle={{ borderWidth: 2 }}
           theme={{roundness: 10, 
@@ -254,10 +258,10 @@ const ProfileEditor = () => {
       </View>
       
       <TouchableOpacity onPress={ () => {router.navigate("/(student)/(misc)/password")}} activeOpacity={0.7}>
-        <View style={{backgroundColor: 'white', flexDirection: 'row', borderRadius: 10, padding: 10,}}>
+        <View style={screensStyles.changePasswordContainer}>
           <Ionicons name="lock-closed" size={20} color="gray" style={{paddingRight: 5,}}/>
           <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between', alignItems: 'center'}}>
-            <Text style={appInfoStyles.warningText}>Change Password</Text>
+            <Text style={screensStyles.warningText}>Change Password</Text>
             <Ionicons name="chevron-forward" size={24} color="gray" />
           </View>
         </View>
@@ -267,79 +271,5 @@ const ProfileEditor = () => {
   );
 };
 
-
-const appInfoStyles = StyleSheet.create({
-  warningText: {
-    fontWeight: 'normal', 
-    fontSize: 17,
-    color: 'red'
-  },
-  singleItems: {
-    backgroundColor: "white", 
-    padding:10,
-    borderRadius: 10, 
-    marginTop: 10, 
-  },
-})
-
-const textBoxStyles = StyleSheet.create({
-  input: {
-    marginBottom: 10,
-    backgroundColor: '#E1EBEE',
-    textDecorationColor: 'none',
-  },
-  usernameContainer: {
-    backgroundColor: 'white', 
-    padding: 10, 
-    marginVertical: 10, 
-    borderRadius: 10,
-  },
-  heading: {
-    fontWeight: 'bold', 
-    fontSize: 20,
-    marginBottom: 10
-  },
-});
-
-const profileStyles = StyleSheet.create({
-  profilePhoto: {
-    width: 100,
-    height: 100,
-    margin: 10,  
-    borderRadius: 50,
-  },
-  profilePhotoContainer: {
-    backgroundColor: 'white', 
-    justifyContent: 'center', 
-    alignItems: 'center',
-    borderRadius: 10,
-    marginVertical: 5,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    flexGrow: 1,
-    gap: 10, 
-  }
-});
-
-const styles = StyleSheet.create({
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f9f9f9',
-  },
-  normal: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: 'lightgreen',
-  },
-  loadingText: {
-    marginTop: 10,
-    fontSize: 16,
-    color: '#555',
-  },
-});
 
 export default ProfileEditor;
