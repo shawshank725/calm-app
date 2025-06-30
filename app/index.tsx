@@ -1,19 +1,26 @@
-import { View, Text, StyleSheet, FlatList, Image, ActivityIndicator } from "react-native";
 import React from "react";
-import { Link, Redirect } from "expo-router";
+import { Redirect } from "expo-router";
 import { useAuth } from "@/providers/AuthProvider";
+import { useProfile } from "@/api/profile/Profile";
+import { CustomActivityIndicator1 } from "@/components/CustomActivityIndicator";
 
 const index = () => {
   const {session, loading} = useAuth();
+  const { data: profile, isLoading: profileLoading } = useProfile(session?.user.id);
 
   if (loading) {
-    return <ActivityIndicator />;
+    return <CustomActivityIndicator1 />;
   }
   
   if (!session){
     return <Redirect href={"/(auth)"}/>
   }
-  return <Redirect href={"/(student)/(home)"}/>
+  if (profile?.group == "ADMIN"){
+    return <Redirect href={"/(admin)/index"}/>
+  }
+  if (profile?.group == "STUDENT"){
+    return <Redirect href={"/(student)/(home)"}/>
+  }
 };
 
 export default index;

@@ -5,7 +5,6 @@ import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import Toast from "react-native-toast-message";
 import { TextInput } from "react-native-paper";
-import LinearGradient from 'react-native-linear-gradient';
 
 export default function SignInScreen() {
 

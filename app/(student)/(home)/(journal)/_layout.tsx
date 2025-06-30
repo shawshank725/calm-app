@@ -1,16 +1,16 @@
-import {  DarkTheme,  DefaultTheme,  ThemeProvider,} from "@react-navigation/native";
 import { useFonts } from "expo-font";
 
-import { useColorScheme } from "@/hooks/useColorScheme";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { withLayoutContext } from "expo-router";
-
+import { useAppTheme } from "@/constants/themes/ThemeManager";
 
 const Tab = createMaterialTopTabNavigator();
 const TopTabs = withLayoutContext(Tab.Navigator);
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const {styles } = useAppTheme();
+  const tabStyles = styles?.TopTab?.TopTab ?? {};
+  
   const [loaded] = useFonts({
     SpaceMono: require("assets/fonts/SpaceMono-Regular.ttf"),
   });
@@ -22,11 +22,16 @@ export default function RootLayout() {
 
   return (
     <TopTabs
-     // tabBar={(props) => <CustomTabBar {...props} />}
       screenOptions={{
         swipeEnabled: false,
         animationEnabled: true,
-        //tabBarItemStyle: { width: 'auto' },
+        tabBarScrollEnabled: true,
+        tabBarIndicatorStyle: tabStyles.tabBarIndicatorStyle,
+        tabBarActiveTintColor: tabStyles.tabBarActiveTintColor,
+        tabBarInactiveTintColor: tabStyles.tabBarInactiveTintColor,
+        tabBarStyle: tabStyles.tabBarStyle,
+        tabBarItemStyle: tabStyles.tabBarItemStyle,
+        tabBarLabelStyle: tabStyles.tabBarLabelStyle,
       }}
     >
       <TopTabs.Screen
@@ -36,6 +41,10 @@ export default function RootLayout() {
       <TopTabs.Screen
         name="journal"
         options={{ title: "Journalling", headerTitleAlign: "center" }}
+      />
+      <TopTabs.Screen
+        name="growth-tracker"
+        options={{ title: "Growth Tracker", headerTitleAlign: "center" }}
       />
       
     </TopTabs>

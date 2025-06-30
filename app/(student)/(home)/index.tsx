@@ -1,4 +1,4 @@
-import { View,  StyleSheet, } from "react-native";
+import { View,  Text, } from "react-native";
 import React from "react";
 import { Card } from "@/components/home/Card";
 import { useAppTheme } from "@/constants/themes/ThemeManager";
@@ -9,6 +9,7 @@ export default function HomeScreen() {
 
   return (
     <View style={screenStyles?.container}> 
+
       <Card navigateTo={"/(student)/(library)"} 
         opacity={0.7} 
         imagePath={require("assets/images/library-card-photo.jpg")} 

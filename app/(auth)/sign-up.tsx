@@ -153,8 +153,6 @@ export default function SignUpScreen() {
             }}
           />
 
-          <View style={{flexDirection: 'row',  }}>
-            <View style={{flex:1}}>
               <TextInput
               value={rollNumber}
               onChangeText={setRollNumber}
@@ -171,28 +169,6 @@ export default function SignUpScreen() {
                 },
               }}
             />
-            </View>
-
-            <View style={{flex:1}}>
-              <TextInput
-              value={phoneNumber}
-              onChangeText={setPhoneNumber}
-              placeholder="Enter your phone number"
-              mode="outlined"
-              keyboardType="number-pad"
-              style={styles.input}
-              label="Phone Number"
-              outlineStyle={{ borderWidth: 2 }}
-              theme={{roundness: 10, 
-                colors: {
-                  primary: "black",
-                  outline: "black",
-                },
-              }}
-            />
-            </View>
-            
-          </View>
 
           <TextInput
             value={course}
