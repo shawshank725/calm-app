@@ -9,7 +9,9 @@ import HomeScreenDarkStyles from "./studentStyles/darkTheme/HomeScreenDarkStyles
 import LibraryDarkStyles from "./studentStyles/darkTheme/LibraryDarkStyles";
 import PasswordDarkStyles from "./studentStyles/darkTheme/miscellaneous/PasswordDarkStyles";
 import ProfileDarkStyles from "./studentStyles/darkTheme/miscellaneous/ProfileDarkStyles";
+import BreathingDarkStyles from "./studentStyles/darkTheme/selfHelp/BreathingDarkStyles";
 import GroundingDarkStyles from "./studentStyles/darkTheme/selfHelp/GroundingDarkStyles";
+import MentalFocusDarkStyles from "./studentStyles/darkTheme/selfHelp/MentalFocusDarkStyles";
 import SettingsScreenDarkStyles from "./studentStyles/darkTheme/SettingsScreenDarkStyles";
 import { BottomTabDarkStyles } from "./studentStyles/darkTheme/tabs/BottomTabDarkStyles";
 import { TopTabDarkStyles } from "./studentStyles/darkTheme/tabs/TopTabDarkStyles";
@@ -24,7 +26,9 @@ import HomeScreenLightStyles from "./studentStyles/lightTheme/HomeScreenLightSty
 import LibraryLightStyles from "./studentStyles/lightTheme/LibraryLightStyles";
 import PasswordLightStyles from "./studentStyles/lightTheme/miscellaneous/PasswordLightStyles";
 import ProfileLightStyles from "./studentStyles/lightTheme/miscellaneous/ProfileLightStyles";
+import BreathingLightStyles from "./studentStyles/lightTheme/selfHelp/BreathingLightStyles";
 import GroundingLightStyles from "./studentStyles/lightTheme/selfHelp/GroundingLightStyles";
+import MentalFocusLightStyles from "./studentStyles/lightTheme/selfHelp/MentalFocusLightStyles";
 import SettingsScreenLightStyles from "./studentStyles/lightTheme/SettingsScreenLightStyles";
 import { BottomTabLightStyles } from "./studentStyles/lightTheme/tabs/BottomTabLightStyles";
 import { TopTabLightStyles } from "./studentStyles/lightTheme/tabs/TopTabLightStyles";
@@ -39,7 +43,11 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
             BuddyConnectScreen: BuddyConnectLightStyles,
             Library: LibraryLightStyles,
             BookAuthorScreen: BookAuthorScreenLightStyles,
+
             GroundingScreen: GroundingLightStyles,
+            BreathingScreen: BreathingLightStyles,
+            MentalFocusScreen: MentalFocusLightStyles,
+
             ProfileScreen: ProfileLightStyles,
             PasswordScreen: PasswordLightStyles,
 
@@ -58,8 +66,11 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
             BuddyConnectScreen: BuddyConnectDarkStyles,
             Library: LibraryDarkStyles,
             BookAuthorScreen: BookAuthorScreenLightStyles,
-            GroundingScreen: GroundingDarkStyles,
 
+            GroundingScreen: GroundingDarkStyles,
+            BreathingScreen: BreathingDarkStyles,
+            MentalFocusScreen: MentalFocusDarkStyles,
+            
             ProfileScreen: ProfileDarkStyles,
             PasswordScreen: PasswordDarkStyles,
 

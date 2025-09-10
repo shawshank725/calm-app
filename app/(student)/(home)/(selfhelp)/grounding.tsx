@@ -1,4 +1,4 @@
-import {  Text, StyleSheet, ScrollView } from "react-native";
+import {  Text, ScrollView } from "react-native";
 import React from "react";
 import { useAppTheme } from "@/constants/themes/ThemeManager";
 

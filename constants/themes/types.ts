@@ -1,7 +1,6 @@
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 import { MaterialTopTabNavigationOptions } from "@react-navigation/material-top-tabs";
 import { ViewStyle, ImageStyle, TextStyle } from "react-native";
-import { View } from "react-native-reanimated/lib/typescript/Animated";
 
 export type CommonStyles = {
   container?: ViewStyle;
@@ -66,7 +65,7 @@ export type CommonStyles = {
   // sgt library link
   linkText?: TextStyle;
 
-
+  // grouding code here
   row?: ViewStyle;
   optionButton?: ViewStyle;
   headerBar?: ViewStyle;
@@ -76,7 +75,19 @@ export type CommonStyles = {
   step?:TextStyle;
   bold?:TextStyle;
   note?:TextStyle;
+
+  // breathing code here
+  square?: ViewStyle;
+  dot?: ViewStyle;
+  boxBreathingContainer?: ViewStyle;
+  instructionText?: TextStyle;
+  holdText?: TextStyle;
   
+  // mental focus code here
+  instructions?:TextStyle;
+  gameContainer?:ViewStyle;
+  answerContainer?:ViewStyle;
+
 
   BottomTab?: Partial<Pick<
     BottomTabNavigationOptions,

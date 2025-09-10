@@ -1,13 +1,17 @@
-import { View, StyleSheet,Text, Alert } from 'react-native'
+import { View, Text, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { TextInput } from 'react-native-paper';
 import { SelectList } from 'react-native-dropdown-select-list'
 import { colorsList, fruitsList, animalsList,countriesList,emotionsList,vegetablesList } from '@/constants/WordBuilder';
 import NewButton from '@/components/NewButton';
 import { Ionicons } from '@expo/vector-icons';
+import { useAppTheme } from '@/constants/themes/ThemeManager';
 
 
 const MentalFocusGrounding = () => {
+
+  const { styles } = useAppTheme();
+  const screenStyles = styles.MentalFocusScreen;
 
   const [text, setText] = useState("");
   const [selected, setSelected] = useState("");
@@ -77,15 +81,15 @@ const MentalFocusGrounding = () => {
   const removeDuplicates = (list: string[]) => {  return [...new Set(list)];  }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.instructions}>
+    <View style={screenStyles.container}>
+      <Text style={screenStyles.instructions}>
         🧠 Select a category and challenge yourself to list words from A–Z!
       </Text>
-      <Text style={styles.instructions}>
+      <Text style={screenStyles.instructions}>
         ✍️ Type one word or phrase per line to keep things clear.
       </Text>
 
-      <View style={styles.gameContainer}>
+      <View style={screenStyles.gameContainer}>
         <SelectList 
           setSelected={(value: string) => setSelected(value)}
           data={data} 
@@ -98,7 +102,7 @@ const MentalFocusGrounding = () => {
           mode="outlined"
           multiline={true}
           numberOfLines={3} 
-          style={textBoxStyles.input}
+          style={screenStyles.input}
           label="Your answer"                
           outlineStyle={{ borderWidth: 2 }}
           theme={{roundness: 10, 
@@ -115,7 +119,7 @@ const MentalFocusGrounding = () => {
         <NewButton title="Clear answers" onPress={() => {setText(""); setResultCount(0);}}/>
       </View>
       
-      <View style={styles.answerContainer}>
+      <View style={screenStyles.answerContainer}>
         <View style={{flexDirection: 'row', alignItems:'center' , columnGap: 10,}}>
           {(resultCount > 0) ? 
             (<Ionicons name='checkmark-circle-outline' size={50} color="green"/>): 
@@ -143,41 +147,8 @@ const MentalFocusGrounding = () => {
           )
         }
       </View>
-
     </View>
   )
 }
 
 export default MentalFocusGrounding;
-
-const textBoxStyles = StyleSheet.create({
-  input: {
-    backgroundColor: '#E1EBEE',
-    textDecorationColor: 'none',
-  },
-});
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: 'lightgreen'
-  },
-  instructions: {
-    marginBottom: 10,
-    textAlign: 'center',
-    fontSize: 15,
-  },
-  gameContainer: {
-    padding: 10, 
-    backgroundColor: 'white',
-    rowGap: 5,
-    borderRadius: 10, 
-  },
-  answerContainer: {
-    backgroundColor: 'white',
-    borderRadius: 10, 
-    alignItems: 'center',
-    padding: 5,
-  }
-});
