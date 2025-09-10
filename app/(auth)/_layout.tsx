@@ -15,11 +15,10 @@ export default function AuthLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={DefaultTheme}>
       <Stack>
         <Stack.Screen name="sign-in" options={{ headerShown: false }} />
         <Stack.Screen name="sign-up" options={{ headerShown: false, headerTitleStyle: {fontFamily: 'monospace',}
-
          }} />
         <Stack.Screen name="index" options={{ headerShown: false }} />
       </Stack>

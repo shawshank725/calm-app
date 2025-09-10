@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     padding: 20,
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#0d031b'
+    backgroundColor: '#ffffffff'
   },
   formContainer: {
     justifyContent: 'center', 

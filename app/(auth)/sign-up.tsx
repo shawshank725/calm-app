@@ -1,12 +1,13 @@
-import { StyleSheet, View, Text,  Alert, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from "react-native";
-import { Link, } from "expo-router";
 import MyButton from "@/components/MyButton";
+import { supabase } from "@/lib/supabase";
+import { Link, } from "expo-router";
 import { useState } from "react";
-import {supabase} from "@/lib/supabase";
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { TextInput } from "react-native-paper";
 import Toast from "react-native-toast-message";
 
 import getAllUsernames from "@/api/profile/Profile";
+import { DEFAULT_PROFILE_PHOTO } from "@/constants/Misc";
 
 export default function SignUpScreen() {
 
@@ -14,15 +15,14 @@ export default function SignUpScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rollNumber, setRollNumber] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
   const [course, setCourse] = useState('');
   const [username, setUsername] = useState('');
-  
+
   const [loading, setLoading] = useState(false);
-  
+
   const [secureText, setSecureText] = useState(true);
 
-  const validateData = async() => {
+  const validateData = async () => {
     const passwordRegex = /^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const allUsernames = await getAllUsernames();
@@ -49,11 +49,11 @@ export default function SignUpScreen() {
     }
 
     if (allUsernames.includes(username)) {
-      Alert.alert("Username taken","Username is already taken. Try another one.");
+      Alert.alert("Username taken", "Username is already taken. Try another one.");
       return false;
     }
     if (allRollNumbers.includes(rollNumber)) {
-      Alert.alert("Roll Number taken","Roll Number is already taken.");
+      Alert.alert("Roll Number taken", "Roll Number is already taken.");
       return false;
     }
     return true;
@@ -69,13 +69,13 @@ export default function SignUpScreen() {
     return rollNumbers;
   }
 
-  async function signUpWithEmail () {
+  async function signUpWithEmail() {
     const isValidated = await validateData();
-    if (isValidated == false){
+    if (isValidated == false) {
       return false;
     }
     setLoading(true);
-    const {data, error} = await supabase.auth.signUp({email, password,});
+    const { data, error } = await supabase.auth.signUp({ email, password, });
     if (error) {
       Alert.alert("Error", error.message);
       setLoading(false);
@@ -87,21 +87,23 @@ export default function SignUpScreen() {
       const { error: insertError } = await supabase
         .from("profiles")
         .insert({
-          id: user.id, 
+          id: user.id,
           username: username,
           roll_number: rollNumber,
-          full_name: fullName, 
-          group: "STUDENT", 
+          full_name: fullName,
+          course: course,
+          avatar_url: DEFAULT_PROFILE_PHOTO,
+          group: "STUDENT",
         });
-
+        
       if (insertError) {
         Toast.show({
-          type: 'success', // 'success' | 'error' | 'info'
+          type: 'error', // 'success' | 'error' | 'info'
           text1: 'Account creation unsuccessful',
           position: 'bottom', // or 'bottom'
           visibilityTime: 1500
         });
-      } 
+      }
       else {
         Toast.show({
           type: 'success', // 'success' | 'error' | 'info'
@@ -110,65 +112,52 @@ export default function SignUpScreen() {
           visibilityTime: 1500
         });
       }
-    } 
+    }
     setLoading(false);
   }
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS ==="ios" ? "padding" : 'height'} 
-      style={styles.container} keyboardVerticalOffset={Platform.OS ==="ios" ? 70 :60}  >
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : 'height'}
+      style={styles.container} keyboardVerticalOffset={Platform.OS === "ios" ? 70 : 0}  >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.formContainer}>
-          <Text style={{fontWeight: 'bold', fontSize:30, textAlign: 'center', marginBottom: 20}}>Sign up</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 30, textAlign: 'center', marginBottom: 20 }}>Sign up</Text>
 
-          <TextInput
-            value={fullName}
-            onChangeText={setFullName}
-            placeholder="Enter your full name"
-            mode="outlined"
-            style={styles.input}
-            label="Full Name"
-            outlineStyle={{ borderWidth: 2 }}
-            theme={{roundness: 10, 
-              colors: {
-                primary: "black",
-                outline: "black",
-              },
-            }}
-          />
-
-          <TextInput
-            value={email}
-            onChangeText={setEmail}
-            placeholder="Enter your e-mail address"
-            mode="outlined"
-            style={styles.input}
-            label="Email"
-            outlineStyle={{ borderWidth: 2 }}
-            theme={{roundness: 10, 
-              colors: {
-                primary: "black",
-                outline: "black",
-              },
-            }}
-          />
-
-              <TextInput
-              value={rollNumber}
-              onChangeText={setRollNumber}
-              placeholder="Enter your registration number"
+          <View style={{ display: 'flex', flexDirection: 'row', columnGap: '10' }}>
+            <TextInput
+              value={fullName}
+              onChangeText={setFullName}
+              placeholder="Enter your full name"
               mode="outlined"
-              keyboardType="number-pad"
-              style={styles.input}
-              label="Registration Number"
+              style={[styles.input, { flex: 1 }]}
+              label="Full Name"
               outlineStyle={{ borderWidth: 2 }}
-              theme={{roundness: 10, 
+              theme={{
+                roundness: 10,
                 colors: {
                   primary: "black",
                   outline: "black",
                 },
               }}
             />
+
+            <TextInput
+              value={email}
+              onChangeText={setEmail}
+              placeholder="Enter your e-mail address"
+              mode="outlined"
+              style={[styles.input, { flex: 1 }]}
+              label="Email"
+              outlineStyle={{ borderWidth: 2 }}
+              theme={{
+                roundness: 10,
+                colors: {
+                  primary: "black",
+                  outline: "black",
+                },
+              }}
+            />
+          </View>
 
           <TextInput
             value={course}
@@ -178,7 +167,8 @@ export default function SignUpScreen() {
             style={styles.input}
             label="Course"
             outlineStyle={{ borderWidth: 2 }}
-            theme={{roundness: 10, 
+            theme={{
+              roundness: 10,
               colors: {
                 primary: "black",
                 outline: "black",
@@ -186,21 +176,42 @@ export default function SignUpScreen() {
             }}
           />
 
-          <TextInput
-            value={username}
-            onChangeText={setUsername}
-            placeholder="Enter a unique username"
-            mode="outlined"
-            style={styles.input}
-            label="Username"
-            outlineStyle={{ borderWidth: 2 }}
-            theme={{roundness: 10, 
-              colors: {
-                primary: "black",
-                outline: "black",
-              },
-            }}
-          />
+          <View style={{ display: 'flex', flexDirection: 'row', columnGap: '10' }}>
+            <TextInput
+              value={rollNumber}
+              onChangeText={setRollNumber}
+              placeholder="Enter your registration number"
+              mode="outlined"
+              keyboardType="number-pad"
+              style={[styles.input, { flex: 1 }]}
+              label="Registration Number"
+              outlineStyle={{ borderWidth: 2 }}
+              theme={{
+                roundness: 10,
+                colors: {
+                  primary: "black",
+                  outline: "black",
+                },
+              }}
+            />
+
+            <TextInput
+              value={username}
+              onChangeText={setUsername}
+              placeholder="Enter a unique username"
+              mode="outlined"
+              style={[styles.input, { flex: 1 }]}
+              label="Username"
+              outlineStyle={{ borderWidth: 2 }}
+              theme={{
+                roundness: 10,
+                colors: {
+                  primary: "black",
+                  outline: "black",
+                },
+              }}
+            />
+          </View>
 
           <TextInput
             value={password}
@@ -217,19 +228,21 @@ export default function SignUpScreen() {
               />
             }
             outlineStyle={{ borderWidth: 2 }}
-            theme={{roundness: 10, 
+            theme={{
+              roundness: 10,
               colors: {
                 primary: "black",
                 outline: "black",
               },
             }}
           />
-          
-          <MyButton 
-            title= {loading ? "Creating account ..." : "Create account"}
-            onPress={() => signUpWithEmail()} 
-            disabled={loading}/>
-          
+
+          <MyButton
+            title={loading ? "Creating account ..." : "Create account"}
+            onPress={() => signUpWithEmail()}
+            disabled={loading} 
+          />
+
           <Link href={"/sign-in"} style={styles.link}>Already a User? Login</Link>
         </View>
       </TouchableWithoutFeedback>
@@ -242,24 +255,23 @@ const styles = StyleSheet.create({
     padding: 20,
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#0d031b'
+    backgroundColor: '#ffffffff'
   },
   formContainer: {
-    justifyContent: 'center', 
-    marginBottom: 50, 
-    backgroundColor: 'white', 
-    padding: 20, 
-    borderRadius: 10,  
-    elevation: 10, 
+    justifyContent: 'center',
+    marginBottom: 50,
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    elevation: 10,
   },
   input: {
     marginBottom: 15,
     backgroundColor: '#E1EBEE',
     textDecorationColor: 'none',
-    //fontWeight: 'bold'
   },
 
-  link : {
+  link: {
     color: 'blue',
     fontWeight: 'bold',
     textAlign: 'center',
