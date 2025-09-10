@@ -1,3 +1,4 @@
+import { BACKGROUND_COLOR_DARK } from "@/constants/Misc";
 import { CommonStyles } from "../../types";
 
 const SettingsScreenDarkStyles: CommonStyles = {
@@ -75,16 +76,14 @@ const SettingsScreenDarkStyles: CommonStyles = {
   profileContainer: {
     flexDirection: 'row', 
     alignItems: 'center',
-    borderWidth: 2, 
     borderRadius: 15, 
     marginVertical: 10,
-    borderColor: 'grey',
     backgroundColor: 'white'
   },
   container: {
     padding: 10,
     flex: 1,
-    backgroundColor: "green",
+    backgroundColor: BACKGROUND_COLOR_DARK,
   },
   input: {
     marginBottom: 25,

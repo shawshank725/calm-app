@@ -1,3 +1,4 @@
+import { BACKGROUND_COLOR_DARK } from "@/constants/Misc";
 import { CommonStyles } from "../../types";
 import {  Platform } from 'react-native';
 
@@ -5,12 +6,12 @@ const BuddyConnectDarkStyles : CommonStyles = {
     
     container: {
         flex: 1,
-        backgroundColor: 'blue',
+        backgroundColor: BACKGROUND_COLOR_DARK,
     },
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: 'rgb(0, 255, 13)',
+        backgroundColor: "transparent",
         paddingHorizontal: 6,
         paddingVertical: 6,
         marginBottom: Platform.OS === "ios" ? 56: 0,
@@ -18,7 +19,7 @@ const BuddyConnectDarkStyles : CommonStyles = {
     input: {
         flex: 1,
         marginRight: 5,
-        backgroundColor: 'rgb(255, 252, 86)',
+        backgroundColor: '#646464ff',
         height: 40,
     },
     floatingButton: {

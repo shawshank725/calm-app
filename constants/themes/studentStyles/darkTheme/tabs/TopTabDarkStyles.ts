@@ -3,16 +3,16 @@ import { CommonStyles } from "@/constants/themes/types";
 export const TopTabDarkStyles: CommonStyles = {
   TopTab: {
     tabBarStyle: {
-      backgroundColor: "#1e1e1e", // dark background
+      backgroundColor: "#1C1C1E", // dark background
     },
     tabBarActiveTintColor: "#ffffff", // white text for active tab
-    tabBarInactiveTintColor: "#aaaaaa", // gray text for inactive tab
+    tabBarInactiveTintColor: "#A0A0A0", // gray text for inactive tab
     tabBarIndicatorStyle: {
-      backgroundColor: "#4a90e2", // soft blue underline
+      backgroundColor: "#3A99FF", // soft blue underline
       height: 3,
     },
     tabBarItemStyle: {
-      backgroundColor: "#2c2c2c", // slightly lighter than main background
+      backgroundColor: "transparent", 
       borderRadius: 8,
       margin: 4,
     },
