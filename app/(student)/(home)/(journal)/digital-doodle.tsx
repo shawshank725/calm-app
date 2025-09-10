@@ -7,10 +7,7 @@ import ColorPicker from "react-native-wheel-color-picker";
 import { captureRef } from 'react-native-view-shot';
 
 import * as Sharing from 'expo-sharing';
-import {Asset }from "expo-asset";
-import * as FileSystem from "expo-file-system";
 import { useNavigation } from "expo-router";
-import { HeaderTitle } from "@react-navigation/elements";
 
 interface IPath {
   segments: String[];
@@ -111,28 +108,27 @@ export default function DigitalDoodle() {
 
           <View
             style={{
-              height: 60, 
+              height: 50, 
               position: "absolute",
               bottom: Platform.OS == "ios" ? 100: 5,
               flexDirection: "row",
               justifyContent: "space-evenly",
               backgroundColor: "white",
-              width: width - 40,
+              width:'auto',
+              paddingHorizontal:10,
               alignSelf: "center",
-              padding: 5,
               borderRadius: 10,
               shadowColor: "#000",
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.3,
-              shadowRadius: 3,
-              elevation: 4,
-              borderWidth: 3, 
+              shadowOffset: { width: 0, height: 6 }, // deeper shadow
+              shadowOpacity: 0.15, // subtle but noticeable
+              shadowRadius: 10, // softer edges
+              elevation: 8, // Android shadow
               alignItems: 'center',
               overflow: 'hidden'
             }}
           >
             <TouchableOpacity onPress={() => setPaths([])} style={{}}>
-              <Ionicons name="trash" size={35} />
+              <Ionicons name="trash" size={25} />
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => {setShowColorPicker(!showColorPicker); }} 
@@ -144,14 +140,14 @@ export default function DigitalDoodle() {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-              <Ionicons name="color-palette" size={35} />
+              <Ionicons name="color-palette" size={25} />
             </TouchableOpacity>
 
             <TouchableOpacity onPress={async () => {
               const imageURL = await snapshot();
               shareImage(imageURL);
             }}>
-              <MaterialIcons name="share" size={35}  style={{}}/>
+              <MaterialIcons name="share" size={25}  style={{}}/>
             </TouchableOpacity>
 
 

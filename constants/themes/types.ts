@@ -73,7 +73,10 @@ export type CommonStyles = {
   center?: TextStyle;
   left?: TextStyle;
   buddyConnect?: ViewStyle;
-
+  step?:TextStyle;
+  bold?:TextStyle;
+  note?:TextStyle;
+  
 
   BottomTab?: Partial<Pick<
     BottomTabNavigationOptions,

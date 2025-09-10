@@ -11,7 +11,7 @@ const BuddyConnectLightStyles : CommonStyles = {
         inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: 'rgb(0, 255, 13)',
+        backgroundColor: BACKGROUND_COLOR_LIGHT,
         paddingHorizontal: 6,
         paddingVertical: 6,
         marginBottom: Platform.OS === "ios" ? 56: 0,
@@ -19,7 +19,7 @@ const BuddyConnectLightStyles : CommonStyles = {
         input: {
         flex: 1,
         marginRight: 5,
-        backgroundColor: 'rgb(255, 252, 86)',
+        backgroundColor: 'rgba(255, 255, 255, 1)',
         height: 40,
     },
         floatingButton: {
