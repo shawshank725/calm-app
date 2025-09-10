@@ -59,7 +59,7 @@ export default function TabLayout() {
           headerShown: true,
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="house.fill" color={color} />),
-          headerStyle: {backgroundColor: '#FF7F50', },
+          headerStyle: {backgroundColor: '#6991e0ff', },
           }}
           
       />

@@ -1,3 +1,4 @@
+import { BACKGROUND_COLOR_LIGHT } from "@/constants/Misc";
 import { CommonStyles } from "../../types";
 import {  Platform } from 'react-native';
 
@@ -5,7 +6,7 @@ const BuddyConnectLightStyles : CommonStyles = {
     
     container: {
         flex: 1,
-        backgroundColor: 'lightskyblue',
+        backgroundColor: BACKGROUND_COLOR_LIGHT,
     },
         inputContainer: {
         flexDirection: 'row',

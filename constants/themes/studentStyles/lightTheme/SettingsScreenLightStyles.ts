@@ -1,3 +1,4 @@
+import { BACKGROUND_COLOR_LIGHT } from "@/constants/Misc";
 import { CommonStyles } from "../../types";
 
 const SettingsScreenLightStyles: CommonStyles = {
@@ -84,7 +85,7 @@ const SettingsScreenLightStyles: CommonStyles = {
   container: {
     padding: 10,
     flex: 1,
-    backgroundColor: "lightgreen",
+    backgroundColor: BACKGROUND_COLOR_LIGHT,
   },
   input: {
     marginBottom: 25,

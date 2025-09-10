@@ -1,9 +1,10 @@
+import { BACKGROUND_COLOR_LIGHT } from "@/constants/Misc";
 import { CommonStyles } from "../../types";
 
 const HomeScreenLightStyles: CommonStyles = {
     container: {
         padding: 20,
-        backgroundColor: "#B9D9EB",
+        backgroundColor: BACKGROUND_COLOR_LIGHT,
         flex: 1,
     },
 };
