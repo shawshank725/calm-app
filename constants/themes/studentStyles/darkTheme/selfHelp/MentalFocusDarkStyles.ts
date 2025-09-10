@@ -1,3 +1,4 @@
+import { BACKGROUND_COLOR_DARK } from "@/constants/Misc";
 import { CommonStyles } from "@/constants/themes/types";
 
 
@@ -5,12 +6,13 @@ const MentalFocusDarkStyles : CommonStyles = {
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: 'lightgreen'
+    backgroundColor: BACKGROUND_COLOR_DARK
   },
   instructions: {
     marginBottom: 10,
     textAlign: 'center',
     fontSize: 15,
+    color:'white'
   },
   gameContainer: {
     padding: 10, 

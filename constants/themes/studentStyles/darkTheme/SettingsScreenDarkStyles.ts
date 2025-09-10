@@ -3,13 +3,18 @@ import { CommonStyles } from "../../types";
 
 const SettingsScreenDarkStyles: CommonStyles = {
   appInfoContainer: {
-    backgroundColor: "white", 
+    backgroundColor: "#3A3A3C", 
     borderRadius: 10, 
     marginVertical: 5, 
     paddingHorizontal: 10,
   },
-  text : {padding: 7,  fontSize: 16, },
-
+  text : {padding: 7,  fontSize: 16, color:'white'},
+  username: {
+    color: "white"
+  },
+  email: {
+    color: "white"
+  },
   textIconContainer: {
     flexDirection:'row', 
     flex: 1, 
@@ -29,15 +34,16 @@ const SettingsScreenDarkStyles: CommonStyles = {
     padding: 7,
     borderColor: 'grey', 
     fontSize: 17, 
-    fontWeight:'bold'
+    fontWeight:'bold', 
+    color:'white'
   },
   warningText: {
     fontWeight: 'normal', 
     fontSize: 17,
-    color: 'red'
+    color: 'red',
   },
   singleItems: {
-    backgroundColor: "white", 
+    backgroundColor: "#3A3A3C", 
     padding:10,
     borderRadius: 10, 
     marginTop: 10, 
@@ -53,11 +59,11 @@ const SettingsScreenDarkStyles: CommonStyles = {
   switchContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: 'white',
+    backgroundColor: '#3A3A3C',
     marginTop: 5,
     alignItems: 'center',
     borderRadius: 10,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   profilePhoto: {
     width: 60,
@@ -68,6 +74,7 @@ const SettingsScreenDarkStyles: CommonStyles = {
   fullName: {
     fontWeight: 'bold',
     fontSize: 15,
+    color:'white'
   },
   profilePhotoContainer: {
     justifyContent: 'center', 
@@ -78,7 +85,7 @@ const SettingsScreenDarkStyles: CommonStyles = {
     alignItems: 'center',
     borderRadius: 15, 
     marginVertical: 10,
-    backgroundColor: 'white'
+    backgroundColor: '#3A3A3C'
   },
   container: {
     padding: 10,

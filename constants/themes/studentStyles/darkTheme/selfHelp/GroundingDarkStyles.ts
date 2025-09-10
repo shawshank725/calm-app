@@ -1,11 +1,11 @@
-import { BACKGROUND_COLOR_LIGHT } from "@/constants/Misc";
+import { BACKGROUND_COLOR_DARK, BACKGROUND_COLOR_LIGHT } from "@/constants/Misc";
 import { CommonStyles } from "../../../types";
 
 
-const SelfHelpDarkStyles : CommonStyles = {
+const BreathingDarkStyles : CommonStyles = {
     container: {
     padding: 20,
-    backgroundColor: BACKGROUND_COLOR_LIGHT,
+    backgroundColor: BACKGROUND_COLOR_DARK,
     flex: 1,
   },
   heading: {
@@ -13,17 +13,18 @@ const SelfHelpDarkStyles : CommonStyles = {
     fontWeight: "bold",
     marginBottom: 12,
     textAlign: "center",
+    color:'white'
   },
   description: {
     fontSize: 16,
     marginBottom: 20,
     textAlign: "center",
-    color: "#444",
+    color: "#acacacff",
   },
   step: {
     fontSize: 16,
     marginBottom: 12,
-    color: "#333",
+    color: "#a8a8a8ff",
     lineHeight: 22,
   },
   bold: {
@@ -32,10 +33,10 @@ const SelfHelpDarkStyles : CommonStyles = {
   note: {
     marginTop: 20,
     fontSize: 14,
-    color: "#666",
+    color: "#9e9e9eff",
     fontStyle: "italic",
     textAlign: "center",
   },
 }
 
-export default SelfHelpDarkStyles;
+export default BreathingDarkStyles;

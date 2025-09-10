@@ -1,18 +1,14 @@
+import { BACKGROUND_COLOR_DARK } from "@/constants/Misc";
 import { CommonStyles } from "@/constants/themes/types";
 
 const BOX_SIZE = 150;
 const DOT_SIZE = 25;
-const duration = 4000; 
-const durationInSeconds = duration/1000;
-const GRAPH_WIDTH = 320;
-const GRAPH_HEIGHT = 200;
 
 const BreathingDarkStyles : CommonStyles = {
   container: {
     flex: 1,
     padding: 10,
-    //justifyContent: 'center',
-    //alignItems: 'center'
+    backgroundColor:BACKGROUND_COLOR_DARK
   },
   square: {
     width: BOX_SIZE,
@@ -42,6 +38,7 @@ const BreathingDarkStyles : CommonStyles = {
     marginVertical: 15,
     fontWeight: 'bold',
     fontSize: 15,
+    color:'white'
   },
   holdText: {
     fontWeight: 'bold',
@@ -49,6 +46,7 @@ const BreathingDarkStyles : CommonStyles = {
     width: 80,
     textAlign: 'center',
     marginHorizontal: 10,
+    color:'white'
   }
 };
 

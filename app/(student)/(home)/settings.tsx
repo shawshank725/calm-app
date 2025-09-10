@@ -80,8 +80,8 @@ export default function ProfileScreen() {
             {session && profile ? (
             <>
               <Text style={screenStyles.fullName}>{profile.full_name}</Text>
-              <Text>{profile.username}</Text>
-              <Text>{session.user.email}</Text>
+              <Text style={screenStyles.username}>{profile.username}</Text>
+              <Text style={screenStyles.email}>{session.user.email}</Text>
             </>
           ) : (
             <Text>Loading profile...</Text>

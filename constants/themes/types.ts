@@ -88,6 +88,8 @@ export type CommonStyles = {
   gameContainer?:ViewStyle;
   answerContainer?:ViewStyle;
 
+  username?: TextStyle;
+  email?:TextStyle;
 
   BottomTab?: Partial<Pick<
     BottomTabNavigationOptions,
