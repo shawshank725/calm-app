@@ -1,3 +1,4 @@
+import { useAppTheme } from "@/constants/themes/ThemeManager";
 import { useRouter } from "expo-router";
 import { TouchableOpacity, View, Image, Text,StyleSheet } from "react-native";
 
@@ -10,16 +11,19 @@ type HomeScreenCardProps = {
 
 }
 export const Card = ({navigateTo, opacity, imagePath,heading,description}: HomeScreenCardProps) => {
+    const {styles } = useAppTheme();
+    const screenStyles = styles.SupportShelf;
+
     const router = useRouter();
     return (
     <TouchableOpacity onPress={() => { router.navigate(navigateTo as any);}} activeOpacity={opacity}> 
-        <View style={cardStyles.cardContainer}>
-            <View style={cardStyles.cardImageContainer}>
-                <Image source={imagePath} style={cardStyles.cardImage}/>
+        <View style={screenStyles.cardContainer}>
+            <View style={screenStyles.cardImageContainer}>
+                <Image source={imagePath} style={screenStyles.cardImage}/>
             </View>
-            <View style={cardStyles.cardInformationContainer}>
-                <Text style={cardStyles.cardHeading}>{heading}</Text>
-                <Text style={cardStyles.cardDescription}>{description}</Text>
+            <View style={screenStyles.cardInformationContainer}>
+                <Text style={screenStyles.cardHeading}>{heading}</Text>
+                <Text style={screenStyles.cardDescription}>{description}</Text>
             </View>
         </View>
     </TouchableOpacity>

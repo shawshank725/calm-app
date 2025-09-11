@@ -1,4 +1,5 @@
 import SendButton from "@/components/SendButton";
+import { useAppTheme } from "@/constants/themes/ThemeManager";
 import React, { useState } from "react";
 import { KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, View, Text } from "react-native";
 import { TextInput } from "react-native-paper";
@@ -38,12 +39,13 @@ const MessageItem = ({ item, }: { item: any; }) => {
 const Wrapper = Platform.OS === 'ios' ? SafeAreaView : View;
 
 export default function ProfileScreen() {
-
+  const { styles } = useAppTheme();
+  const screenStyles = styles.JournalScreen; 
   const [message, setMessage] = useState('');
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={screenStyles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.select({ ios: 37, android: 140 })}
     >
@@ -51,13 +53,13 @@ export default function ProfileScreen() {
         <View style={{ flex: 1 }}>
         </View>
 
-        <View style={styles.inputContainer}>
+        <View style={screenStyles.inputContainer}>
           <TextInput
             value={message}
             onChangeText={setMessage}
             placeholder="Type a message"
             mode="outlined"
-            style={styles.input}
+            style={screenStyles.input}
             outlineStyle={{ borderWidth: 2 }}
             theme={{
               roundness: 10,
@@ -74,24 +76,3 @@ export default function ProfileScreen() {
     </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor:"#000"
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgb(0, 255, 13)',
-    paddingHorizontal: 6,
-    paddingVertical: 6,
-    marginBottom: Platform.OS === "ios" ? 56 : 0,
-  },
-  input: {
-    flex: 1,
-    marginRight: 5,
-    backgroundColor: 'rgb(255, 252, 86)',
-    height: 40,
-  },
-});

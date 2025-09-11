@@ -6,6 +6,7 @@ import BookDetailsContentDarkStyles from "./studentStyles/darkTheme/components/B
 import ContentNotFoundDarkStyles from "./studentStyles/darkTheme/components/ContentNotFoundDarkStyles";
 import LibrarySearchBarDarkStyles from "./studentStyles/darkTheme/components/LibrarySearchBarDarkStyles";
 import SGTLibraryLinkDarkStyles from "./studentStyles/darkTheme/components/SGTLibraryLinkDarkStyles";
+import SupportShelfCardDarkStyles from "./studentStyles/darkTheme/components/SupportShelfCardDarkStyles";
 import HomeScreenDarkStyles from "./studentStyles/darkTheme/HomeScreenDarkStyles";
 import JournalDarkStyles from "./studentStyles/darkTheme/JournalDarkStyles";
 import LibraryDarkStyles from "./studentStyles/darkTheme/LibraryDarkStyles";
@@ -33,6 +34,7 @@ import BreathingLightStyles from "./studentStyles/lightTheme/selfHelp/BreathingL
 import GroundingLightStyles from "./studentStyles/lightTheme/selfHelp/GroundingLightStyles";
 import MentalFocusLightStyles from "./studentStyles/lightTheme/selfHelp/MentalFocusLightStyles";
 import SettingsScreenLightStyles from "./studentStyles/lightTheme/SettingsScreenLightStyles";
+import SupportShelfCardLightStyles from "./studentStyles/lightTheme/SupportShelfCardLightStyles";
 import { BottomTabLightStyles } from "./studentStyles/lightTheme/tabs/BottomTabLightStyles";
 import { TopTabLightStyles } from "./studentStyles/lightTheme/tabs/TopTabLightStyles";
 import { CommonStyles } from "./types";
@@ -60,6 +62,7 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
             ContentNotFound: ContentNotFoundLightStyles,
             LibrarySearchBar: LibrarySearchBarLightStyles,
             SGTLibraryLink: SGTLibraryLinkLightStyles,
+            SupportShelf: SupportShelfCardLightStyles,
 
             TopTab: TopTabLightStyles,
             BottomTab: BottomTabLightStyles,
@@ -84,6 +87,7 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
             ContentNotFound: ContentNotFoundDarkStyles,
             LibrarySearchBar: LibrarySearchBarDarkStyles,
             SGTLibraryLink: SGTLibraryLinkDarkStyles,
+            SupportShelf: SupportShelfCardDarkStyles,
             
             TopTab: TopTabDarkStyles,
             BottomTab: BottomTabDarkStyles,
