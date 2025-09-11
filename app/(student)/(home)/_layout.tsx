@@ -9,18 +9,19 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useAppTheme } from "@/constants/themes/ThemeManager";
+import { HEADER_COLOR_BLACK, HEADER_COLOR_LIGHT, HEADER_TEXT_COLOR_DARK, HEADER_TEXT_COLOR_LIGHT } from "@/constants/Misc";
 
 
 export default function TabLayout() {
-  const { styles } = useAppTheme();
+  const { theme, styles } = useAppTheme();
   const tabStyles = styles.BottomTab;
   
   const colorScheme = useColorScheme();
   //const [fontsLoaded] = useFonts({   Carnevalee: require('assets/fonts/Carnevalee Freakshow.ttf'),  });
   return (
+    
     <Tabs
       screenOptions={{
-        //tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         tabBarActiveTintColor: tabStyles.BottomTab?.tabBarActiveTintColor,
         tabBarInactiveTintColor: tabStyles.BottomTab?.tabBarInactiveTintColor,
         headerShown: false,
@@ -38,6 +39,8 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <Ionicons name="journal" size={28} color={color} />
           ),
+          headerStyle: {backgroundColor: theme === "dark" ? HEADER_COLOR_BLACK: HEADER_COLOR_LIGHT },
+          headerTitleStyle: {color: theme === "dark" ? HEADER_TEXT_COLOR_LIGHT: HEADER_TEXT_COLOR_DARK }
         }}
       />
       <Tabs.Screen
@@ -49,6 +52,8 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <Ionicons name="chatbubble-ellipses-outline" size={28} color={color} />
           ),
+          headerStyle: {backgroundColor: theme === "dark" ? HEADER_COLOR_BLACK: HEADER_COLOR_LIGHT },
+          headerTitleStyle: {color: theme === "dark" ? HEADER_TEXT_COLOR_LIGHT: HEADER_TEXT_COLOR_DARK }
         }}
       />
       <Tabs.Screen
@@ -59,9 +64,9 @@ export default function TabLayout() {
           headerShown: true,
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="house.fill" color={color} />),
-          headerStyle: {backgroundColor: '#6991e0ff', },
+          headerStyle: {backgroundColor: theme === "dark" ? HEADER_COLOR_BLACK: HEADER_COLOR_LIGHT },
+          headerTitleStyle: {color: theme === "dark" ? HEADER_TEXT_COLOR_LIGHT: HEADER_TEXT_COLOR_DARK }
           }}
-          
       />
       <Tabs.Screen
         name="(selfhelp)"
@@ -72,6 +77,8 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="self-improvement" size={28} color={color} />
           ),
+          headerStyle: {backgroundColor: theme === "dark" ? HEADER_COLOR_BLACK: HEADER_COLOR_LIGHT },
+          headerTitleStyle: {color: theme === "dark" ? HEADER_TEXT_COLOR_LIGHT: HEADER_TEXT_COLOR_DARK }
         }}
       />
       <Tabs.Screen
@@ -83,6 +90,8 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <AntDesign name="setting" size={28} color={color} />
           ),
+          headerStyle: {backgroundColor: theme === "dark" ? HEADER_COLOR_BLACK: HEADER_COLOR_LIGHT },
+          headerTitleStyle: {color: theme === "dark" ? HEADER_TEXT_COLOR_LIGHT: HEADER_TEXT_COLOR_DARK }
         }}
       />
     </Tabs>

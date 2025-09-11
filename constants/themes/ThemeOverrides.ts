@@ -1,4 +1,5 @@
 import { ThemeName, UserRole } from "../themes/types";
+import BookAuthorScreenDarkStyles from "./studentStyles/darkTheme/BookAuthorScreenDarkStyles";
 import BuddyConnectDarkStyles from "./studentStyles/darkTheme/BuddyConnectDarkStyles";
 import BookCardDarkStyles from "./studentStyles/darkTheme/components/BookCardDarkStyles";
 import BookDetailsContentDarkStyles from "./studentStyles/darkTheme/components/BookDetailsContentDarkStyles";
@@ -6,6 +7,7 @@ import ContentNotFoundDarkStyles from "./studentStyles/darkTheme/components/Cont
 import LibrarySearchBarDarkStyles from "./studentStyles/darkTheme/components/LibrarySearchBarDarkStyles";
 import SGTLibraryLinkDarkStyles from "./studentStyles/darkTheme/components/SGTLibraryLinkDarkStyles";
 import HomeScreenDarkStyles from "./studentStyles/darkTheme/HomeScreenDarkStyles";
+import JournalDarkStyles from "./studentStyles/darkTheme/JournalDarkStyles";
 import LibraryDarkStyles from "./studentStyles/darkTheme/LibraryDarkStyles";
 import PasswordDarkStyles from "./studentStyles/darkTheme/miscellaneous/PasswordDarkStyles";
 import ProfileDarkStyles from "./studentStyles/darkTheme/miscellaneous/ProfileDarkStyles";
@@ -23,6 +25,7 @@ import ContentNotFoundLightStyles from "./studentStyles/lightTheme/components/Co
 import LibrarySearchBarLightStyles from "./studentStyles/lightTheme/components/LibrarySearchBarLightStyles";
 import SGTLibraryLinkLightStyles from "./studentStyles/lightTheme/components/SGTLibraryLinkLightStyles";
 import HomeScreenLightStyles from "./studentStyles/lightTheme/HomeScreenLightStyles";
+import JournalLightStyles from "./studentStyles/lightTheme/JournalLightStyles";
 import LibraryLightStyles from "./studentStyles/lightTheme/LibraryLightStyles";
 import PasswordLightStyles from "./studentStyles/lightTheme/miscellaneous/PasswordLightStyles";
 import ProfileLightStyles from "./studentStyles/lightTheme/miscellaneous/ProfileLightStyles";
@@ -43,6 +46,7 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
             BuddyConnectScreen: BuddyConnectLightStyles,
             Library: LibraryLightStyles,
             BookAuthorScreen: BookAuthorScreenLightStyles,
+            JournalScreen: JournalLightStyles,
 
             GroundingScreen: GroundingLightStyles,
             BreathingScreen: BreathingLightStyles,
@@ -65,8 +69,9 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
             SettingsScreen: SettingsScreenDarkStyles,
             BuddyConnectScreen: BuddyConnectDarkStyles,
             Library: LibraryDarkStyles,
-            BookAuthorScreen: BookAuthorScreenLightStyles,
-
+            BookAuthorScreen: BookAuthorScreenDarkStyles,
+            JournalScreen: JournalDarkStyles,
+            
             GroundingScreen: GroundingDarkStyles,
             BreathingScreen: BreathingDarkStyles,
             MentalFocusScreen: MentalFocusDarkStyles,

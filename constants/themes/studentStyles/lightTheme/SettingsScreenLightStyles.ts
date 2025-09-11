@@ -76,10 +76,8 @@ const SettingsScreenLightStyles: CommonStyles = {
   profileContainer: {
     flexDirection: 'row', 
     alignItems: 'center',
-    borderWidth: 2, 
     borderRadius: 15, 
     marginVertical: 10,
-    borderColor: 'grey',
     backgroundColor: 'white'
   },
   container: {
