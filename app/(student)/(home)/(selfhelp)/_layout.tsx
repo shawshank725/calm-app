@@ -1,6 +1,5 @@
 import { withLayoutContext } from "expo-router";
 import { createMaterialTopTabNavigator,  } from "@react-navigation/material-top-tabs";
-import {   StyleSheet} from "react-native";
 import { useAppTheme } from "@/constants/themes/ThemeManager";
 
 const Tab = createMaterialTopTabNavigator();
@@ -23,16 +22,16 @@ export default function SelfHelpNavigator() {
         tabBarStyle: tabStyles.tabBarStyle,
         tabBarItemStyle: tabStyles.tabBarItemStyle,
         tabBarLabelStyle: tabStyles.tabBarLabelStyle,
-        
       }}
     >
       <TopTabs.Screen
         name="grounding"
-        options={{ title: "Grounding", headerTitleAlign: "center",}}
+        options={{ title: "Grounding Exercises", headerTitleAlign: "center",}}
+        
       />
       <TopTabs.Screen
         name="breathing"
-        options={{ title: "Breathing", headerTitleAlign: "center" }}
+        options={{ title: "Breathing Exercises", headerTitleAlign: "center" }}
       />
       <TopTabs.Screen
         name="bodyMovement"
@@ -40,34 +39,8 @@ export default function SelfHelpNavigator() {
       />
       <TopTabs.Screen
         name="mentalFocus"
-        options={{ title: "Focus", headerTitleAlign: "center", }}
+        options={{ title: "Mental Focus", headerTitleAlign: "center", }}
       />
     </TopTabs>
   );
 }
-
-const styles = StyleSheet.create({
-  tabBarContainer: {
-    flexDirection: "row",
-    backgroundColor: "white",  // change this to change background color of the top tab bar
-    marginHorizontal: 10,
-    borderRadius: 10,
-    padding: 4,
-  },
-  tabButton: {
-    flex: 1,
-    paddingVertical: 10,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  activeTabButton: {
-    backgroundColor: "#4169E1",
-  },
-  tabText: {
-    fontWeight: "600",
-    color: "#444",
-  },
-  activeTabText: {
-    color: "white",
-  },
-});

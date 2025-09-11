@@ -15,6 +15,7 @@ export const TopTabLightStyles: CommonStyles = {
     tabBarItemStyle: {
       backgroundColor: "transparent", // light blue background for all tabs
       margin: 4,
+      width:'auto'
     },
     tabBarLabelStyle: {
       fontWeight: "bold",

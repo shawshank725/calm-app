@@ -15,6 +15,7 @@ export const TopTabDarkStyles: CommonStyles = {
       backgroundColor: "transparent", 
       borderRadius: 8,
       margin: 4,
+      width:'auto'
     },
     tabBarLabelStyle: {
       fontWeight: "bold",
