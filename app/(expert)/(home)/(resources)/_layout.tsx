@@ -1,13 +1,12 @@
-import { useFonts } from "expo-font";
-
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { withLayoutContext } from "expo-router";
+import { Tabs, withLayoutContext } from "expo-router";
+import React from "react";
 import { useAppTheme } from "@/constants/themes/ThemeManager";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 const Tab = createMaterialTopTabNavigator();
 const TopTabs = withLayoutContext(Tab.Navigator);
 
-export default function RootLayout() {
+export default function TabLayout() {
   const {styles } = useAppTheme();
   const tabStyles = styles?.TopTab?.TopTab ?? {};
   
@@ -26,18 +25,9 @@ export default function RootLayout() {
       }}
     >
       <TopTabs.Screen
-        name="digital-doodle"
-        options={{ title: "Digital Doodle", headerTitleAlign: "center", }}
-      />
-      <TopTabs.Screen
-        name="journal"
-        options={{ title: "Journalling", headerTitleAlign: "center" }}
-      />
-      <TopTabs.Screen
-        name="growth-tracker"
-        options={{ title: "Growth Tracker", headerTitleAlign: "center" }}
-      />
-      
+        name="pdf-tab"
+        options={{ title: "PDFs/Books", headerTitleAlign: "center", }}
+      />      
     </TopTabs>
   );
 }

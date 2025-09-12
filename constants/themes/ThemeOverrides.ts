@@ -1,4 +1,6 @@
 import { ThemeName, UserRole } from "../themes/types";
+import ResourcesPDFDarkStyles from "./studentStyles/darkTheme/ResourcesPDFDarkStyles";
+import ResourcesPDFLightStyles from "./studentStyles/lightTheme/ResourcesPDFLightStyles";
 import BookAuthorScreenDarkStyles from "./studentStyles/darkTheme/BookAuthorScreenDarkStyles";
 import BuddyConnectDarkStyles from "./studentStyles/darkTheme/BuddyConnectDarkStyles";
 import BookCardDarkStyles from "./studentStyles/darkTheme/components/BookCardDarkStyles";
@@ -66,7 +68,11 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
 
             TopTab: TopTabLightStyles,
             BottomTab: BottomTabLightStyles,
+
+            // expert styles here
+            ResourcesPDFScreen: ResourcesPDFLightStyles,
         },
+
         dark : {
             HomeScreen: HomeScreenDarkStyles,
             SettingsScreen: SettingsScreenDarkStyles,
@@ -91,6 +97,9 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
             
             TopTab: TopTabDarkStyles,
             BottomTab: BottomTabDarkStyles,
+
+            // expert styles here
+            ResourcesPDFScreen: ResourcesPDFDarkStyles,
         },
     },
 

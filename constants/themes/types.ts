@@ -117,6 +117,12 @@ export type CommonStyles = {
     | "tabBarLabelStyle"
   >>;
   
+
+  // expert things here
+  textInput?: TextStyle;
+  rowContainer?: ViewStyle;
+
+  title?: TextStyle;
   //[customKey: string]: ViewStyle | TextStyle | ImageStyle | undefined;
 };
 

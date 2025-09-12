@@ -40,6 +40,18 @@ export default function TabLayout() {
           headerTitleStyle: {color: theme === "dark" ? HEADER_TEXT_COLOR_LIGHT: HEADER_TEXT_COLOR_DARK }
           }}
       />
+      <Tabs.Screen
+        name="(resources)"
+        options={{
+          title: "Resources",
+          headerTitleAlign: 'center',
+          headerShown: true,
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="library-outline" size={28} color={color} />),
+          headerStyle: {backgroundColor: theme === "dark" ? HEADER_COLOR_BLACK: HEADER_COLOR_LIGHT },
+          headerTitleStyle: {color: theme === "dark" ? HEADER_TEXT_COLOR_LIGHT: HEADER_TEXT_COLOR_DARK }
+          }}
+      />
       
       <Tabs.Screen
         name="settings"
