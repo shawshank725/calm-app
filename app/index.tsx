@@ -7,7 +7,7 @@ import { CustomActivityIndicator1 } from "@/components/CustomActivityIndicator";
 const index = () => {
   const {session, loading} = useAuth();
   const { data: profile, isLoading: profileLoading } = useProfile(session?.user.id);
-
+  
   if (loading) {
     return <CustomActivityIndicator1 />;
   }

@@ -14,17 +14,18 @@ const ResourcesPDFLightStyles : CommonStyles = {
         width:'100%',
         alignItems:'center',
         borderRadius:10,
-        justifyContent:'space-between'
+        justifyContent:'space-between',
     },
     title: {
         color:HEADER_TEXT_COLOR_DARK,
         fontSize:16,
+        width: 100,
     },
     textInput: {
         backgroundColor:'#ffffffff',
         borderRadius:10,
         margin:5,width:'60%'
-    }
+    },
 }
 
 export default ResourcesPDFLightStyles;

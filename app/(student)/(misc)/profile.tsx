@@ -1,7 +1,7 @@
 import getAllUsernames, { useProfile, useProfilePhoto, useSaveProfileChanges } from '@/api/profile/Profile';
-import { router, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, Image, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, Alert } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/providers/AuthProvider";
 import Toast from "react-native-toast-message";
