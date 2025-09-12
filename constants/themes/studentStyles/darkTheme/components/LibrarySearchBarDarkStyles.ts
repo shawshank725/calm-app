@@ -3,7 +3,7 @@ import { CommonStyles } from "@/constants/themes/types";
 const LibrarySearchBarDarkStyles : CommonStyles = {
   librarySearchBarContainer: {
     flexDirection: 'row', 
-    backgroundColor: 'white',
+    backgroundColor: '#1b1616ff',
     borderRadius: 10,
     padding: 5,
     alignItems:'center',
@@ -18,11 +18,12 @@ const LibrarySearchBarDarkStyles : CommonStyles = {
     columnGap: 10
   },
   searchInputStyles: {
-    backgroundColor: '#E1EBEE', 
+    backgroundColor: '#6b6b6bff', 
     textDecorationColor: 'none', 
     borderRadius: 10,
     height: 40, 
     padding: 5,
+    color: 'white'
   },
 }
 
