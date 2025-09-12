@@ -1,7 +1,6 @@
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 import { MaterialTopTabNavigationOptions } from "@react-navigation/material-top-tabs";
 import { ViewStyle, ImageStyle, TextStyle } from "react-native";
-import { View } from "react-native-reanimated/lib/typescript/Animated";
 
 export type CommonStyles = {
   container?: ViewStyle;
@@ -100,6 +99,8 @@ export type CommonStyles = {
   cardInformationContainer?: ViewStyle;
   cardImage?: ImageStyle;
 
+  journalEntry?: ViewStyle;
+  journalEntryContent?: TextStyle;
 
   BottomTab?: Partial<Pick<
     BottomTabNavigationOptions,

@@ -5,7 +5,14 @@ const SupportShelfCardLightStyles: CommonStyles = {
         borderRadius: 20,
         overflow: 'hidden',
         marginVertical: 10,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.15,
+        shadowRadius: 6,
+
+        // --- Elevation (Android) ---
+        elevation: 5,
     },
     cardImageContainer: {
         width: '100%',
