@@ -27,7 +27,7 @@ export default function SignUpScreen() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const allRollNumbers = await getAllRollNumbers();
 
-    if (!fullName || !email || !password || !rollNumber || !qualifications || !professionalTitle) {
+    if (!fullName || !email || !password || !rollNumber || !qualifications || !professionalTitle || !role) {
       Alert.alert("All fields are required.");
       return false;
     }
@@ -91,7 +91,7 @@ export default function SignUpScreen() {
           professional_title: professionalTitle,
           qualifications: qualifications,
         });
-
+      console.log(insertError);
       if (insertError) {
         Toast.show({
           type: 'error', // 'success' | 'error' | 'info'

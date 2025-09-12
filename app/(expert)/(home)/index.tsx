@@ -8,7 +8,6 @@ export default function HomeScreen() {
 
   return (
     <View style={screenStyles?.container}> 
-
       <Text>hello expert</Text>     
     </View>
   );

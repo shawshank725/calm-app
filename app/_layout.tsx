@@ -32,6 +32,7 @@ export default function RootLayout() {
           <Stack>
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="(student)" options={{ headerShown: false }} />
+            <Stack.Screen name="(expert)" options={{ headerShown: false }} />
             <Stack.Screen name="(auth)" options={{title: "Authentication", headerTitleAlign: 'center', headerShown: true }} />
           </Stack>
           <Toast config={toastConfig}/>

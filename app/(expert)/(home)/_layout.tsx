@@ -16,8 +16,6 @@ export default function TabLayout() {
   const { theme, styles } = useAppTheme();
   const tabStyles = styles.BottomTab;
   
-  const colorScheme = useColorScheme();
-  //const [fontsLoaded] = useFonts({   Carnevalee: require('assets/fonts/Carnevalee Freakshow.ttf'),  });
   return (
     
     <Tabs
@@ -29,33 +27,7 @@ export default function TabLayout() {
         tabBarBackground: TabBarBackground,
         tabBarStyle: tabStyles.BottomTab?.tabBarStyle,
       }}
-    >
-      <Tabs.Screen
-        name="(journal)"
-        options={{
-          title: "Journal",
-          headerTitleAlign: 'center',
-          headerShown: true,
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="journal" size={28} color={color} />
-          ),
-          headerStyle: {backgroundColor: theme === "dark" ? HEADER_COLOR_BLACK: HEADER_COLOR_LIGHT },
-          headerTitleStyle: {color: theme === "dark" ? HEADER_TEXT_COLOR_LIGHT: HEADER_TEXT_COLOR_DARK }
-        }}
-      />
-      <Tabs.Screen
-        name="buddy"
-        options={{
-          title: "Buddy",
-          headerTitleAlign: 'center',
-          headerShown: true,
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="chatbubble-ellipses-outline" size={28} color={color} />
-          ),
-          headerStyle: {backgroundColor: theme === "dark" ? HEADER_COLOR_BLACK: HEADER_COLOR_LIGHT },
-          headerTitleStyle: {color: theme === "dark" ? HEADER_TEXT_COLOR_LIGHT: HEADER_TEXT_COLOR_DARK }
-        }}
-      />
+    >      
       <Tabs.Screen
         name="index"
         options={{
@@ -68,19 +40,7 @@ export default function TabLayout() {
           headerTitleStyle: {color: theme === "dark" ? HEADER_TEXT_COLOR_LIGHT: HEADER_TEXT_COLOR_DARK }
           }}
       />
-      <Tabs.Screen
-        name="(selfhelp)"
-        options={{
-          title: "Self Help",
-          headerTitleAlign: 'center',
-          headerShown: true,
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="self-improvement" size={28} color={color} />
-          ),
-          headerStyle: {backgroundColor: theme === "dark" ? HEADER_COLOR_BLACK: HEADER_COLOR_LIGHT },
-          headerTitleStyle: {color: theme === "dark" ? HEADER_TEXT_COLOR_LIGHT: HEADER_TEXT_COLOR_DARK }
-        }}
-      />
+      
       <Tabs.Screen
         name="settings"
         options={{
