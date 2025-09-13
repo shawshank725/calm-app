@@ -40,6 +40,8 @@ import SupportShelfCardLightStyles from "./studentStyles/lightTheme/SupportShelf
 import { BottomTabLightStyles } from "./studentStyles/lightTheme/tabs/BottomTabLightStyles";
 import { TopTabLightStyles } from "./studentStyles/lightTheme/tabs/TopTabLightStyles";
 import { CommonStyles } from "./types";
+import ExpertHomeScreenDarkStyles from "./studentStyles/darkTheme/ExpertHomeScreenDarkStyles";
+import ExpertHomeScreenLightStyles from "./studentStyles/lightTheme/ExpertHomeScreenLightStyles";
 
 
 export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, Partial<CommonStyles>>>> = {
@@ -71,6 +73,7 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
 
             // expert styles here
             ResourcesPDFScreen: ResourcesPDFLightStyles,
+            ExpertHomeScreen: ExpertHomeScreenLightStyles,
         },
 
         dark : {
@@ -100,6 +103,7 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
 
             // expert styles here
             ResourcesPDFScreen: ResourcesPDFDarkStyles,
+            ExpertHomeScreen: ExpertHomeScreenDarkStyles,
         },
     },
 

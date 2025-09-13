@@ -1,6 +1,16 @@
 import { supabase } from "@/lib/supabase";
 import { useQuery } from "@tanstack/react-query";
 
+export type Book = {
+  id: number;
+  book_name: string;
+  book_author: string;
+  description: string;
+  thumbnail_url: string;
+  pdf_url: string;
+  page_count: number;
+}
+
 export const useGetOneBook = (id: number) => {
     return useQuery({
     queryKey: ['library', id],
@@ -28,7 +38,7 @@ export const useGetAllBooks = () => {
 }
 
 export const useGetThreeBooks = () => {
-  return useQuery({
+  return useQuery<Book[]>({
     queryKey: ['library'],
     queryFn: async () => { // specify how data is to be fetched
     const {data, error} = await supabase.from("library").select("*").limit(3);
