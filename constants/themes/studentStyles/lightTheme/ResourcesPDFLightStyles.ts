@@ -26,6 +26,13 @@ const ResourcesPDFLightStyles : CommonStyles = {
         borderRadius:10,
         margin:5,width:'60%'
     },
+    heading: {
+        color:HEADER_TEXT_COLOR_DARK,
+        fontSize:20,
+        fontWeight:'bold',
+        textAlign:'center',
+        marginBottom:20
+    },
 }
 
 export default ResourcesPDFLightStyles;

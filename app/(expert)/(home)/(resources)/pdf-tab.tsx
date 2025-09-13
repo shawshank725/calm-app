@@ -1,4 +1,4 @@
-import { View,  Text, TextInput, Button, } from "react-native";
+import { View,  Text, TextInput, } from "react-native";
 import React, { useState } from "react";
 import { useAppTheme } from "@/constants/themes/ThemeManager";
 import NewButton from "@/components/NewButton";
@@ -21,6 +21,7 @@ export default function PDFTabScreen() {
   const { styles } = useAppTheme();
   const screenStyles = styles.ResourcesPDFScreen;
   const {session, loading} = useAuth();
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
 
   const [bookName, setBookName] = useState<string>("");
   const [authorName, setAuthorName] = useState<string>("");
@@ -30,33 +31,46 @@ export default function PDFTabScreen() {
   const [thumbnail, setThumbnail] = useState<string | null>(null);
 
   const addBook = async () => {
-    const bookDetails = {
+    setButtonDisabled(true);
+    let bookDetails = {
       book_name: bookName,
       book_author: authorName,
       description: bookDescription,
-      thumbnail_url: thumbnail,
-      pdf_url: bookPdf,
       page_count: pageCount,
+      thumbnail_url : "",
+      pdf_url: ""
     };
 
-    const allFieldsFilled = Object.values(bookDetails).every(
-      (value) => value !== null && value !== undefined && value !== ""
-    );
+    const allFieldsFilled =
+      bookName?.toString().trim() !== "" &&
+      authorName?.toString().trim() !== "" &&
+      bookDescription?.toString().trim() !== "" &&
+      pageCount !== null &&
+      pageCount !== undefined &&
+      pageCount !== "";
 
-    if (allFieldsFilled && (thumbnail && bookPdf)) {
-      const thumbnailUploadResult = uploadFile(thumbnail);
-      console.log(thumbnailUploadResult);
+    if (thumbnail && bookPdf && allFieldsFilled) {
+      const thumbnailResult = await uploadFile(thumbnail);
 
-      const pdfUploadResult = uploadFile(bookPdf.uri);
-      console.log("PDF UPLOAD RESULT - " +pdfUploadResult);
+      const pdfResult = await uploadFile(bookPdf.uri);
+
+      if (thumbnailResult) bookDetails.thumbnail_url = thumbnailResult;
+      if (pdfResult) bookDetails.pdf_url = pdfResult;
 
       const bookAddedResult = await supabase.from("library").insert(bookDetails).select().single();
-      console.log("BOOK ADDED RESULT - " + bookAddedResult);
+
       if (bookAddedResult.error){
         Toast.show({ type: 'error', text1: 'Failed to add book.',position: 'bottom' });
       }
       else {
         Toast.show({ type: 'success', text1: 'Book successfully added!',position: 'bottom' });
+        setBookName("");
+        setAuthorName("");
+        setBookPdf(null);
+        setBookDescription("");
+        setPageCount("");      
+        setThumbnail(null);
+        setButtonDisabled(false);
       }
     }
     else {
@@ -111,8 +125,7 @@ export default function PDFTabScreen() {
       const img = result.assets[0];
       const localUri = img.uri;
       
-      setThumbnail(localUri); 
-      
+      setThumbnail(localUri);       
     }
   };
 
@@ -124,7 +137,6 @@ export default function PDFTabScreen() {
 
     if (!result.canceled && result.assets && result.assets.length > 0) {
       const file = result.assets[0];
-      console.log("Picked:", file.uri);
 
       setBookPdf({
         uri: file.uri,
@@ -137,7 +149,7 @@ export default function PDFTabScreen() {
 
   return (
     <View style={screenStyles?.container}> 
-      <Text>Add a new e-book for the library</Text>
+      <Text style={screenStyles.heading}>Add a new e-book for the library</Text>
 
       <View style={screenStyles.rowContainer}>
         <Text style={screenStyles.title}>Book name</Text>
@@ -194,7 +206,7 @@ export default function PDFTabScreen() {
         <NewButton title="Select book thumbnail" onPress={selectImage} />
       </View>
 
-      <NewButton title="Add this book" onPress={addBook}/>
+      <NewButton title="Add this book" disabled={buttonDisabled} onPress={addBook}/>
     </View>
   );
 }

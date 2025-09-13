@@ -8,7 +8,7 @@ const index = () => {
   const {session, loading} = useAuth();
   const { data: profile, isLoading: profileLoading } = useProfile(session?.user.id);
   
-  if (loading) {
+  if (loading || profileLoading) {
     return <CustomActivityIndicator1 />;
   }
   
