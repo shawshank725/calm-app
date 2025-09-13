@@ -1,13 +1,10 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import { Platform } from "react-native";
 import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import TabBarBackground from "@/components/ui/TabBarBackground";
-import { Colors } from "@/constants/Colors";
-import { useColorScheme } from "@/hooks/useColorScheme";
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { useAppTheme } from "@/constants/themes/ThemeManager";
 import { HEADER_COLOR_BLACK, HEADER_COLOR_LIGHT, HEADER_TEXT_COLOR_DARK, HEADER_TEXT_COLOR_LIGHT } from "@/constants/Misc";
 
@@ -17,7 +14,6 @@ export default function TabLayout() {
   const tabStyles = styles.BottomTab;
   
   return (
-    
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: tabStyles.BottomTab?.tabBarActiveTintColor,
@@ -29,18 +25,6 @@ export default function TabLayout() {
       }}
     >      
       <Tabs.Screen
-        name="index"
-        options={{
-          title: "Home",
-          headerTitleAlign: 'center',
-          headerShown: true,
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />),
-          headerStyle: {backgroundColor: theme === "dark" ? HEADER_COLOR_BLACK: HEADER_COLOR_LIGHT },
-          headerTitleStyle: {color: theme === "dark" ? HEADER_TEXT_COLOR_LIGHT: HEADER_TEXT_COLOR_DARK }
-          }}
-      />
-      <Tabs.Screen
         name="(resources)"
         options={{
           title: "Resources",
@@ -48,6 +32,18 @@ export default function TabLayout() {
           headerShown: true,
           tabBarIcon: ({ color }) => (
             <Ionicons name="library-outline" size={28} color={color} />),
+          headerStyle: {backgroundColor: theme === "dark" ? HEADER_COLOR_BLACK: HEADER_COLOR_LIGHT },
+          headerTitleStyle: {color: theme === "dark" ? HEADER_TEXT_COLOR_LIGHT: HEADER_TEXT_COLOR_DARK }
+          }}
+      />
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: "Home",
+          headerTitleAlign: 'center',
+          headerShown: true,
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="house.fill" color={color} />),
           headerStyle: {backgroundColor: theme === "dark" ? HEADER_COLOR_BLACK: HEADER_COLOR_LIGHT },
           headerTitleStyle: {color: theme === "dark" ? HEADER_TEXT_COLOR_LIGHT: HEADER_TEXT_COLOR_DARK }
           }}

@@ -27,6 +27,19 @@ export const useGetAllBooks = () => {
   });
 }
 
+export const useGetThreeBooks = () => {
+  return useQuery({
+    queryKey: ['library'],
+    queryFn: async () => { // specify how data is to be fetched
+    const {data, error} = await supabase.from("library").select("*").limit(3);
+    if (error){
+        throw new Error(error.message);
+    }
+    return data;
+    }
+  });
+}
+
 export const useGetAllBooksByAuthor = (book_author: string) => {
 return useQuery({
     queryKey: ['library', book_author],
@@ -62,3 +75,4 @@ export const useGetAllBooksAndAuthors = (input: string) => {
     enabled: !!input.trim(),
   });
 };
+
