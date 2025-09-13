@@ -4,19 +4,14 @@ import { Stack, useLocalSearchParams, } from 'expo-router';
 import { useGetOneBook } from '@/api/library/Library';
 import { WebView } from 'react-native-webview';
 import { CustomActivityIndicator1 } from '@/components/CustomActivityIndicator';
-import { supabase } from '@/lib/supabase';
-import { LIBRARY_BUCKET } from '@/constants/Misc';
+import { getFileUrl } from '@/api/others';
 
 const PDFViewerScreen = () => {
   const { id } = useLocalSearchParams();
   const { data, error, isLoading } = useGetOneBook(Number(id));
-  const getPdfUrl = (path: string) => {
-    return supabase
-      .storage
-      .from(LIBRARY_BUCKET)
-      .getPublicUrl(path).data.publicUrl;
-  };
-  const pdfViewerUrl = `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(getPdfUrl(data.pdf_url))}`;
+
+  
+  const pdfViewerUrl = `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(getFileUrl(data.pdf_url))}`;
   
   if (isLoading) {
     return <CustomActivityIndicator1 />;

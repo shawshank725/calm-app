@@ -125,7 +125,8 @@ export type CommonStyles = {
   title?: TextStyle;
   bookContainer?: ViewStyle,
   dashboardCard?:ViewStyle,
-  content?: TextStyle
+  content?: TextStyle,
+  dashboardThumbnail?: ImageStyle,
   //[customKey: string]: ViewStyle | TextStyle | ImageStyle | undefined;
 };
 
