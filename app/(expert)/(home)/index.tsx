@@ -29,10 +29,6 @@ export default function HomeScreen() {
           router.navigate(`/(library)`)
         }}/>
       </View>
-
-      <View>
-        
-      </View>
     </View>
   );
 }

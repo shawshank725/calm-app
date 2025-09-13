@@ -5,7 +5,10 @@ const ExpertHomeScreenLightStyles : CommonStyles = {
     container : {
         padding: 10,
         flex: 1,
-        backgroundColor: BACKGROUND_COLOR_LIGHT
+        backgroundColor: BACKGROUND_COLOR_LIGHT,
+        display: 'flex',
+        flexDirection:'column',
+        rowGap: 10
     },
     bookContainer : {
         display:'flex',
