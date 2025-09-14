@@ -127,7 +127,12 @@ export type CommonStyles = {
   dashboardCard?:ViewStyle,
   content?: TextStyle,
   dashboardThumbnail?: ImageStyle,
-
+  slotContainer?: ViewStyle,
+  addNewSlotModal?: ViewStyle,
+  addNewSlotModalContainer?:ViewStyle,
+  addSlotHeader?: ViewStyle,
+  addText?: TextStyle,
+  
   //[customKey: string]: ViewStyle | TextStyle | ImageStyle | undefined;
 };
 
