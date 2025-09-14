@@ -68,7 +68,7 @@ export default function ProfileScreen() {
   return (
     <View style={screenStyles.container}>
       {/* actual profile container here  */}
-      <TouchableOpacity activeOpacity={0.8} onPress={() => {router.push({pathname: "/(student)/(misc)/profile",})}}>
+      <TouchableOpacity activeOpacity={0.8} onPress={() => {router.push({pathname: "/(expert)/(misc)/profile",})}}>
         <View style={screenStyles.profileContainer}>
           <View style={screenStyles.profilePhotoContainer}>
             <Image
@@ -80,7 +80,9 @@ export default function ProfileScreen() {
             {session && profile ? (
             <>
               <Text style={screenStyles.fullName}>{profile.full_name}</Text>
-              <Text style={screenStyles.username}>{profile.username}</Text>
+              {
+                profile.username && <Text style={screenStyles.username}>{profile.username}</Text>
+              }
               <Text style={screenStyles.email}>{session.user.email}</Text>
             </>
           ) : (
@@ -89,6 +91,13 @@ export default function ProfileScreen() {
           </View>
         </View>
       </TouchableOpacity>
+
+      <TouchableOpacity onPress={async () => {router.navigate(`/(expert)/(misc)/expert-slots`)}} activeOpacity={0.7}>
+        <View style={screenStyles.singleItems}>
+          <Text style={screenStyles.text}>View/Edit your slots</Text>
+        </View>
+      </TouchableOpacity>
+
 
       {/* app info */}
       <View style={screenStyles.appInfoContainer}  >

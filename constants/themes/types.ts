@@ -127,6 +127,7 @@ export type CommonStyles = {
   dashboardCard?:ViewStyle,
   content?: TextStyle,
   dashboardThumbnail?: ImageStyle,
+
   //[customKey: string]: ViewStyle | TextStyle | ImageStyle | undefined;
 };
 

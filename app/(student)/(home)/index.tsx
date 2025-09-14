@@ -36,11 +36,12 @@ export default function HomeScreen() {
       {show && (
         <DateTimePicker
           value={date}
-          mode="date"        // or "time" / "datetime"
-          display="default"  // "spinner" / "calendar" / "clock"
+          mode="date"
+          display="default"
           onChange={onChange}
         />
       )}
+
     </View>
   );
 }

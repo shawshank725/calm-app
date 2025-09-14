@@ -42,6 +42,8 @@ import { TopTabLightStyles } from "./studentStyles/lightTheme/tabs/TopTabLightSt
 import { CommonStyles } from "./types";
 import ExpertHomeScreenDarkStyles from "./studentStyles/darkTheme/ExpertHomeScreenDarkStyles";
 import ExpertHomeScreenLightStyles from "./studentStyles/lightTheme/ExpertHomeScreenLightStyles";
+import ExpertSlotsLightStyle from "./studentStyles/lightTheme/ExpertSlotsLightStyle";
+import ExpertSlotsDarkStyle from "./studentStyles/darkTheme/ExpertSlotsDarkStyle";
 
 
 export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, Partial<CommonStyles>>>> = {
@@ -74,6 +76,7 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
             // expert styles here
             ResourcesPDFScreen: ResourcesPDFLightStyles,
             ExpertHomeScreen: ExpertHomeScreenLightStyles,
+            ExpertSlotsScreen: ExpertSlotsLightStyle,
         },
 
         dark : {
@@ -104,6 +107,7 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
             // expert styles here
             ResourcesPDFScreen: ResourcesPDFDarkStyles,
             ExpertHomeScreen: ExpertHomeScreenDarkStyles,
+            ExpertSlotsScreen: ExpertSlotsDarkStyle,
         },
     },
 

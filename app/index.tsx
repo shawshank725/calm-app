@@ -18,10 +18,10 @@ const index = () => {
   if (profile?.group == "ADMIN"){
     return <Redirect href={"/(admin)/index"}/>
   }
-  if (profile?.group == "STUDENT"){
+  else if (profile?.group == "STUDENT"){
     return <Redirect href={"/(student)/(home)"}/>
   }
-  if (profile?.group == "EXPERT" && !profileLoading){
+  else if (profile?.group == "EXPERT"){
     return <Redirect href={"/(expert)/(home)"}/>
   }
 };

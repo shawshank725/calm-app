@@ -19,6 +19,7 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="showImage" options={{ headerShown: false, }} />
+        <Stack.Screen name="expert-slots" options={{headerTitle:"Your slots", headerShown: true, }} />
         <Stack.Screen name="info" options={{ headerShown: true, }} />
         <Stack.Screen name="profile" options={{ headerTitle:"Edit Profile" ,  headerShown: true, }} />
         <Stack.Screen name="password" options={{ headerTitle:"Change Password" ,  headerShown: true, headerBackTitle: "Profile" }} />
