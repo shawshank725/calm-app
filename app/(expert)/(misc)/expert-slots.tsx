@@ -5,13 +5,13 @@ import { useAppTheme } from '@/constants/themes/ThemeManager';
 import { useAuth } from '@/providers/AuthProvider';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
-import { View, Text, Modal, StatusBar } from 'react-native';
+import { View, Text, Modal, StatusBar, Alert } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { DataTable } from 'react-native-paper';
 
 export default function ExpertSlotScreen() {
     const { session } = useAuth();
-    const { data: expertSlots, isLoading: isExpertSlotLoading } = useExpertSlots(session?.user.id ?? "");
+    const { data: expertSlots, isLoading: isExpertSlotLoading, refetch: refetchExpertSlots } = useExpertSlots(session?.user.id ?? "");
     const { styles } = useAppTheme();
     const screenStyles = styles.ExpertSlotsScreen;
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -20,24 +20,64 @@ export default function ExpertSlotScreen() {
     const [showStartTimePicker, setShowStartTimePicker] = useState<boolean>(false);
     const [showEndTimePicker, setShowEndTimePicker] = useState<boolean>(false);
     const { mutate: insertMutate } = useInsertSlot();
+    const [disabledButton, setDisabledButton] = useState<boolean>(false);
+
+    const validateSlot = () => {
+        if (!expertSlots) {
+            return false;
+        }
+        if (startTime === endTime) {
+            Alert.alert("Slot must of of 1 hour. Starting and ending time cannot be the same.");
+            return false;
+        }
+        if (startTime > endTime) {
+            Alert.alert("Start time cannot be greater than end time.");
+            return false;
+        }
+
+        for (const slot of expertSlots) {
+            const existingStart = new Date(slot.start_time);
+            const existingEnd = new Date(slot.end_time);
+            const newStart = new Date(startTime);
+            const newEnd = new Date(endTime);
+
+            const overlap =
+                newStart < existingEnd && existingStart < newEnd;
+
+            if (overlap) {
+                Alert.alert(
+                    `This time conflicts with an existing slot from ${slot.start_time} to ${slot.end_time}.`
+                );
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     const insertSlot = async () => {
-        try {
-            insertMutate({
-                id: 0,
-                expert_id: session?.user.id,
-                start_time: startTime,
-                end_time: endTime,
-            });
-            setShowModal(false);
-            Toast.show({
-                type: 'success', // 'success' | 'error' | 'info'
-                text1: 'Added slot successfully',
-                position: 'bottom', // or 'bottom'
-                visibilityTime: 1500
-            });
+        if (validateSlot()) {
+            setDisabledButton(true);
+            try {
+                insertMutate({
+                    id: 0,
+                    expert_id: session?.user.id,
+                    start_time: startTime,
+                    end_time: endTime,
+                });
+                setShowModal(false);
+                Toast.show({
+                    type: 'success', // 'success' | 'error' | 'info'
+                    text1: 'Added slot successfully',
+                    position: 'bottom', // or 'bottom'
+                    visibilityTime: 1500
+                });
+                setDisabledButton(false);
+                refetchExpertSlots();
+            }
+            catch (err) { }
         }
-        catch (err) { }
+
     }
 
     return (
@@ -115,7 +155,7 @@ export default function ExpertSlotScreen() {
                             )}
 
                             <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <Text onPress={() => {
+                                <Text disabled={disabledButton} onPress={() => {
                                     insertSlot();
                                 }} style={screenStyles.addText}>Add this slot</Text>
                             </View>

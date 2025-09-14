@@ -12,7 +12,7 @@ export const useExpertSlots = (userId: string) => {
     return useQuery<ExpertSlot[]>({
         queryKey: ['expert-slot', userId],
         queryFn: async () => {
-        const {data, error} = await supabase.from("expert_slots").select("*").eq("expert_id", userId);
+        const {data, error} = await supabase.from("expert_slots").select("*").eq("expert_id", userId).order("start_time", {ascending: true});
         if (error) {
             throw new Error(error.message);
         }
