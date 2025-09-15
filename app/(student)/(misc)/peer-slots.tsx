@@ -1,4 +1,4 @@
-import { ExpertSlot, useExpertSlots, useInsertSlot } from '@/api/expert-peer/expert-peer';
+import { ExpertPeerSlot, useExpertSlots, useInsertSlot } from '@/api/expert-peer/expert-peer';
 import NewButton from '@/components/NewButton';
 import { useAppTheme } from '@/constants/themes/ThemeManager';
 import { useAuth } from '@/providers/AuthProvider';
@@ -9,7 +9,7 @@ import { Alert, Modal, Text, View } from 'react-native';
 import { DataTable } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
 
-export default function ExpertSlotScreen() {
+export default function PeerSlotScreen() {
     const { session } = useAuth();
     const { data: expertSlots, isLoading: isExpertSlotLoading, refetch: refetchExpertSlots } = useExpertSlots(session?.user.id ?? "");
     const { styles } = useAppTheme();
@@ -95,7 +95,7 @@ export default function ExpertSlotScreen() {
                                     <DataTable.Title>Start Time</DataTable.Title>
                                     <DataTable.Title>End Time</DataTable.Title>
                                 </DataTable.Header>
-                                {expertSlots?.map((slot: ExpertSlot, index: number) => (
+                                {expertSlots?.map((slot: ExpertPeerSlot, index: number) => (
                                     <DataTable.Row key={slot.id}>
                                         <DataTable.Cell>{index + 1}</DataTable.Cell>
                                         <DataTable.Cell>

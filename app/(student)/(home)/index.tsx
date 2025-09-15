@@ -29,9 +29,12 @@ export default function HomeScreen() {
         description={"Explore self-help books and inspiring stories to guide your growth."} 
       />      
 
-      <Text>Selected: {date.toLocaleString()}</Text>
-
-      <NewButton title="Pick date/time" onPress={() => setShow(true)} />
+      
+      <View>
+        <Text>Book a session with an expert/peer</Text>
+        <Text>Selected: {date.toLocaleString()}</Text>
+        <NewButton title="Pick date/time" onPress={() => setShow(true)} />
+      </View>
 
       {show && (
         <DateTimePicker
@@ -41,7 +44,6 @@ export default function HomeScreen() {
           onChange={onChange}
         />
       )}
-
     </View>
   );
 }

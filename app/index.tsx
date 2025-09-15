@@ -8,7 +8,8 @@ const index = () => {
   const {session, loading} = useAuth();
   const { data: profile, isLoading: profileLoading } = useProfile(session?.user.id);
   
-  if (loading || profileLoading) {
+  if (loading || profileLoading ) {
+    console.log(loading + " " + profileLoading);
     return <CustomActivityIndicator1 />;
   }
   
@@ -16,13 +17,13 @@ const index = () => {
     return <Redirect href={"/(auth)"}/>
   }
   if (profile?.group == "ADMIN"){
-    return <Redirect href={"/(admin)/index"}/>
+    return <Redirect href={"/(admin)"}/>
   }
   else if (profile?.group == "STUDENT"){
-    return <Redirect href={"/(student)/(home)"}/>
+    return <Redirect href={"/(student)"}/>
   }
   else if (profile?.group == "EXPERT"){
-    return <Redirect href={"/(expert)/(home)"}/>
+    return <Redirect href={"/(expert)"}/>
   }
 };
 
