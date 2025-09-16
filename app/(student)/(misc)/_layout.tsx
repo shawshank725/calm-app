@@ -21,6 +21,7 @@ export default function RootLayout() {
         <Stack.Screen name="showImage" options={{ headerShown: false, }} />
         <Stack.Screen name="info" options={{ headerShown: true, }} />
         <Stack.Screen name="profile" options={{ headerTitle:"Edit Profile" ,  headerShown: true, }} />
+        <Stack.Screen name="peer-slots" options={{ headerTitle:"Your Slots" ,  headerShown: true, }} />
         <Stack.Screen name="password" options={{ headerTitle:"Change Password" ,  headerShown: true, headerBackTitle: "Profile" }} />
         
       </Stack>

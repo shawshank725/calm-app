@@ -19,7 +19,7 @@ const index = () => {
   if (profile?.group == "ADMIN"){
     return <Redirect href={"/(admin)"}/>
   }
-  else if (profile?.group == "STUDENT"){
+  else if (profile?.group == "STUDENT" || "PEER"){
     return <Redirect href={"/(student)"}/>
   }
   else if (profile?.group == "EXPERT"){

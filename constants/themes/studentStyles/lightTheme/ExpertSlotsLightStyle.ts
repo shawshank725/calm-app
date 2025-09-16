@@ -41,13 +41,13 @@ const ExpertSlotsLightStyle: CommonStyles = {
     },
     addText: {
         textAlign:'center',
-        backgroundColor:'#38383896',
+        backgroundColor:'#8f434396',
         fontSize: 16,
         fontWeight:'bold',
         padding: 5,
         width:150,
         borderRadius: 10,
-    }
+    },
 }
 
 export default ExpertSlotsLightStyle;

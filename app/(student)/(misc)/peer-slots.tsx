@@ -1,6 +1,7 @@
-import { ExpertPeerSlot, useExpertSlots, useInsertSlot } from '@/api/expert-peer/expert-peer';
+import { ExpertPeerSlot, useDeleteSlot, useExpertPeerSlots, useInsertSlot } from '@/api/expert-peer/expert-peer';
 import NewButton from '@/components/NewButton';
 import { useAppTheme } from '@/constants/themes/ThemeManager';
+import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/providers/AuthProvider';
 import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -11,7 +12,8 @@ import Toast from 'react-native-toast-message';
 
 export default function PeerSlotScreen() {
     const { session } = useAuth();
-    const { data: expertSlots, isLoading: isExpertSlotLoading, refetch: refetchExpertSlots } = useExpertSlots(session?.user.id ?? "");
+
+    const { data: expertPeerSlots, isLoading: isExpertPeerSlotLoading, refetch: refetchExpertPeerSlots } = useExpertPeerSlots(session?.user.id ?? "");
     const { styles } = useAppTheme();
     const screenStyles = styles.ExpertSlotsScreen;
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -23,10 +25,10 @@ export default function PeerSlotScreen() {
     const [disabledButton, setDisabledButton] = useState<boolean>(false);
 
     const validateSlot = () => {
-        if (!expertSlots) {
+        if (!expertPeerSlots) {
             return false;
         }
-        if (startTime === endTime) {
+        if (startTime.getTime() === endTime.getTime()) {
             Alert.alert("Slot must of of 1 hour. Starting and ending time cannot be the same.");
             return false;
         }
@@ -35,7 +37,7 @@ export default function PeerSlotScreen() {
             return false;
         }
 
-        for (const slot of expertSlots) {
+        for (const slot of expertPeerSlots) {
             const existingStart = new Date(slot.start_time);
             const existingEnd = new Date(slot.end_time);
             const newStart = new Date(startTime);
@@ -61,7 +63,7 @@ export default function PeerSlotScreen() {
             try {
                 insertMutate({
                     id: 0,
-                    expert_id: session?.user.id,
+                    expert_peer_id: session?.user.id,
                     start_time: startTime,
                     end_time: endTime,
                 });
@@ -73,9 +75,16 @@ export default function PeerSlotScreen() {
                     visibilityTime: 1500
                 });
                 setDisabledButton(false);
-                refetchExpertSlots();
+                refetchExpertPeerSlots();
             }
-            catch (err) { }
+            catch (err) { 
+                Toast.show({
+                    type: 'error', // 'success' | 'error' | 'info'
+                    text1: 'Could not add slot',
+                    position: 'bottom', // or 'bottom'
+                    visibilityTime: 1500
+                });
+            }
         }
 
     }
@@ -84,7 +93,7 @@ export default function PeerSlotScreen() {
         <View style={screenStyles.container}>
             <View style={screenStyles.slotContainer}>
                 {
-                    expertSlots?.length === 0 ?
+                    expertPeerSlots?.length === 0 ?
                         <>
                             <Text style={screenStyles.text}>No slots found.</Text>
                             <Text style={screenStyles.text}>Click on the below button to add a new slot.</Text>
@@ -94,8 +103,9 @@ export default function PeerSlotScreen() {
                                     <DataTable.Title>S. No</DataTable.Title>
                                     <DataTable.Title>Start Time</DataTable.Title>
                                     <DataTable.Title>End Time</DataTable.Title>
+                                    <DataTable.Title>Delete</DataTable.Title>
                                 </DataTable.Header>
-                                {expertSlots?.map((slot: ExpertPeerSlot, index: number) => (
+                                {expertPeerSlots?.map((slot: ExpertPeerSlot, index: number) => (
                                     <DataTable.Row key={slot.id}>
                                         <DataTable.Cell>{index + 1}</DataTable.Cell>
                                         <DataTable.Cell>
@@ -103,6 +113,29 @@ export default function PeerSlotScreen() {
                                         </DataTable.Cell>
                                         <DataTable.Cell>
                                             {new Date(slot.end_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        </DataTable.Cell>
+                                        <DataTable.Cell>
+                                            <Ionicons name="trash-outline" size={22} color="red" onPress={async()=>{
+                                                const result = await supabase.from('expert_peer_slots').delete().match({"id": slot.id});
+                                                console.log(result);
+                                                if (!result.error){
+                                                    Toast.show({
+                                                        type: 'success', // 'success' | 'error' | 'info'
+                                                        text1: 'Deleted the slot',
+                                                        position: 'bottom', // or 'bottom'
+                                                        visibilityTime: 1500
+                                                    });
+                                                    refetchExpertPeerSlots();
+                                                }
+                                                else {
+                                                    Toast.show({
+                                                        type: 'error', // 'success' | 'error' | 'info'
+                                                        text1: 'Could not delete slot',
+                                                        position: 'bottom', // or 'bottom'
+                                                        visibilityTime: 1500
+                                                    });
+                                                }
+                                            }}/>
                                         </DataTable.Cell>
                                     </DataTable.Row>
                                 ))}

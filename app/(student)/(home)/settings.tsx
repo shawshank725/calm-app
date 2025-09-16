@@ -90,11 +90,11 @@ export default function ProfileScreen() {
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={async () => {router.navigate(`/(student)/(misc)/expert-slots`)}} activeOpacity={0.7}>
+      {profile && profile.group === "PEER" &&  <TouchableOpacity onPress={async () => {router.navigate(`/(student)/(misc)/peer-slots`)}} activeOpacity={0.7}>
         <View style={screenStyles.singleItems}>
           <Text style={screenStyles.text}>View/Edit your slots</Text>
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity>}
 
       {/* app info */}
       <View style={screenStyles.appInfoContainer}  >

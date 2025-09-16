@@ -1,6 +1,7 @@
-import { ExpertSlot, useExpertSlots, useInsertSlot } from '@/api/expert-peer/expert-peer';
+import { ExpertPeerSlot, useExpertPeerSlots, useInsertSlot } from '@/api/expert-peer/expert-peer';
 import NewButton from '@/components/NewButton';
 import { useAppTheme } from '@/constants/themes/ThemeManager';
+import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/providers/AuthProvider';
 import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -11,7 +12,7 @@ import Toast from 'react-native-toast-message';
 
 export default function ExpertSlotScreen() {
     const { session } = useAuth();
-    const { data: expertSlots, isLoading: isExpertSlotLoading, refetch: refetchExpertSlots } = useExpertSlots(session?.user.id ?? "");
+    const { data: expertSlots, isLoading: isExpertSlotLoading, refetch: refetchExpertPeerSlots } = useExpertPeerSlots(session?.user.id ?? "");
     const { styles } = useAppTheme();
     const screenStyles = styles.ExpertSlotsScreen;
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -26,7 +27,7 @@ export default function ExpertSlotScreen() {
         if (!expertSlots) {
             return false;
         }
-        if (startTime === endTime) {
+        if (startTime.getTime() === endTime.getTime()) {
             Alert.alert("Slot must of of 1 hour. Starting and ending time cannot be the same.");
             return false;
         }
@@ -61,7 +62,7 @@ export default function ExpertSlotScreen() {
             try {
                 insertMutate({
                     id: 0,
-                    expert_id: session?.user.id,
+                    expert_peer_id: session?.user.id,
                     start_time: startTime,
                     end_time: endTime,
                 });
@@ -73,11 +74,10 @@ export default function ExpertSlotScreen() {
                     visibilityTime: 1500
                 });
                 setDisabledButton(false);
-                refetchExpertSlots();
+                refetchExpertPeerSlots();
             }
             catch (err) { }
         }
-
     }
 
     return (
@@ -94,8 +94,9 @@ export default function ExpertSlotScreen() {
                                     <DataTable.Title>S. No</DataTable.Title>
                                     <DataTable.Title>Start Time</DataTable.Title>
                                     <DataTable.Title>End Time</DataTable.Title>
+                                    <DataTable.Title>Delete</DataTable.Title>
                                 </DataTable.Header>
-                                {expertSlots?.map((slot: ExpertSlot, index: number) => (
+                                {expertSlots?.map((slot: ExpertPeerSlot, index: number) => (
                                     <DataTable.Row key={slot.id}>
                                         <DataTable.Cell>{index + 1}</DataTable.Cell>
                                         <DataTable.Cell>
@@ -103,6 +104,29 @@ export default function ExpertSlotScreen() {
                                         </DataTable.Cell>
                                         <DataTable.Cell>
                                             {new Date(slot.end_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        </DataTable.Cell>
+                                        <DataTable.Cell>
+                                            <Ionicons name="trash-outline" size={22} color="red" onPress={async () => {
+                                                const result = await supabase.from('expert_peer_slots').delete().match({ "id": slot.id });
+                                                console.log(result);
+                                                if (!result.error) {
+                                                    Toast.show({
+                                                        type: 'success', // 'success' | 'error' | 'info'
+                                                        text1: 'Deleted the slot',
+                                                        position: 'bottom', // or 'bottom'
+                                                        visibilityTime: 1500
+                                                    });
+                                                    refetchExpertPeerSlots();
+                                                }
+                                                else {
+                                                    Toast.show({
+                                                        type: 'error', // 'success' | 'error' | 'info'
+                                                        text1: 'Could not delete slot',
+                                                        position: 'bottom', // or 'bottom'
+                                                        visibilityTime: 1500
+                                                    });
+                                                }
+                                            }} />
                                         </DataTable.Cell>
                                     </DataTable.Row>
                                 ))}
