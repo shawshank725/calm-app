@@ -23,6 +23,21 @@ export const useExpertPeerSlots = (userId: string) => {
 };
 
 
+export const useAllExpertPeerSlots = () => {
+    return useQuery<ExpertPeerSlot[]>({
+        queryKey: ['all-expert-peer-slots'],
+        queryFn: async () => {
+        const {data, error} = await supabase.from("expert_peer_slots").select("*").order("start_time", {ascending: true});
+        if (error) {
+            throw new Error(error.message);
+        }
+        return data;
+        }
+    })
+};
+
+
+
 export const useInsertSlot = () => {
     return useMutation({
         async mutationFn(data:ExpertPeerSlot) {

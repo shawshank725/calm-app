@@ -1,49 +1,30 @@
-import { View,  Text, } from "react-native";
-import React, { useState } from "react";
+import { View, Text } from "react-native";
+import React from "react";
 import { Card } from "@/components/home/Card";
 import { useAppTheme } from "@/constants/themes/ThemeManager";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import NewButton from "@/components/NewButton";
+import { useRouter } from "expo-router";
 
 export default function HomeScreen() {
   const { styles } = useAppTheme();
   const screenStyles = styles.HomeScreen;
-
-  const [date, setDate] = useState(new Date());
-  const [show, setShow] = useState(false);
-
-  const onChange = (_event: any, selectedDate?: Date) => {
-    setShow(false);
-    if (selectedDate) {
-      setDate(selectedDate);
-    }
-  };
+  const router = useRouter();
 
   return (
     <View style={screenStyles?.container}> 
-
       <Card navigateTo={"/(student)/(library)"} 
         opacity={0.7} 
         imagePath={require("assets/images/library-card-photo.jpg")} 
         heading={"The Support Shelf"} 
         description={"Explore self-help books and inspiring stories to guide your growth."} 
-      />      
+      />
 
-      
       <View>
-        <Text>Book a session with an expert/peer</Text>
-        <Text>Selected: {date.toLocaleString()}</Text>
-        <NewButton title="Pick date/time" onPress={() => setShow(true)} />
+        <Text>Book a slot</Text>
+        <NewButton title="Book a slot" onPress={()=> {
+          router.navigate("/(student)/(misc)/book-slot")
+        }}/>
       </View>
-
-      {show && (
-        <DateTimePicker
-          value={date}
-          mode="date"
-          display="default"
-          onChange={onChange}
-        />
-      )}
     </View>
   );
 }
