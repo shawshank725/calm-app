@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export type SessionStatus ="ACCEPTED" | "DENIED" | "PENDING";
 
@@ -32,5 +32,20 @@ export const useSessionsByDate = (userId: string, date: Date) => {
       return data as Sessions[];
     },
     enabled: !!userId && !!date,
+  });
+};
+
+export const useInsertSession = () => {
+  return useMutation<Sessions, Error, Sessions>({
+    mutationFn: async (payload: Sessions) => {
+      const { data, error } = await supabase
+        .from('sessions')
+        .insert([payload])
+        .select()
+        .single();
+
+      if (error) throw new Error(error.message);
+      return data;
+    },
   });
 };

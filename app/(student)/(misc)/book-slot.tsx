@@ -1,4 +1,4 @@
-import { Sessions, useSessionsByDate } from '@/api/expert-peer/sessions';
+import { Sessions, useInsertSession, useSessionsByDate } from '@/api/expert-peer/sessions';
 import NewButton from '@/components/NewButton';
 import { useAuth } from '@/providers/AuthProvider';
 import React, { useEffect, useState } from 'react';
@@ -6,6 +6,7 @@ import { View, Text } from 'react-native';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { ExpertPeerSlot, useAllExpertPeerSlots } from '@/api/expert-peer/expert-peer';
 import { DataTable } from 'react-native-paper';
+import Toast from 'react-native-toast-message';
 
 
 const BookSlot = () => {
@@ -14,10 +15,11 @@ const BookSlot = () => {
     const [date, setDate] = useState(new Date());
     const [show, setShow] = useState(false);
 
-    const { data: sessionsByDate } = useSessionsByDate(session?.user.id ?? "", date);
-    const { data: expertPeerSlots } = useAllExpertPeerSlots();
+    const { data: sessionsByDate, refetch: refetchSessions } = useSessionsByDate(session?.user.id ?? "", date);
+    const { data: expertPeerSlots, refetch: refetchExpertPeerSlots } = useAllExpertPeerSlots();
 
     const [availableSlots, setAvailableSlots] = useState<ExpertPeerSlot[]>([]);
+    const { mutate: insertSlotMutation } = useInsertSession();
 
     function getFreeSlots(
         expertPeerSlots: ExpertPeerSlot[],
@@ -34,8 +36,8 @@ const BookSlot = () => {
                     // is there a session for this expert at this exact start time?
                     const isBooked = sessionsByDate.some(session =>
                         session.expert_peer_id === chunk.expert_peer_id &&
-                        new Date(session.start_time).getTime() ===
-                        new Date(chunk.start_time).getTime()
+                        new Date(session.start_time) < new Date(chunk.end_time) &&
+                        new Date(session.end_time) > new Date(chunk.start_time)
                     );
 
                     if (!isBooked) {
@@ -93,6 +95,7 @@ const BookSlot = () => {
         }
     };
 
+    console.log(availableSlots);
     return (
         <View>
             <Text>Book a session with an expert/peer</Text>
@@ -103,16 +106,57 @@ const BookSlot = () => {
                     <DataTable.Title>S No.</DataTable.Title>
                     <DataTable.Title>Start time</DataTable.Title>
                     <DataTable.Title>End time</DataTable.Title>
+                    <DataTable.Title>Action</DataTable.Title>
                 </DataTable.Header>
                 {
                     availableSlots.map((expertPeerSlot: ExpertPeerSlot, index: number) => (
-                        <DataTable.Row>
+                        <DataTable.Row key={index}>
                             <DataTable.Cell>{expertPeerSlot.id + 1}</DataTable.Cell>
                             <DataTable.Cell>
                                 {new Date(expertPeerSlot.start_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </DataTable.Cell>
                             <DataTable.Cell>
                                 {new Date(expertPeerSlot.end_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </DataTable.Cell>
+                            <DataTable.Cell>
+                                <NewButton title='Book' onPress={async () => {
+                                    if (session?.user.id && expertPeerSlot.expert_peer_id) {
+                                        const sessionSlot: Sessions = {
+                                            id: 0, // or omit if your DB auto-generates it
+                                            student_id: session.user.id,
+                                            expert_peer_id: expertPeerSlot.expert_peer_id,
+                                            start_time: new Date(expertPeerSlot.start_time),
+                                            end_time: new Date(expertPeerSlot.end_time),
+                                            status: "PENDING",
+                                        };
+                                        console.log("this is the object of session - " + JSON.stringify(sessionSlot));
+
+                                        try {
+                                            await insertSlotMutation(sessionSlot);
+                                            Toast.show({
+                                                type: 'success', // 'success' | 'error' | 'info'
+                                                text1: 'Applied for session! Waiting for expert to approve it.',
+                                                position: 'bottom', // or 'bottom'
+                                                visibilityTime: 1500
+                                            });
+                                            refetchSessions();
+                                            refetchExpertPeerSlots();
+                                        }
+                                        catch (error){
+                                            console.log(error);
+                                            Toast.show({
+                                                type: 'error', // 'success' | 'error' | 'info'
+                                                text1: 'Could not apply for session.',
+                                                position: 'bottom', // or 'bottom'
+                                                visibilityTime: 1500
+                                            });
+                                        }
+
+                                    } else {
+                                        console.warn("Missing student or expert id");
+                                    }
+
+                                }} />
                             </DataTable.Cell>
                         </DataTable.Row>
                     ))
