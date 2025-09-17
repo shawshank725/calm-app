@@ -7,78 +7,23 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { ExpertPeerSlot, useAllExpertPeerSlots } from '@/api/expert-peer/expert-peer';
 import { DataTable } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
+import { getFreeSlots } from '@/api/others';
 
 
 const BookSlot = () => {
     const { session } = useAuth();
 
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState<Date | null>(null);
     const [show, setShow] = useState(false);
+    const [hasPickedDate, setHasPickedDate] = useState(false);
 
-    const { data: sessionsByDate, refetch: refetchSessions } = useSessionsByDate(session?.user.id ?? "", date);
+    const { data: sessionsByDate, refetch: refetchSessions } = useSessionsByDate(session?.user.id ?? "", date ?? new Date());
     const { data: expertPeerSlots, refetch: refetchExpertPeerSlots } = useAllExpertPeerSlots();
 
     const [availableSlots, setAvailableSlots] = useState<ExpertPeerSlot[]>([]);
-    const { mutate: insertSlotMutation } = useInsertSession();
+    const { mutateAsync: insertSlotMutation } = useInsertSession();
 
-    function getFreeSlots(
-        expertPeerSlots: ExpertPeerSlot[],
-        sessionsByDate: Sessions[]
-    ): ExpertPeerSlot[] {
-        let available: ExpertPeerSlot[] = [];
-
-        for (const expertPeerSlot of expertPeerSlots) {
-            // break the big slot into hourly chunks
-            const chunks = returnNewSlot(expertPeerSlot);
-
-            if (chunks) {
-                for (const chunk of chunks) {
-                    // is there a session for this expert at this exact start time?
-                    const isBooked = sessionsByDate.some(session =>
-                        session.expert_peer_id === chunk.expert_peer_id &&
-                        new Date(session.start_time) < new Date(chunk.end_time) &&
-                        new Date(session.end_time) > new Date(chunk.start_time)
-                    );
-
-                    if (!isBooked) {
-                        available.push(chunk);
-                    }
-                }
-            }
-        }
-        return available;
-    }
-
-    function returnNewSlot(expertPeerSlot: ExpertPeerSlot): ExpertPeerSlot[] {
-        const start = new Date(expertPeerSlot.start_time);
-        const end = new Date(expertPeerSlot.end_time);
-
-        const diffHours = end.getHours() - start.getHours();
-        const slots: ExpertPeerSlot[] = [];
-
-        if (diffHours <= 1) {
-            slots.push(expertPeerSlot);
-            return slots;
-        }
-
-        let current = new Date(start);
-
-        for (let i = 0; i < diffHours; i++) {
-            const chunkStart = new Date(current);
-            const chunkEnd = new Date(current);
-            chunkEnd.setHours(chunkEnd.getHours() + 1);
-
-            slots.push({
-                id: i,
-                expert_peer_id: expertPeerSlot.expert_peer_id,
-                start_time: chunkStart,
-                end_time: chunkEnd,
-            });
-            current.setHours(current.getHours() + 1);
-        }
-        return slots;
-    }
-
+    
 
     useEffect(() => {
         if (expertPeerSlots && sessionsByDate) {
@@ -88,19 +33,24 @@ const BookSlot = () => {
     }, [expertPeerSlots, sessionsByDate]);
 
 
-    const onChange = (_event: any, selectedDate?: Date) => {
+    const onDateChange = (_: any, selectedDate?: Date) => {
         setShow(false);
         if (selectedDate) {
             setDate(selectedDate);
+            setHasPickedDate(true);
+            refetchSessions();
         }
     };
 
-    console.log(availableSlots);
     return (
         <View>
             <Text>Book a session with an expert/peer</Text>
-            <Text>Selected: {date.toLocaleString()}</Text>
+            {
+                date && hasPickedDate && <Text>Selected: {date.getDate() + "/" + date.getMonth() + "/"+ date.getFullYear()}</Text>
+            }
             <NewButton title="Pick date/time" onPress={() => setShow(true)} />
+            <Text>Expert slots here - </Text>
+            {date && 
             <DataTable>
                 <DataTable.Header>
                     <DataTable.Title>S No.</DataTable.Title>
@@ -109,9 +59,10 @@ const BookSlot = () => {
                     <DataTable.Title>Action</DataTable.Title>
                 </DataTable.Header>
                 {
-                    availableSlots.map((expertPeerSlot: ExpertPeerSlot, index: number) => (
+                    availableSlots.filter(
+                        slot => slot.group === "EXPERT").map((expertPeerSlot: ExpertPeerSlot, index: number) => (
                         <DataTable.Row key={index}>
-                            <DataTable.Cell>{expertPeerSlot.id + 1}</DataTable.Cell>
+                            <DataTable.Cell>{index+1}</DataTable.Cell>
                             <DataTable.Cell>
                                 {new Date(expertPeerSlot.start_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </DataTable.Cell>
@@ -122,7 +73,7 @@ const BookSlot = () => {
                                 <NewButton title='Book' onPress={async () => {
                                     if (session?.user.id && expertPeerSlot.expert_peer_id) {
                                         const sessionSlot: Sessions = {
-                                            id: 0, // or omit if your DB auto-generates it
+                                            id: Math.floor((Math.random() * 100) + 1),
                                             student_id: session.user.id,
                                             expert_peer_id: expertPeerSlot.expert_peer_id,
                                             start_time: new Date(expertPeerSlot.start_time),
@@ -151,29 +102,27 @@ const BookSlot = () => {
                                                 visibilityTime: 1500
                                             });
                                         }
-
                                     } else {
                                         console.warn("Missing student or expert id");
-                                    }
-
+                                    } 
                                 }} />
                             </DataTable.Cell>
                         </DataTable.Row>
                     ))
                 }
-            </DataTable>
+            </DataTable>}
             {
                 show && (
                     <DateTimePicker
-                        value={date}
+                        value={date ?? new Date()}
                         mode="date"
                         display="default"
-                        onChange={onChange}
+                        onChange={onDateChange}
+                        minimumDate={new Date()}
                     />
                 )
             }
         </View>
-
     )
 }
 

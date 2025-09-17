@@ -16,15 +16,17 @@ const index = () => {
   if (!session){
     return <Redirect href={"/(auth)"}/>
   }
+
   if (profile?.group == "ADMIN"){
     return <Redirect href={"/(admin)"}/>
-  }
-  else if (profile?.group == "STUDENT" || "PEER"){
-    return <Redirect href={"/(student)"}/>
   }
   else if (profile?.group == "EXPERT"){
     return <Redirect href={"/(expert)"}/>
   }
+  else if (profile?.group == "STUDENT" || "PEER"){
+    return <Redirect href={"/(student)"}/>
+  }
+
 };
 
 export default index;

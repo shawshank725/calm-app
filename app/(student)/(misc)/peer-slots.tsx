@@ -66,6 +66,7 @@ export default function PeerSlotScreen() {
                     expert_peer_id: session?.user.id,
                     start_time: startTime,
                     end_time: endTime,
+                    group:"PEER"
                 });
                 setShowModal(false);
                 Toast.show({

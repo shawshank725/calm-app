@@ -22,7 +22,7 @@ export default function ExpertSlotScreen() {
     const [showEndTimePicker, setShowEndTimePicker] = useState<boolean>(false);
     const { mutate: insertMutate } = useInsertSlot();
     const [disabledButton, setDisabledButton] = useState<boolean>(false);
-
+    
     const validateSlot = () => {
         if (!expertSlots) {
             return false;
@@ -65,6 +65,7 @@ export default function ExpertSlotScreen() {
                     expert_peer_id: session?.user.id,
                     start_time: startTime,
                     end_time: endTime,
+                    group: "EXPERT"
                 });
                 setShowModal(false);
                 Toast.show({
