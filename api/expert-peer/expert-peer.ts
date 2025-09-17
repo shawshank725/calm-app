@@ -68,3 +68,23 @@ export const useDeleteSlot = () => {
         },
     });
 }
+
+
+// getting expert and peer id and their profile
+export const useGetExpertPeerProfiles = () => {
+    return useQuery({
+        queryKey: ["expert-peer-profile"],
+        queryFn: async () => {
+            const { data, error } = await supabase
+                .from("profiles")
+                .select("*")
+                .in("group", ["EXPERT", "PEER"]);
+            if (error){
+                console.log(error);
+            }
+            else {
+                return data;
+            }
+        }
+    })
+}

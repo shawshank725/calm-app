@@ -19,6 +19,7 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="showImage" options={{ headerShown: false, }} />
         <Stack.Screen name="info" options={{ headerShown: true, }} />
+        <Stack.Screen name="all-sessions" options={{headerTitle:"All sessions" ,  headerShown: true, }} />
         <Stack.Screen name="profile" options={{ headerTitle:"Edit Profile" ,  headerShown: true, }} />
         <Stack.Screen name="book-slot" options={{ headerTitle:"Book a slot with Expert/Peer" ,  headerShown: true, }} />
         <Stack.Screen name="peer-slots" options={{ headerTitle:"Your Slots" ,  headerShown: true, }} />

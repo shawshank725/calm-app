@@ -49,3 +49,19 @@ export const useInsertSession = () => {
     },
   });
 };
+
+export const useAllSessionsByUserId = (userId: string) => {
+  return useQuery({
+    queryKey: ["sessions", userId],
+    queryFn: async () => {
+      const {data, error} = await supabase.from("sessions").select("*").eq("student_id", userId);
+      if (error){
+        console.log(error);
+      }
+      else {
+        return data;
+      }
+    },
+    enabled: !!userId,
+  })
+}

@@ -2,7 +2,7 @@ import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/providers/AuthProvider";
 import {  useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import {  StyleSheet, View, Text,Image, TouchableOpacity, Switch } from "react-native";
+import {   View, Text,Image, TouchableOpacity, Switch } from "react-native";
 import Toast from "react-native-toast-message";
 import { useProfilePhoto } from "@/api/profile/Profile";
 import { Ionicons } from "@expo/vector-icons";

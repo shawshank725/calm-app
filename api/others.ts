@@ -2,6 +2,21 @@ import { LIBRARY_BUCKET } from "@/constants/Misc";
 import { supabase } from "@/lib/supabase";
 import { ExpertPeerSlot } from "./expert-peer/expert-peer";
 import { Sessions } from "./expert-peer/sessions";
+import Toast from "react-native-toast-message";
+import { UseMutateAsyncFunction, UseQueryResult } from "@tanstack/react-query";
+
+type RefetchFn<T> = UseQueryResult<T>['refetch'];
+
+type RefetchSessions = () => Promise<{
+  data?: Sessions[] | undefined;
+  error?: unknown;
+}>;
+
+type InsertSlotMutation = UseMutateAsyncFunction<
+  Sessions,  // success return type
+  Error,     // error type
+  Sessions   // variable (input) type
+>;
 
 export const getFileUrl = (path: string) => {
   return supabase
@@ -107,4 +122,49 @@ export function getFreeSlots(
   });
 
   return freeChunks;
+}
+
+export async function bookASession(userId: string, expertPeerSlot: ExpertPeerSlot,
+  insertSlotMutation: InsertSlotMutation,
+  refetchSessions: RefetchSessions,
+  refetchExpertPeerSlots: RefetchFn<ExpertPeerSlot[]>) {
+  
+    if (userId && expertPeerSlot.expert_peer_id) {
+    const sessionSlot: Sessions = {
+      id: Math.floor((Math.random() * 100) + 1),
+      student_id: userId,
+      expert_peer_id: expertPeerSlot.expert_peer_id,
+      start_time: new Date(expertPeerSlot.start_time),
+      end_time: new Date(expertPeerSlot.end_time),
+      status: "PENDING",
+    };
+    console.log("this is the object of session - " + JSON.stringify(sessionSlot));
+
+    try {
+      await insertSlotMutation(sessionSlot);
+      Toast.show({
+        type: 'success', // 'success' | 'error' | 'info'
+        text1: 'Applied for session! Waiting for expert to approve it.',
+        position: 'bottom', // or 'bottom'
+        visibilityTime: 1500
+      });
+      refetchSessions();
+      refetchExpertPeerSlots();
+    }
+    catch (error) {
+      console.log(error);
+      Toast.show({
+        type: 'error', // 'success' | 'error' | 'info'
+        text1: 'Could not apply for session.',
+        position: 'bottom', // or 'bottom'
+        visibilityTime: 1500
+      });
+    }
+  } else {
+    console.warn("Missing student or expert id");
+  }
+}
+
+export function formatDate(date:Date) {
+  return new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
