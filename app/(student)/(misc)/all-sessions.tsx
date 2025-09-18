@@ -81,7 +81,6 @@ const AllSessions = () => {
                         </DataTable.Row>
                     ))
                 }
-
             </DataTable>
         </View>
     );

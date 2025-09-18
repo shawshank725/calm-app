@@ -29,6 +29,13 @@ export default function HomeScreen() {
           router.navigate(`/(library)`)
         }}/>
       </View>
+
+      <View>
+        <Text>view sessions booked by students</Text>
+        <NewButton title="view all Sessions" onPress={()=> {
+          router.navigate(`/(misc)/all-sessions-booked`);
+        }}/>
+      </View>
     </View>
   );
 }
