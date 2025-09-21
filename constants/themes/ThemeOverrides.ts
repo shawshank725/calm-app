@@ -44,6 +44,8 @@ import ExpertHomeScreenDarkStyles from "./studentStyles/darkTheme/ExpertHomeScre
 import ExpertHomeScreenLightStyles from "./studentStyles/lightTheme/ExpertHomeScreenLightStyles";
 import ExpertSlotsLightStyle from "./studentStyles/lightTheme/ExpertSlotsLightStyle";
 import ExpertSlotsDarkStyle from "./studentStyles/darkTheme/ExpertSlotsDarkStyle";
+import AllSessionsExpertDarkStyles from "./studentStyles/darkTheme/AllSessionsExpertDarkStyles";
+import AllSessionsExpertLightStyles from "./studentStyles/lightTheme/AllSessionsExpertLightStyles";
 
 
 export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, Partial<CommonStyles>>>> = {
@@ -77,6 +79,7 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
             ResourcesPDFScreen: ResourcesPDFLightStyles,
             ExpertHomeScreen: ExpertHomeScreenLightStyles,
             ExpertSlotsScreen: ExpertSlotsLightStyle,
+            AllSessionsExpertScreen: AllSessionsExpertLightStyles,
         },
 
         dark : {
@@ -108,6 +111,7 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
             ResourcesPDFScreen: ResourcesPDFDarkStyles,
             ExpertHomeScreen: ExpertHomeScreenDarkStyles,
             ExpertSlotsScreen: ExpertSlotsDarkStyle,
+            AllSessionsExpertScreen: AllSessionsExpertDarkStyles,
         },
     },
 

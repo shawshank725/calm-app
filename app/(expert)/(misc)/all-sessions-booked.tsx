@@ -36,7 +36,6 @@ const AllSessionsBooked = () => {
                                 setDisableButton(true);
                                 try {
                                     const {data, error} = await supabase.from("sessions").update({"status": "ACCEPTED"}).eq("id", expertSession.id);
-                                    console.log(data);
                                     Toast.show({
                                         type: 'success', // 'success' | 'error' | 'info'
                                         text1: 'Added session successfully',
@@ -45,7 +44,6 @@ const AllSessionsBooked = () => {
                                     });
                                 } 
                                 catch (error ){
-                                    console.log(error);
                                     Toast.show({
                                         type: 'error', // 'success' | 'error' | 'info'
                                         text1: 'Could not accept the session.',
