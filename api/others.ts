@@ -25,6 +25,12 @@ export const getFileUrl = (path: string) => {
     .getPublicUrl(path).data.publicUrl;
 };
 
+export const toTitleCase = (word: string) => {
+  const first_letter = word.charAt(0).toLocaleUpperCase();
+  const rest_of_the_word = word.substring(1).toLocaleLowerCase();
+  return first_letter + rest_of_the_word;
+}
+
 
 export function returnNewSlot(expertPeerSlot: ExpertPeerSlot, groupType: string): ExpertPeerSlot[] {
   const start = new Date(expertPeerSlot.start_time);
@@ -165,6 +171,56 @@ export async function bookASession(userId: string, expertPeerSlot: ExpertPeerSlo
   }
 }
 
-export function formatDate(date:Date) {
+export function formatTime(date:Date) {
   return new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
+
+export function formatDate(date: Date) {
+  return new Date(date).toLocaleDateString([], { 
+    year: 'numeric', 
+    month: 'short', // or '2-digit'
+    day: '2-digit' 
+  });
+}
+
+
+export const acceptDenySessionAction = async (
+  sessionId: number,
+  action: 'ACCEPTED' | 'DENIED',
+  setDisableButton: (value: boolean) => void,
+  refetchExpertSessions: () => void
+) => {
+  setDisableButton(true);
+
+  try {
+    const { error } = await supabase
+      .from('sessions')
+      .update({ status: action })
+      .eq('id', sessionId);
+
+    if (error) throw error;
+
+    Toast.show({
+      type: 'success',
+      text1:
+        action === 'ACCEPTED'
+          ? 'Session accepted successfully'
+          : 'Session denied successfully',
+      position: 'bottom',
+      visibilityTime: 1500,
+    });
+  } catch (e) {
+    Toast.show({
+      type: 'error',
+      text1:
+        action === 'ACCEPTED'
+          ? 'Could not accept the session.'
+          : 'Could not deny the session.',
+      position: 'bottom',
+      visibilityTime: 1500,
+    });
+  } finally {
+    setDisableButton(false);
+    refetchExpertSessions();
+  }
+};

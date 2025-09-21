@@ -133,6 +133,11 @@ export type CommonStyles = {
   addSlotHeader?: ViewStyle,
   addText?: TextStyle,
   
+  sessionCard?: ViewStyle,
+  sessionCardDataName?: TextStyle,
+  sessionCardDataContainer?: ViewStyle,
+  acceptText?: TextStyle,
+  declineText?: TextStyle,
   //[customKey: string]: ViewStyle | TextStyle | ImageStyle | undefined;
 };
 

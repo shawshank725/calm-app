@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, GestureResponderEvent } from "react-native";
+import { Text, StyleSheet, TouchableOpacity, GestureResponderEvent } from "react-native";
 
 type ButtonProps = {
   title: string;

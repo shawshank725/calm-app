@@ -47,7 +47,6 @@ import ExpertSlotsDarkStyle from "./studentStyles/darkTheme/ExpertSlotsDarkStyle
 import AllSessionsExpertDarkStyles from "./studentStyles/darkTheme/AllSessionsExpertDarkStyles";
 import AllSessionsExpertLightStyles from "./studentStyles/lightTheme/AllSessionsExpertLightStyles";
 
-
 export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, Partial<CommonStyles>>>> = {
     student: {
         light: {            
@@ -80,6 +79,7 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
             ExpertHomeScreen: ExpertHomeScreenLightStyles,
             ExpertSlotsScreen: ExpertSlotsLightStyle,
             AllSessionsExpertScreen: AllSessionsExpertLightStyles,
+
         },
 
         dark : {
@@ -112,6 +112,7 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
             ExpertHomeScreen: ExpertHomeScreenDarkStyles,
             ExpertSlotsScreen: ExpertSlotsDarkStyle,
             AllSessionsExpertScreen: AllSessionsExpertDarkStyles,
+
         },
     },
 
