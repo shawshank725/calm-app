@@ -27,11 +27,11 @@ const AllSessionsBooked = () => {
                         <View style={screenStyles.sessionCardDataContainer}>
                             <Text>
                                 <Text style={screenStyles.sessionCardDataName}>Date: </Text>
-                                {formatTime(expertSession.start_time)} – {formatTime(expertSession.end_time)}
+                                {formatDate(expertSession.start_time)}
                             </Text>
                             <Text>
                                 <Text style={screenStyles.sessionCardDataName}>Time: </Text>
-                                {formatDate(expertSession.start_time)}
+                                {formatTime(expertSession.start_time)} – {formatTime(expertSession.end_time)}
                             </Text>
                             <Text>
                                 <Text style={screenStyles.sessionCardDataName}>Status: </Text>
