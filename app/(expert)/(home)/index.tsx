@@ -32,12 +32,6 @@ export default function HomeScreen() {
         }}/>
       </View>
 
-      <View>
-        <Text>view sessions booked by students</Text>
-        <NewButton title="view all Sessions" onPress={()=> {
-          router.navigate(`/(misc)/all-sessions-booked`);
-        }}/>
-      </View>
       <View style={screenStyles.quickAccessCard}>
         <Text style={screenStyles.quickAccessHeading}>Quick Access</Text>
         <View style={screenStyles.quickAccessButtonContainer}>
