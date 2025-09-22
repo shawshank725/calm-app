@@ -46,6 +46,9 @@ import ExpertSlotsLightStyle from "./studentStyles/lightTheme/ExpertSlotsLightSt
 import ExpertSlotsDarkStyle from "./studentStyles/darkTheme/ExpertSlotsDarkStyle";
 import AllSessionsExpertDarkStyles from "./studentStyles/darkTheme/AllSessionsExpertDarkStyles";
 import AllSessionsExpertLightStyles from "./studentStyles/lightTheme/AllSessionsExpertLightStyles";
+import QuickAccessButtonLightStyles from "./studentStyles/lightTheme/components/QuickAccessButtonLightStyles";
+import QuickAccessButton from "@/components/QuickAccessButton";
+import QuickAccessButtonDarkStyles from "./studentStyles/darkTheme/components/QuickAccessButtonDarkStyles";
 
 export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, Partial<CommonStyles>>>> = {
     student: {
@@ -80,6 +83,7 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
             ExpertSlotsScreen: ExpertSlotsLightStyle,
             AllSessionsExpertScreen: AllSessionsExpertLightStyles,
 
+            QuickAccessButton: QuickAccessButtonLightStyles,
         },
 
         dark : {
@@ -113,6 +117,7 @@ export const ThemeOverrides: Record<UserRole, Record<ThemeName, Record<string, P
             ExpertSlotsScreen: ExpertSlotsDarkStyle,
             AllSessionsExpertScreen: AllSessionsExpertDarkStyles,
 
+            QuickAccessButton: QuickAccessButtonDarkStyles,
         },
     },
 

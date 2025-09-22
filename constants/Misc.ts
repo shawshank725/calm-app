@@ -12,3 +12,6 @@ export const HEADER_TEXT_COLOR_DARK = "#000000ff";
 
 export const LIBRARY_BUCKET = "library-pdfs-thumbnails";
 export const PROFILE_PHOTO_BUCKET = "profile_photos";
+
+export const QUICK_ACCESS_BUTTON_ICON_COLOR = "#ffffffff";
+export const QUICK_ACCESS_BUTTON_ICON_BACKGROUND_COLOR = "#008cffff";

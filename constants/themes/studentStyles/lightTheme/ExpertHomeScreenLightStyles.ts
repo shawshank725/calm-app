@@ -41,6 +41,22 @@ const ExpertHomeScreenLightStyles : CommonStyles = {
         width: 70,
         height: 70,
         borderRadius: 10,
+    },
+    quickAccessCard: {
+        backgroundColor: "#ffffffff",
+        padding:10,
+        borderRadius:10,
+        rowGap: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
+    },
+    quickAccessHeading: {
+        fontWeight: 'bold',
+        fontSize: 20
     }
 }
 

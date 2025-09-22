@@ -3,9 +3,11 @@ import React from "react";
 import { useAppTheme } from "@/constants/themes/ThemeManager";
 import { Book, useGetThreeBooks } from "@/api/library/Library";
 import NewButton from "@/components/NewButton";
-import { useNavigation } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { getFileUrl } from "@/api/others";
+import QuickAccessButton from "@/components/QuickAccessButton";
+import { Ionicons } from "@expo/vector-icons";
+import { QUICK_ACCESS_BUTTON_ICON_COLOR } from "@/constants/Misc";
 
 export default function HomeScreen() {
   const { styles } = useAppTheme();
@@ -35,6 +37,16 @@ export default function HomeScreen() {
         <NewButton title="view all Sessions" onPress={()=> {
           router.navigate(`/(misc)/all-sessions-booked`);
         }}/>
+      </View>
+      <View style={screenStyles.quickAccessCard}>
+        <Text style={screenStyles.quickAccessHeading}>Quick Access</Text>
+        <View style={screenStyles.quickAccessButtonContainer}>
+          <QuickAccessButton
+            icon={<Ionicons name="calendar" size={22} color={QUICK_ACCESS_BUTTON_ICON_COLOR} />}
+            text="Sessions"
+            onPress={() => router.navigate(`/(misc)/all-sessions-booked`)}
+          />
+        </View>
       </View>
     </View>
   );

@@ -138,6 +138,10 @@ export type CommonStyles = {
   sessionCardDataContainer?: ViewStyle,
   acceptText?: TextStyle,
   declineText?: TextStyle,
+  iconWrapper?: ViewStyle,
+  quickAccessButtonContainer?: ViewStyle,
+  quickAccessCard?: ViewStyle,
+  quickAccessHeading?: TextStyle,
   //[customKey: string]: ViewStyle | TextStyle | ImageStyle | undefined;
 };
 
