@@ -18,9 +18,9 @@ const ExpertHomeScreenLightStyles : CommonStyles = {
     },
     dashboardCard: {
         backgroundColor: "#ffffffff",
-        padding:10,
         borderRadius:10,
         rowGap: 10,
+        overflow:'hidden',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
@@ -29,9 +29,17 @@ const ExpertHomeScreenLightStyles : CommonStyles = {
         // Android shadow
         elevation: 5,
     },
+    viewMoreBooksButton:{
+        backgroundColor:"#a0a0a0ff",
+        width:'100%',
+    },
+    viewMoreBooksButtonText:{
+        textAlign:'center',
+    },
     heading: {
         fontSize: 20,
         fontWeight:'bold',
+        padding: 10,
     },
     content: {
         fontSize:16,
@@ -57,6 +65,12 @@ const ExpertHomeScreenLightStyles : CommonStyles = {
     quickAccessHeading: {
         fontWeight: 'bold',
         fontSize: 20
+    },
+    quickAccessButtonContainer: {
+        display:'flex',
+        flexDirection:"row",
+        justifyContent:'center',
+        columnGap:10,
     }
 }
 

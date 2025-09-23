@@ -6,7 +6,7 @@ const QuickAccessButtonLightStyles : CommonStyles = {
         display: 'flex',
         alignItems:'center',
         justifyContent:'center',
-        width: 100,
+        width: 75,
         padding: 10,
         rowGap: 5,
     },
@@ -17,6 +17,9 @@ const QuickAccessButtonLightStyles : CommonStyles = {
     },
     label: {
         fontWeight: 'bold',
+        textAlign:'center',
+        fontSize:12,
+        height:30,
     }
 }
 

@@ -134,6 +134,8 @@ export type CommonStyles = {
   addText?: TextStyle,
   
   sessionCard?: ViewStyle,
+  viewMoreBooksButton?: ViewStyle,
+  viewMoreBooksButtonText?: TextStyle,
   sessionCardDataName?: TextStyle,
   sessionCardDataContainer?: ViewStyle,
   acceptText?: TextStyle,
