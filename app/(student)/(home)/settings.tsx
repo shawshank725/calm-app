@@ -2,21 +2,16 @@ import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/providers/AuthProvider";
 import {  useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import {   View, Text,Image, TouchableOpacity, Switch } from "react-native";
+import { View, Text,Image, TouchableOpacity, Switch } from "react-native";
 import Toast from "react-native-toast-message";
-import { useProfilePhoto } from "@/api/profile/Profile";
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAppTheme } from "@/constants/themes/ThemeManager";
+import { Profile } from "@/types/Profile";
+import { DEFAULT_PROFILE_PHOTO } from "@/constants/Misc";
 
-type Profile = {
-  full_name: string;
-  username: string;
-  group: string;
-  avatar_url?:string;
-};
 
 export default function ProfileScreen() {
   const { styles } = useAppTheme();
@@ -24,11 +19,9 @@ export default function ProfileScreen() {
 
   const {session, loading} = useAuth();
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<string>(DEFAULT_PROFILE_PHOTO);
   const { theme, toggleTheme } = useAppTheme();
   const [isEnabled, setIsEnabled] = useState(theme === 'dark');
-
-  const { data: imageUrl, isLoading } = useProfilePhoto(session?.user.id);
   
   const router = useRouter();
 
@@ -36,7 +29,6 @@ export default function ProfileScreen() {
     setIsEnabled(theme === 'dark');
   }, [theme]);
   
-
   useFocusEffect(
     useCallback(() => {
       const fetchProfile = async () => {
@@ -51,13 +43,17 @@ export default function ProfileScreen() {
           console.log("Error fetching profile:", error.message);
         } else {
           setProfile(data);
-          if (data.avatar_url) {
+          if (data.avatar_url !== null ) {
             const { data: publicUrl } = supabase
               .storage
               .from("profile-photos")
               .getPublicUrl(data.avatar_url);
             setImage(publicUrl.publicUrl);
           }
+          else {
+            setImage(DEFAULT_PROFILE_PHOTO);
+          }
+          console.log(image);
         }
       };
 
@@ -72,7 +68,7 @@ export default function ProfileScreen() {
         <View style={screenStyles.profileContainer}>
           <View style={screenStyles.profilePhotoContainer}>
             <Image
-              source={{ uri: imageUrl }}
+              source={{ uri:image}}
               style={screenStyles.profilePhoto}
             />
           </View>

@@ -1,15 +1,14 @@
+import { DEFAULT_PROFILE_PHOTO } from "@/constants/Misc";
 import { supabase } from "@/lib/supabase";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Toast from "react-native-toast-message";
-
-const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg";
 
 
 export const useProfilePhoto = (userId: string | null | undefined) => {
   return useQuery({
     queryKey: ["profile-photo", userId],
     queryFn: async () => {
-      if (!userId) return defaultImage;
+      if (!userId) return DEFAULT_PROFILE_PHOTO;
 
       const { data, error } = await supabase
         .from("profiles")
@@ -19,14 +18,14 @@ export const useProfilePhoto = (userId: string | null | undefined) => {
 
       if (error) throw new Error(error.message);
 
-      if (!data?.avatar_url) return defaultImage;
+      if (!data?.avatar_url) return DEFAULT_PROFILE_PHOTO;
 
       const { data: publicUrl } = supabase
         .storage
         .from("profile-photos")
         .getPublicUrl(data.avatar_url);
 
-      return publicUrl.publicUrl ? `${publicUrl.publicUrl}?t=${Date.now()}` : defaultImage;
+      return publicUrl.publicUrl ? `${publicUrl.publicUrl}?t=${Date.now()}` : DEFAULT_PROFILE_PHOTO;
 
     },
     enabled: !!userId, // only runs when userId is available
