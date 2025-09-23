@@ -37,11 +37,11 @@ export const useGetAllBooks = () => {
   });
 }
 
-export const useGetThreeBooks = () => {
+export const useGetNumberOfBooks = (number_of_books : number) => {
   return useQuery<Book[]>({
     queryKey: ['library'],
-    queryFn: async () => { // specify how data is to be fetched
-    const {data, error} = await supabase.from("library").select("*").limit(3);
+    queryFn: async () => { 
+    const {data, error} = await supabase.from("library").select("*").limit(number_of_books);
     if (error){
         throw new Error(error.message);
     }

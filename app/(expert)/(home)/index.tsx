@@ -1,7 +1,7 @@
 import { View, Text , Image, FlatList, TouchableOpacity} from "react-native";
 import React from "react";
 import { useAppTheme } from "@/constants/themes/ThemeManager";
-import { Book, useGetThreeBooks } from "@/api/library/Library";
+import { useGetNumberOfBooks } from "@/api/library/Library";
 import { useRouter } from "expo-router";
 import { getFileUrl } from "@/api/others";
 import QuickAccessButton from "@/components/QuickAccessButton";
@@ -13,7 +13,7 @@ export default function HomeScreen() {
   const screenStyles = styles.ExpertHomeScreen;
   const router = useRouter();
 
-  const { data: books, isLoading: booksLoading } = useGetThreeBooks();
+  const { data: books, isLoading: booksLoading } = useGetNumberOfBooks(5);
 
   return (
     <View style={screenStyles?.container}>
