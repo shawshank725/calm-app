@@ -1,8 +1,7 @@
-import { View, Text , Image, FlatList} from "react-native";
+import { View, Text , Image, FlatList, TouchableOpacity} from "react-native";
 import React from "react";
 import { useAppTheme } from "@/constants/themes/ThemeManager";
 import { Book, useGetThreeBooks } from "@/api/library/Library";
-import NewButton from "@/components/NewButton";
 import { useRouter } from "expo-router";
 import { getFileUrl } from "@/api/others";
 import QuickAccessButton from "@/components/QuickAccessButton";
@@ -31,18 +30,18 @@ export default function HomeScreen() {
                 src={getFileUrl(item.thumbnail_url)}
                 style={screenStyles.dashboardThumbnail}
               />
-              <Text style={screenStyles.content}>
-                "{item.book_name}" by {item.book_author}
-              </Text>
+              <View>
+                <Text style={screenStyles.bookNameStyles}>{item.book_name}</Text>
+                <Text style={screenStyles.bookAuthorStyles}>{item.book_author}</Text>
+              </View>
             </View>
           )}
         />
-        <NewButton title="View more books" onPress={()=> {
-          router.navigate(`/(library)`)
-        }}/>
-        <View style={screenStyles.viewMoreBooksButton}>
-          <Text style={screenStyles.viewMoreBooksButtonText}>View more books</Text>
-        </View>
+        <TouchableOpacity onPress={()=> {router.navigate(`/(library)`)}}>
+          <View style={screenStyles.viewMoreBooksButton}>
+            <Text style={screenStyles.viewMoreBooksButtonText}>View more books</Text>
+          </View>
+        </TouchableOpacity>
       </View>
 
       <View style={screenStyles.quickAccessCard}>

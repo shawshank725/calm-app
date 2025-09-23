@@ -15,6 +15,11 @@ const ExpertHomeScreenLightStyles : CommonStyles = {
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center',
+        padding: 10,
+        backgroundColor: "#eeeeeeff", 
+        borderRadius:10,
+        marginHorizontal:10, 
+        columnGap: 10,
     },
     dashboardCard: {
         backgroundColor: "#ffffffff",
@@ -30,11 +35,15 @@ const ExpertHomeScreenLightStyles : CommonStyles = {
         elevation: 5,
     },
     viewMoreBooksButton:{
-        backgroundColor:"#a0a0a0ff",
+        borderTopWidth: 1,
+        borderColor: '#b9b9b9ff',
         width:'100%',
+        backgroundColor: '#f7f7f7ff'
     },
     viewMoreBooksButtonText:{
         textAlign:'center',
+        fontSize: 16,
+        padding: 5,
     },
     heading: {
         fontSize: 20,
@@ -44,6 +53,13 @@ const ExpertHomeScreenLightStyles : CommonStyles = {
     content: {
         fontSize:16,
         maxWidth: 200,
+    },
+    bookNameStyles: {
+        fontSize: 14,
+        fontWeight: 'bold'
+    },
+    bookAuthorStyles: {
+
     },
     dashboardThumbnail: {
         width: 70,
@@ -71,7 +87,7 @@ const ExpertHomeScreenLightStyles : CommonStyles = {
         flexDirection:"row",
         justifyContent:'center',
         columnGap:10,
-    }
+    },
 }
 
 export default ExpertHomeScreenLightStyles;
