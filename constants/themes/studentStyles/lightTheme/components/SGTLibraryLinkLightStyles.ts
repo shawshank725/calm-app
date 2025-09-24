@@ -7,7 +7,7 @@ const SGTLibraryLinkLightStyles : CommonStyles = {
         borderRadius: 10,
         color: 'blue',
         textAlign: 'center',
-        backgroundColor: 'yellow',
+        backgroundColor: '#fbff00ff',
         marginBottom: 10, 
     },
 }

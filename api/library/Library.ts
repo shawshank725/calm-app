@@ -1,15 +1,7 @@
 import { supabase } from "@/lib/supabase";
+import { Book } from "@/types/Book";
 import { useQuery } from "@tanstack/react-query";
 
-export type Book = {
-  id: number;
-  book_name: string;
-  book_author: string;
-  description: string;
-  thumbnail_url: string;
-  pdf_url: string;
-  page_count: number;
-}
 
 export const useGetOneBook = (id: number) => {
     return useQuery({
