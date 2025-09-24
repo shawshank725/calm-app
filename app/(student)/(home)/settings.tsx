@@ -35,7 +35,7 @@ export default function ProfileScreen() {
         if (!session) return;
         const { data, error } = await supabase
           .from("profiles")
-          .select("username, full_name, group, avatar_url")
+          .select("*")
           .eq("id", session.user.id)
           .single();
 
@@ -78,6 +78,7 @@ export default function ProfileScreen() {
               <Text style={screenStyles.fullName}>{profile.full_name}</Text>
               <Text style={screenStyles.username}>{profile.username}</Text>
               <Text style={screenStyles.email}>{session.user.email}</Text>
+              <Text style={screenStyles.email}>{profile.roll_number}</Text>
             </>
           ) : (
             <Text>Loading profile...</Text>
@@ -86,7 +87,7 @@ export default function ProfileScreen() {
         </View>
       </TouchableOpacity>
 
-      {profile && profile.group === "PEER" &&  <TouchableOpacity onPress={async () => {router.navigate(`/(student)/(misc)/peer-slots`)}} activeOpacity={0.7}>
+      {profile && profile.group === "PEER" && <TouchableOpacity onPress={async () => {router.navigate(`/(student)/(misc)/peer-slots`)}} activeOpacity={0.7}>
         <View style={screenStyles.singleItems}>
           <Text style={screenStyles.text}>View/Edit your slots</Text>
         </View>

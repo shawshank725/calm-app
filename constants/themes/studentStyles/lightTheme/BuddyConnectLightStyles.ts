@@ -8,7 +8,7 @@ const BuddyConnectLightStyles : CommonStyles = {
         flex: 1,
         backgroundColor: BACKGROUND_COLOR_LIGHT,
     },
-        inputContainer: {
+    inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: BACKGROUND_COLOR_LIGHT,

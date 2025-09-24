@@ -33,7 +33,7 @@ const MessageItem = ({ item, isCurrentUser }: { item: any; isCurrentUser: boolea
         alignSelf: isCurrentUser ? 'flex-end' : 'flex-start',
       }}
     >
-      {photoUrl && (
+      {!isCurrentUser && photoUrl && (
         <Image source={{ uri: photoUrl }} style={{
           width: 40,
           height: 40,
@@ -55,7 +55,7 @@ const MessageItem = ({ item, isCurrentUser }: { item: any; isCurrentUser: boolea
 
 const BuddyConnect = () => {
 
-  const { styles } = useAppTheme();
+  const { theme, styles } = useAppTheme();
   const screenStyles = styles.BuddyConnectScreen;
 
   const { data, error, isLoading, refetch } = useMessageList();
@@ -121,7 +121,7 @@ const BuddyConnect = () => {
       <Wrapper style={{ flex: 1, }}>
         <View style={screenStyles.container}>
 
-          <FlatList
+          {data && data?.length >0 && <FlatList
             data={data}
             ref={flatListRef}
             onScroll={({ nativeEvent }) => {
@@ -139,8 +139,12 @@ const BuddyConnect = () => {
               <MessageItem item={item} isCurrentUser={item.user_id === session!.user.id} />
             )}
             contentContainerStyle={{ flexGrow: 1, }}
-          />
-
+          />}
+          {
+            data && data.length === 0 && <View style={{flex:1,justifyContent:'center', alignItems: 'center'}}>
+            <Text style={{textAlign:'center'}}>No messages to show here.</Text>
+          </View>
+          }
           <View style={screenStyles.inputContainer}>
             <TextInput
               value={message}
@@ -163,12 +167,12 @@ const BuddyConnect = () => {
           {showDownButton &&
             <TouchableOpacity style={screenStyles.floatingButton}
               onPress={() => flatListRef.current?.scrollToEnd({ animated: true })}>
-              <Icon name="chevron-down" size={20} color="#900" />
+              <Icon name="chevron-down" size={20} color={theme === "dark" ? "#ffffffff" : "#000000ff"} />
             </TouchableOpacity>
           }
-        </View></Wrapper>
+        </View>
+      </Wrapper>
     </KeyboardAvoidingView>
-
   );
 };
 
