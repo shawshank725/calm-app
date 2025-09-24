@@ -4,9 +4,10 @@ import { useAuth } from '@/providers/AuthProvider';
 import React, { useEffect, useState } from 'react';
 import { View, Text, Switch } from 'react-native';
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { ExpertPeerSlot, useAllExpertPeerSlots, useGetExpertPeerProfiles } from '@/api/expert-peer/expert-peer';
+import { useAllExpertPeerSlots, useGetExpertPeerProfiles } from '@/api/expert-peer/expert-peer';
 import { DataTable } from 'react-native-paper';
-import { bookASession, formatDate, getFreeSlots } from '@/api/others';
+import { bookASession, formatDate, formatTime, getFreeSlots } from '@/api/others';
+import { ExpertPeerSlot } from '@/types/ExpertPeer';
 
 const BookSlot = () => {
     const { session } = useAuth();
@@ -82,8 +83,8 @@ const BookSlot = () => {
                             .map((expertPeerSlot: ExpertPeerSlot, index: number) => (
                                 <DataTable.Row key={index}>
                                     <DataTable.Cell>{index + 1}</DataTable.Cell>
-                                    <DataTable.Cell>{formatDate(expertPeerSlot.start_time)}</DataTable.Cell>
-                                    <DataTable.Cell>{formatDate(expertPeerSlot.end_time)}</DataTable.Cell>
+                                    <DataTable.Cell>{formatTime(expertPeerSlot.start_time)}</DataTable.Cell>
+                                    <DataTable.Cell>{formatTime(expertPeerSlot.end_time)}</DataTable.Cell>
                                     <DataTable.Cell>
                                         <NewButton
                                             title="Book"

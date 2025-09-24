@@ -5,7 +5,7 @@ import { useGetNumberOfBooks } from "@/api/library/Library";
 import { useRouter } from "expo-router";
 import { getFileUrl } from "@/api/others";
 import QuickAccessButton from "@/components/QuickAccessButton";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome5, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { QUICK_ACCESS_BUTTON_ICON_COLOR } from "@/constants/Misc";
 
 export default function HomeScreen() {
@@ -67,6 +67,18 @@ export default function HomeScreen() {
             icon={<Ionicons name="alert-circle" size={22} color={QUICK_ACCESS_BUTTON_ICON_COLOR} />}
             text="Alert"
             onPress={() => router.navigate(`/(misc)/all-sessions-booked`)}
+          />
+        </View>
+        <View style={screenStyles.quickAccessButtonContainer}>
+          <QuickAccessButton
+            icon={<MaterialIcons name="event-available" size={20} color={QUICK_ACCESS_BUTTON_ICON_COLOR} /> }
+            text="Your Slots"
+            onPress={() => router.navigate(`/(expert)/(misc)/expert-slots`)}
+          />
+          <QuickAccessButton
+            icon={<FontAwesome5 name="plane-departure" size={20} color={QUICK_ACCESS_BUTTON_ICON_COLOR} /> }
+            text="Apply leave"
+            onPress={() => router.navigate(`/(expert)/(misc)/expert-slots`)}
           />
         </View>
       </View>

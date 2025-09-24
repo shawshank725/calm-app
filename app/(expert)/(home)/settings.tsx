@@ -92,13 +92,6 @@ export default function ProfileScreen() {
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={async () => {router.navigate(`/(expert)/(misc)/expert-slots`)}} activeOpacity={0.7}>
-        <View style={screenStyles.singleItems}>
-          <Text style={screenStyles.text}>View/Edit your slots</Text>
-        </View>
-      </TouchableOpacity>
-
-
       {/* app info */}
       <View style={screenStyles.appInfoContainer}  >
         <Text style={screenStyles.heading}>App Info</Text>

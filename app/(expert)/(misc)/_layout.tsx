@@ -21,6 +21,7 @@ export default function RootLayout() {
         <Stack.Screen name="showImage" options={{ headerShown: false, }} />
         <Stack.Screen name="expert-slots" options={{headerTitle:"Your slots", headerShown: true, }} />
         <Stack.Screen name="all-sessions-booked" options={{headerTitle:"All sessions", headerShown: true, }} />
+        <Stack.Screen name="apply-leave" options={{headerTitle:"Apply Leave", headerShown: true, }} />
         <Stack.Screen name="info" options={{ headerShown: true, }} />
         <Stack.Screen name="profile" options={{ headerTitle:"Edit Profile" ,  headerShown: true, }} />
         <Stack.Screen name="password" options={{ headerTitle:"Change Password" ,  headerShown: true, headerBackTitle: "Profile" }} />
