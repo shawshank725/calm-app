@@ -1,8 +1,8 @@
 import { useGetExpertSessions, useStudentProfilesByExpert } from '@/api/expert-peer/expert-peer';
-import { Sessions } from '@/api/expert-peer/sessions';
 import { acceptDenySessionAction, formatDate, formatTime, toTitleCase } from '@/api/others';
 import { useAppTheme } from '@/constants/themes/ThemeManager';
 import { useAuth } from '@/providers/AuthProvider';
+import { Sessions } from '@/types/Sessions';
 import { useState } from 'react';
 import { View, Text } from 'react-native';
 

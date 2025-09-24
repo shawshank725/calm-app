@@ -144,6 +144,8 @@ export type CommonStyles = {
   quickAccessButtonContainer?: ViewStyle,
   quickAccessCard?: ViewStyle,
   quickAccessHeading?: TextStyle,
+
+  
   //[customKey: string]: ViewStyle | TextStyle | ImageStyle | undefined;
 };
 

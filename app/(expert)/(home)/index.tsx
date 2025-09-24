@@ -78,7 +78,7 @@ export default function HomeScreen() {
           <QuickAccessButton
             icon={<FontAwesome5 name="plane-departure" size={20} color={QUICK_ACCESS_BUTTON_ICON_COLOR} /> }
             text="Apply leave"
-            onPress={() => router.navigate(`/(expert)/(misc)/expert-slots`)}
+            onPress={() => router.navigate(`/(expert)/(misc)/apply-leave`)}
           />
         </View>
       </View>
