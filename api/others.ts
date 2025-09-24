@@ -1,9 +1,9 @@
 import { LIBRARY_BUCKET } from "@/constants/Misc";
 import { supabase } from "@/lib/supabase";
-import { ExpertPeerSlot } from "./expert-peer/expert-peer";
-import { Sessions } from "./expert-peer/sessions";
 import Toast from "react-native-toast-message";
 import { UseMutateAsyncFunction, UseQueryResult } from "@tanstack/react-query";
+import { ExpertPeerSlot } from "@/types/ExpertPeer";
+import { Sessions } from "@/types/Sessions";
 
 type RefetchFn<T> = UseQueryResult<T>['refetch'];
 

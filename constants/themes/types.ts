@@ -145,7 +145,8 @@ export type CommonStyles = {
   quickAccessCard?: ViewStyle,
   quickAccessHeading?: TextStyle,
 
-  
+  calendarIcon?: ViewStyle,
+  datePickerContainer?: ViewStyle,
   //[customKey: string]: ViewStyle | TextStyle | ImageStyle | undefined;
 };
 
